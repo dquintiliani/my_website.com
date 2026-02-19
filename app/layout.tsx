@@ -1,66 +1,48 @@
-import "../styles/global.css";
-import localFont from "next/font/local";
-import dynamic from "next/dynamic";
-import { Navbar } from "../components/organisms/nav";
-import Head from "next/head";
+import type { Metadata } from 'next'
+import { Nunito_Sans } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import './globals.css'
 
-// Dynamically import Analytics and SpeedInsights for better performance
-const Analytics = dynamic(() => import("@vercel/analytics/react").then((mod) => mod.Analytics), {
-  ssr: false,
-  loading: () => <p></p>,
-});
+const nunitoSans = Nunito_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  style: ['normal', 'italic'],
+  variable: '--font-nunito-sans',
+})
 
-const SpeedInsights = dynamic(() => import("@vercel/speed-insights/next").then((mod) => mod.SpeedInsights), {
-  ssr: false,
-  loading: () => <p></p>,
-});
-// Import fonts using localFont
-const geistSans = localFont({
-  src: "../public/fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-
-const geistMono = localFont({
-  src: "../public/fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
-// Combine metadata
-const cx = (...classes: string[]) => classes.filter(Boolean).join(" ");
+export const metadata: Metadata = {
+  title: 'Dominic Quintilian — Product Professional',
+  description: 'Product professional bridging user insight, data, and strategy to ship things that actually matter.',
+  icons: {
+    icon: [
+      {
+        url: '/icon-light-32x32.png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/icon-dark-32x32.png',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        url: '/icon.svg',
+        type: 'image/svg+xml',
+      },
+    ],
+    apple: '/apple-icon.png',
+  },
+}
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
-  // For client-side usage
-
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
-    <html
-      lang="en"
-      className={cx(
-        "text-black bg-white dark:text-white dark:bg-black",
-        geistSans.variable, // Use localFont variables
-        geistMono.variable
-      )}
-    >
-      <Head>
-        {/* Ensure the title is populated */}
-        <title>Dominic Quintilian&apos;s Website</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Dominic Quintilian&apos;s Professional Product Management Website" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
-        <Navbar />
-        <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-          {children}
-          <Analytics />
-          <SpeedInsights />
-        </main>
+    <html lang="en" className={nunitoSans.variable}>
+      <body>
+        {children}
+        <Analytics />
       </body>
     </html>
-  );
+  )
 }
