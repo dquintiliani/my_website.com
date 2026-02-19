@@ -1,0 +1,309 @@
+/* ─────────────────────────────────────────────
+   BLOG INDEX
+───────────────────────────────────────────── */
+
+#blog {
+  padding: var(--sp-20) 0;
+  max-width: var(--content-width, 800px);
+  margin: 0 auto;
+}
+
+.blog-header {
+  margin-bottom: var(--sp-12, 3rem);
+}
+
+.blog-intro {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--warm-400, #9ca3af);
+  max-width: 540px;
+  line-height: 1.7;
+  margin-top: var(--sp-6, 1.5rem);
+}
+
+/* ─────────────────────────────────────────────
+   ARTICLE LIST
+───────────────────────────────────────────── */
+
+.article-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.article-card {
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  opacity: 0;
+  transform: translateY(16px);
+  animation: cardReveal 0.45s ease forwards;
+  animation-delay: calc(var(--card-index) * 80ms + 100ms);
+}
+
+.article-card:first-child {
+  border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+@keyframes cardReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.article-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: var(--sp-8, 2rem) 0;
+  transition: padding-left 0.2s ease;
+}
+
+.article-card-link:hover {
+  padding-left: var(--sp-2, 0.5rem);
+}
+
+.article-card-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3, 0.75rem);
+}
+
+/* ─────────────────────────────────────────────
+   SHARED META ELEMENTS
+───────────────────────────────────────────── */
+
+.article-meta-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4, 1rem);
+}
+
+.article-date {
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm-400, #9ca3af);
+}
+
+.article-read-time {
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--warm-400, #9ca3af);
+  opacity: 0.65;
+}
+
+.article-read-time::before {
+  content: "·";
+  margin-right: var(--sp-4, 1rem);
+}
+
+/* ─────────────────────────────────────────────
+   CARD-SPECIFIC
+───────────────────────────────────────────── */
+
+.article-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-weight: 600;
+  color: var(--fg, #f5f0eb);
+  line-height: 1.3;
+  margin: 0;
+  transition: color 0.15s ease;
+}
+
+.article-card-link:hover .article-title {
+  color: var(--accent, #c9a96e);
+}
+
+.article-excerpt {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--warm-400, #9ca3af);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 600px;
+}
+
+.article-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--sp-2, 0.5rem);
+}
+
+.article-cta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent, #c9a96e);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.article-card-link:hover .article-cta {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ─────────────────────────────────────────────
+   TAGS
+───────────────────────────────────────────── */
+
+.article-tags {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2, 0.5rem);
+}
+
+.article-tag {
+  font-family: var(--font-head);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--warm-400, #9ca3af);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
+  padding: 3px 10px;
+  border-radius: 99px;
+  line-height: 1.8;
+}
+
+/* ─────────────────────────────────────────────
+   ARTICLE PAGE
+───────────────────────────────────────────── */
+
+.article-page {
+  max-width: var(--content-width, 680px);
+  margin: 0 auto;
+  padding: var(--sp-20) 0;
+}
+
+.article-page-header {
+  margin-bottom: var(--sp-10, 2.5rem);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm-400, #9ca3af);
+  text-decoration: none;
+  margin-bottom: var(--sp-8, 2rem);
+  transition: color 0.15s ease;
+}
+
+.back-link:hover {
+  color: var(--accent, #c9a96e);
+}
+
+.article-page-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  color: var(--fg, #f5f0eb);
+  line-height: 1.2;
+  margin: var(--sp-4, 1rem) 0 var(--sp-4, 1rem);
+}
+
+.article-page-excerpt {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--warm-400, #9ca3af);
+  line-height: 1.7;
+  margin: var(--sp-4, 1rem) 0 var(--sp-6, 1.5rem);
+}
+
+/* ─────────────────────────────────────────────
+   PROSE (article body)
+───────────────────────────────────────────── */
+
+.prose {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--fg-muted, #ccc5bb);
+}
+
+.prose h2 {
+  font-family: var(--font-head);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--fg, #f5f0eb);
+  margin: 2.5rem 0 1rem;
+  line-height: 1.3;
+}
+
+.prose h3 {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--fg, #f5f0eb);
+  margin: 2rem 0 0.75rem;
+}
+
+.prose p {
+  margin: 0 0 1.4rem;
+}
+
+.prose strong {
+  color: var(--fg, #f5f0eb);
+  font-weight: 600;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose code {
+  font-family: "Fira Code", "Cascadia Code", monospace;
+  font-size: 0.875em;
+  background: var(--surface-2, rgba(255, 255, 255, 0.06));
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--accent, #c9a96e);
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  margin: 2.5rem 0;
+}
+
+/* ─────────────────────────────────────────────
+   ARTICLE FOOTER
+───────────────────────────────────────────── */
+
+.article-page-footer {
+  margin-top: var(--sp-16, 4rem);
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .article-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-3, 0.75rem);
+  }
+
+  .article-cta {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

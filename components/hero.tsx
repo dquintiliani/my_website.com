@@ -27,7 +27,7 @@ export function Hero() {
         </div>
         <p className="hero-status">
           <span className="status-dot"></span>
-          <strong>Principal PM</strong>
+          <strong>Product Manager</strong>
           {"  \u00B7  Open to opportunities in Toronto"}
         </p>
       </div>
