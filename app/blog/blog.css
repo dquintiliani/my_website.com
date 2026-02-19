@@ -108,7 +108,7 @@
   font-family: var(--font-head);
   font-size: clamp(1.1rem, 2.5vw, 1.35rem);
   font-weight: 600;
-  color: var(--fg, #f5f0eb);
+  color: var(--fg, #444444);
   line-height: 1.3;
   margin: 0;
   transition: color 0.15s ease;
