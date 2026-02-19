@@ -71,6 +71,7 @@ export default function BlogPage() {
 
                 <div className="article-footer">
                   <ul className="article-tags" aria-label="Tags">
+                    <hr></hr>
                     {article.tags.map((tag) => (
                       <li key={tag} className="article-tag">
                         {tag}

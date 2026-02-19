@@ -87,7 +87,7 @@ export default async function ArticlePage({ params }: Props) {
           ))}
         </ul>
 
-        <div className="divider" style={{ marginTop: "var(--sp-8)" }}></div>
+       
       </div>
 
       <div
