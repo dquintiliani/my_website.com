@@ -12,7 +12,6 @@ import { ScrollFadeIn } from "@/components/scroll-fade-in"
 export default function Page() {
   return (
     <>
-      <Navigation />
       <Hero />
       <About />
       <Experience />

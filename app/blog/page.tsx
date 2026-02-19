@@ -3,6 +3,7 @@ import { getAllArticles } from "@/lib/articles"
 import type { Metadata } from "next"
 import "./blog.css"
 
+
 export const metadata: Metadata = {
   title: "Blog",
   description:
@@ -27,6 +28,7 @@ export default function BlogPage() {
   const articles = getAllArticles()
 
   return (
+    
     <section id="blog">
       <div className="blog-header">
         <p className="section-label">Blog</p>
