@@ -1,3 +1,6 @@
+
+import Image from 'next/image'; // 1. Add this import
+
 export function About() {
   const focuses = [
     "Product Management & Strategy",
@@ -10,29 +13,17 @@ export function About() {
     <section id="about">
       <div className="about-grid">
         <div className="about-photo-wrap">
-          <div
-            className="about-photo"
-            role="img"
-            aria-label="Headshot placeholder"
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-head)",
-                fontSize: "0.72rem",
-                color: "var(--warm-400)",
-                letterSpacing: "0.1em",
-                textAlign: "center",
-                padding: "20px",
-              }}
-            >
-              Your
-              <br />
-              headshot
-              <br />
-              <br />
-              {"[ 3:4 ratio ]"}
-            </span>
+         
+          <div className="about-photo" style={{ position: 'relative', width: '100%', aspectRatio: '1/1' }}>
+            <Image
+              src="/headshot-dom.jpeg"
+              alt="Headshot"
+              fill
+              className="object-cover"
+              priority // Use this for "above the fold" images like headshots
+            />
           </div>
+
           <div className="about-photo-accent" aria-hidden="true"></div>
         </div>
         <div>
@@ -44,7 +35,7 @@ export function About() {
           </h2>
           <div className="divider"></div>
           <p className="about-bio">
-            {"I'm a product professional with [X years] of experience building at the intersection of product management, data analytics, and emerging technology. I care deeply about getting the why right before touching the what — which means I spend a lot of time talking to users, questioning assumptions, and translating messy reality into clear, executable roadmaps."}
+            {"I'm a product professional with years of experience building at the intersection of product management, data analytics, and emerging technology. I care deeply about getting the why right before touching the what — which means I spend a lot of time talking to users, questioning assumptions, and translating messy reality into clear, executable roadmaps."}
             <br />
             <br />
             {"Outside of product, I geek out on LLM applications, exploratory data analysis, and building tools that reduce friction in ways people don't even notice. I believe the best product work is invisible."}

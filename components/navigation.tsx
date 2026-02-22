@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
+import Image from 'next/image'
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -39,7 +40,11 @@ export function Navigation() {
     <nav className="site-nav">
       <div className="nav-inner">
         <a href="#hero" className="nav-logo">
-          DQ<span>.</span>
+          <img
+            src="/web-app-manifest-512x512.png"
+            alt="DQ."
+            style={{ width: 'clamp(48px, 7vw, 72px)', height: 'auto' }}
+          />
         </a>
         <ul
           ref={navLinksRef}

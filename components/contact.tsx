@@ -17,7 +17,7 @@ export function Contact() {
           <div className="contact-links">
             <a href="mailto:TODO@youremail.com" className="contact-link">
               <span className="contact-icon">{"\u2709"}</span>
-              <span>TODO@youremail.com</span>
+              <span>dquintilian@gmail.com</span>
             </a>
             <a
               href="#"
