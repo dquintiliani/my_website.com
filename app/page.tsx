@@ -12,7 +12,7 @@ import { ScrollFadeIn } from "@/components/scroll-fade-in"
 export default function Page() {
   return (
     <>
-      <Hero imageSrc="/block_image.jpeg" />
+      <Hero />
       <About />
       <Experience />
       <Projects />

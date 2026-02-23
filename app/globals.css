@@ -784,3 +784,90 @@ footer.site-footer {
   .btn { width: 100%; justify-content: center; }
   .skills-grid { grid-template-columns: 1fr; }
 }
+
+/* --- Main Layout --- */
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+  padding: 40px 10%;
+  background-color: #f5f5f2; /* The neutral background color is important for the fade to work visually */
+  overflow: hidden;
+}
+
+.hero-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 60px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* --- Text Styling --- */
+.hero-text-side {
+  flex: 1;
+  z-index: 2;
+}
+
+.hero-name {
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 0.9;
+  margin: 20px 0;
+  color: #333;
+}
+
+/* --- Image Styling & Faded Blend Effect --- */
+.hero-image-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.image-fade-wrapper {
+  position: relative;
+  display: inline-block;
+  animation: float 10s ease-in-out infinite;
+
+  /* Use matching values for both properties */
+  /* Black = 100% visible | Transparent = 0% visible */
+  -webkit-mask-image: radial-gradient(circle, black 40%, rgba(0, 0, 0, 0) 90%);
+  mask-image: radial-gradient(circle, black 40%, rgba(0, 0, 0, 0) 70%);
+  
+  /* Ensure the mask doesn't repeat if the container is larger than the image */
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.hero-main-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  /* Optional: slight scale down to ensure the very edges of the blocks don't get clipped harshly */
+
+}
+
+/* --- Animations --- */
+
+/* --- Responsive Tablet/Mobile --- */
+@media (max-width: 968px) {
+  .hero-content-wrapper {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 40px;
+    padding-top: 40px;
+  }
+
+  .hero-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  /* On mobile, maybe make the fade slightly tighter so more image is visible */
+  .image-fade-wrapper {
+      -webkit-mask-image: radial-gradient(ellipse at center, black 70%, transparent 99%);
+              mask-image: radial-gradient(ellipse at center, black 70%, transparent 99%);
+  }
+}
