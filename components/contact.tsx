@@ -26,7 +26,7 @@ export function Contact() {
               rel="noopener noreferrer"
             >
               <span className="contact-icon">in</span>
-              <span>LinkedIn &mdash; Add your handle</span>
+              <span>LinkedIn &mdash; <a href="https://www.linkedin.com/in/dominic-quintilian/">dominic-quintilian</a></span>
             </a>
             <a
               href="#"
@@ -37,7 +37,7 @@ export function Contact() {
               <span className="contact-icon" style={{ fontSize: "0.9rem" }}>
                 {"\u2325"}
               </span>
-              <span>GitHub &mdash; Add your handle</span>
+              <span>GitHub &mdash;<a href="https://github.com/dquintiliani">dquintiliani</a></span>
             </a>
             <a
               href="#"
@@ -48,7 +48,6 @@ export function Contact() {
               <span className="contact-icon" style={{ fontSize: "0.8rem" }}>
                 {"\u2193"}
               </span>
-              <span>Download Resume (PDF)</span>
             </a>
           </div>
         </div>

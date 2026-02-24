@@ -15,9 +15,9 @@ export default function Page() {
       <Hero />
       <About />
       <Experience />
-      <Projects />
+      {/* <Projects />  */}
       <Skills />
-      <Writing />
+      {/* <Writing /> */}
       <Contact />
       <Footer />
       <ScrollFadeIn />
