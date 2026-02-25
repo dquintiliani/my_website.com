@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { getAllSlugs, getArticleBySlug, getMDXArticle } from "@/lib/articles"
-import { mdxComponents } from "@/lib/mdx-components"
-import { MDXProvider } from "@mdx-js/react"
+import { ArticleContent } from "./article-content"
 import type { Metadata } from "next"
 import "../blog.css"
 
@@ -99,9 +98,7 @@ export default async function ArticlePage({ params }: Props) {
 
       <div className="article-body prose">
         {MDXContent ? (
-          <MDXProvider components={mdxComponents}>
-            <MDXContent />
-          </MDXProvider>
+          <ArticleContent content={MDXContent} />
         ) : (
           <p className="text-gray-500">Article could not be loaded</p>
         )}
