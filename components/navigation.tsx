@@ -29,17 +29,17 @@ export function Navigation() {
   }, [])
 
   const links = [
-    { href: "#about", label: "About" },
-    { href: "#experience", label: "Experience" },
-    { href: "#projects", label: "Projects" },
-    { href: "#skills", label: "Skills" },
+    { href: "/#about", label: "About" },
+    { href: "/#experience", label: "Experience" },
+    { href: "/#projects", label: "Projects" },
+    { href: "/#skills", label: "Skills" },
     { href: "/blog", label: "Writing" },
   ]
 
   return (
     <nav className="site-nav">
       <div className="nav-inner">
-        <a href="#hero" className="nav-logo">
+        <a href="/" className="nav-logo">
           <img
             src="/web-app-manifest-512x512.png"
             alt="DQ."
