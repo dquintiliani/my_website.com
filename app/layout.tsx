@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={nunitoSans.variable}>
-      <body>
+      <body suppressHydrationWarning>
         <Navigation />
         {children}
         <Analytics />
