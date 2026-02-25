@@ -1,6 +1,5 @@
 import fs from "fs"
 import path from "path"
-import { MDXComponents } from "mdx/types"
 
 export interface ArticleMeta {
   title: string
@@ -15,9 +14,6 @@ export interface Article extends ArticleMeta {
   content: string
 }
 
-export interface MDXArticle extends ArticleMeta {
-  default: React.ComponentType<{}>
-}
 
 const ARTICLES_DIR = path.join(process.cwd(), "content/articles")
 

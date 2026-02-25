@@ -1,13 +1,28 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { getAllSlugs, getArticleBySlug } from "@/lib/articles"
-import { isArticleMDX } from "@/lib/mdx-registry"
-import { ArticleContent } from "./article-content"
 import type { Metadata } from "next"
+import type { ComponentType } from "react"
 import "../blog.css"
 
 interface Props {
   params: Promise<{ slug: string }>
+}
+
+/**
+ * Static map of all MDX article modules.
+ * Each value is a dynamic import that Next.js resolves at build time.
+ * To add a new article, add its slug and import here.
+ */
+const articleComponents: Record<string, () => Promise<{ default: ComponentType }>> = {
+  "ai-product-discovery-getting-started": () =>
+    import("@/content/articles/ai-product-discovery-getting-started.mdx"),
+  "mdx-example": () =>
+    import("@/content/articles/mdx-example.mdx"),
+  "should-ai-features-be-shipped-before-the-use-cases-are": () =>
+    import("@/content/articles/should-ai-features-be-shipped-before-the-use-cases-are.mdx"),
+  "the-metric-quietly-running-your-product": () =>
+    import("@/content/articles/the-metric-quietly-running-your-product.mdx"),
 }
 
 export async function generateStaticParams() {
@@ -51,6 +66,11 @@ export default async function ArticlePage({ params }: Props) {
   const article = getArticleBySlug(slug)
   if (!article) notFound()
 
+  const loader = articleComponents[slug]
+  if (!loader) notFound()
+
+  const { default: MDXContent } = await loader()
+
   return (
     <article className="article-page">
       <div className="article-page-header">
@@ -88,11 +108,7 @@ export default async function ArticlePage({ params }: Props) {
       </div>
 
       <div className="article-body prose">
-        {isArticleMDX(slug) ? (
-          <ArticleContent slug={slug} />
-        ) : (
-          <p className="text-gray-500">Article could not be loaded</p>
-        )}
+        <MDXContent />
       </div>
 
       <footer className="article-page-footer">
