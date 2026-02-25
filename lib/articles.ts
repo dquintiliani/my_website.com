@@ -79,22 +79,4 @@ export function getAllSlugs(): string[] {
     .map((f) => f.replace(/\.mdx$/, ""))
 }
 
-/**
- * For dynamically importing MDX components during build time
- */
-export async function getMDXArticle(slug: string): Promise<MDXArticle | null> {
-  try {
-    const meta = getArticleBySlug(slug)
-    if (!meta) return null
 
-    // Dynamic import of MDX module
-    const mdxModule = await import(`../content/articles/${slug}.mdx`)
-    return {
-      ...meta,
-      default: mdxModule.default,
-    }
-  } catch (error) {
-    console.error(`Failed to load MDX article: ${slug}`, error)
-    return null
-  }
-}

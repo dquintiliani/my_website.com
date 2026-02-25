@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { getAllSlugs, getArticleBySlug, getMDXArticle } from "@/lib/articles"
+import { getAllSlugs, getArticleBySlug } from "@/lib/articles"
+import { isArticleMDX } from "@/lib/mdx-registry"
 import { ArticleContent } from "./article-content"
 import type { Metadata } from "next"
 import "../blog.css"
@@ -50,16 +51,6 @@ export default async function ArticlePage({ params }: Props) {
   const article = getArticleBySlug(slug)
   if (!article) notFound()
 
-  // Try to load MDX component if it exists, otherwise render as markdown
-  let mdxArticle
-  try {
-    mdxArticle = await getMDXArticle(slug)
-  } catch (error) {
-    console.warn(`MDX not found for ${slug}, falling back to markdown`)
-  }
-
-  const MDXContent = mdxArticle?.default
-
   return (
     <article className="article-page">
       <div className="article-page-header">
@@ -97,8 +88,8 @@ export default async function ArticlePage({ params }: Props) {
       </div>
 
       <div className="article-body prose">
-        {MDXContent ? (
-          <ArticleContent content={MDXContent} />
+        {isArticleMDX(slug) ? (
+          <ArticleContent slug={slug} />
         ) : (
           <p className="text-gray-500">Article could not be loaded</p>
         )}
