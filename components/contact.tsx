@@ -31,7 +31,7 @@ export function Contact() {
       console.error(err)
       alert("Something went wrong. Please try again.")
     } finally {
-      setLoading(false)
+      setLoading(false) 
     }
   }
 
