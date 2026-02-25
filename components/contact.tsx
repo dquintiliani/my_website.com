@@ -49,21 +49,21 @@ export function Contact() {
             {"Whether you're hiring, building something interesting, or just want to swap notes on product and data \u2014 I'm always happy to connect."}
           </p>
           <div className="contact-links">
-            <a href="mailto:TODO@youremail.com" className="contact-link">
+            <a href="mailto:dquintilian@gmail.com" className="contact-link">
               <span className="contact-icon">{"\u2709"}</span>
               <span>dquintilian@gmail.com</span>
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/dominic-quintilian/"
               className="contact-link"
               target="_blank"
               rel="noopener noreferrer"
             >
               <span className="contact-icon">in</span>
-              <span>LinkedIn &mdash; <a href="https://www.linkedin.com/in/dominic-quintilian/">dominic-quintilian</a></span>
+              <span>LinkedIn &mdash; dominic-quintilian</span>
             </a>
             <a
-              href="#"
+              href="https://github.com/dquintiliani"
               className="contact-link"
               target="_blank"
               rel="noopener noreferrer"
@@ -71,17 +71,7 @@ export function Contact() {
               <span className="contact-icon" style={{ fontSize: "0.9rem" }}>
                 {"\u2325"}
               </span>
-              <span>GitHub &mdash;<a href="https://github.com/dquintiliani">dquintiliani</a></span>
-            </a>
-            <a
-              href="#"
-              className="contact-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="contact-icon" style={{ fontSize: "0.8rem" }}>
-                {"\u2193"}
-              </span>
+              <span>GitHub &mdash; dquintiliani</span>
             </a>
           </div>
         </div>
