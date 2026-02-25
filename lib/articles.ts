@@ -1,5 +1,6 @@
 import fs from "fs"
 import path from "path"
+import { MDXComponents } from "mdx/types"
 
 export interface ArticleMeta {
   title: string
@@ -12,6 +13,10 @@ export interface ArticleMeta {
 
 export interface Article extends ArticleMeta {
   content: string
+}
+
+export interface MDXArticle extends ArticleMeta {
+  default: React.ComponentType<{}>
 }
 
 const ARTICLES_DIR = path.join(process.cwd(), "content/articles")
@@ -72,4 +77,24 @@ export function getAllSlugs(): string[] {
     .readdirSync(ARTICLES_DIR)
     .filter((f) => f.endsWith(".mdx"))
     .map((f) => f.replace(/\.mdx$/, ""))
+}
+
+/**
+ * For dynamically importing MDX components during build time
+ */
+export async function getMDXArticle(slug: string): Promise<MDXArticle | null> {
+  try {
+    const meta = getArticleBySlug(slug)
+    if (!meta) return null
+
+    // Dynamic import of MDX module
+    const mdxModule = await import(`../content/articles/${slug}.mdx`)
+    return {
+      ...meta,
+      default: mdxModule.default,
+    }
+  } catch (error) {
+    console.error(`Failed to load MDX article: ${slug}`, error)
+    return null
+  }
 }

@@ -1,0 +1,98 @@
+---
+title: "MDX Example: Interactive Components in Markdown"
+date: "2024-01-15"
+excerpt: "Learn how to embed interactive React components directly in your blog articles using MDX."
+tags: ["MDX", "React", "Tutorial"]
+readTime: 5
+slug: "mdx-example"
+---
+
+export const Counter = () => {
+  const [count, setCount] = React.useState(0);
+  return (
+    <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-6 my-6 text-center">
+      <p className="text-lg font-semibold mb-4">Interactive Counter</p>
+      <div className="text-4xl font-bold text-blue-600 mb-4">{count}</div>
+      <div className="flex gap-2 justify-center">
+        <button 
+          onClick={() => setCount(count - 1)}
+          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+        >
+          Decrease
+        </button>
+        <button 
+          onClick={() => setCount(count + 1)}
+          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+        >
+          Increase
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export const InfoBox = ({ title, children }) => (
+  <div className="bg-amber-50 dark:bg-amber-950 border-l-4 border-amber-400 dark:border-amber-600 rounded-r-lg p-4 my-4">
+    <h4 className="font-semibold text-amber-900 dark:text-amber-100 mb-2">{title}</h4>
+    <div className="text-amber-800 dark:text-amber-200">{children}</div>
+  </div>
+);
+
+## Introduction
+
+This article demonstrates the power of MDX - a format that lets you use JSX directly in your markdown files. You can now seamlessly blend markdown text with interactive React components!
+
+## What is MDX?
+
+MDX stands for **Markdown + JSX**. It lets you write markdown like you normally would, but with the added ability to import and use React components directly within your content.
+
+<Counter />
+
+## Creating Custom Components
+
+You can define components right in your MDX file and use them throughout the article:
+
+<InfoBox title="💡 Pro Tip">
+Define reusable components at the top of your MDX file and use them anywhere in your article. This keeps your content DRY and maintainable!
+</InfoBox>
+
+### Component Examples
+
+Here's what you can do:
+
+1. **Interactive Elements** - Like the counter above
+2. **Custom Styled Boxes** - Like the info box
+3. **Data Visualizations** - Charts, graphs, etc.
+4. **Code Sandboxes** - Embedded demos
+5. **Forms** - For user input and interaction
+
+## Getting Started
+
+To add a React component to your MDX articles:
+
+```jsx
+export const MyComponent = () => (
+  <div>Hello from React!</div>
+);
+
+Then use it like: <MyComponent />
+```
+
+<InfoBox title="📚 Next Steps">
+Edit your article files in `content/articles/` with the `.mdx` extension. Import your components at the top and use them inline!
+</InfoBox>
+
+## Advanced Usage
+
+You can also import components from your codebase:
+
+```jsx
+import { Alert } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+
+<Alert>
+  <Button onClick={() => alert('Clicked!')}>Click me</Button>
+</Alert>
+```
+
+Try editing any MDX file to add your own components!
