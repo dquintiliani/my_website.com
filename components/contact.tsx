@@ -1,6 +1,40 @@
 "use client"
 
+import { useState } from "react"
+
 export function Contact() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setLoading(true)
+    setSuccess(false)
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      })
+
+      if (!res.ok) throw new Error("Failed to send message")
+
+      setSuccess(true)
+      setName("")
+      setEmail("")
+      setMessage("")
+    } catch (err) {
+      console.error(err)
+      alert("Something went wrong. Please try again.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <section id="contact">
       <div className="contact-inner">
@@ -62,45 +96,62 @@ export function Contact() {
           >
             Or send a quick message
           </p>
-          <div className="contact-form-group">
-            <label className="contact-form-label" htmlFor="contact-name">
-              Name
-            </label>
-            <input
-              type="text"
-              id="contact-name"
-              placeholder="Your name"
-              aria-label="Your name"
-            />
-          </div>
-          <div className="contact-form-group">
-            <label className="contact-form-label" htmlFor="contact-email">
-              Email
-            </label>
-            <input
-              type="email"
-              id="contact-email"
-              placeholder="your@email.com"
-              aria-label="Your email"
-            />
-          </div>
-          <div className="contact-form-group">
-            <label className="contact-form-label" htmlFor="contact-message">
-              Message
-            </label>
-            <textarea
-              id="contact-message"
-              placeholder="What's on your mind?"
-              aria-label="Your message"
-            ></textarea>
-          </div>
-          <button
-            className="btn btn-primary"
-            style={{ width: "100%", justifyContent: "center" }}
-            onClick={() => alert("Connect this to a form handler.")}
-          >
-            Send Message
-          </button>
+          <form onSubmit={handleSubmit}>
+            <div className="contact-form-group">
+              <label className="contact-form-label" htmlFor="contact-name">
+                Name
+              </label>
+              <input
+                type="text"
+                id="contact-name"
+                placeholder="Your name"
+                aria-label="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="contact-form-group">
+              <label className="contact-form-label" htmlFor="contact-email">
+                Email
+              </label>
+              <input
+                type="email"
+                id="contact-email"
+                placeholder="your@email.com"
+                aria-label="Your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="contact-form-group">
+              <label className="contact-form-label" htmlFor="contact-message">
+                Message
+              </label>
+              <textarea
+                id="contact-message"
+                placeholder="What's on your mind?"
+                aria-label="Your message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{ width: "100%", justifyContent: "center" }}
+              disabled={loading}
+            >
+              {loading ? "Sending..." : "Send Message"}
+            </button>
+            {success && (
+              <p style={{ marginTop: "12px", fontSize: "0.9rem" }}>
+                Message sent successfully.
+              </p>
+            )}
+          </form>
         </div>
       </div>
     </section>
