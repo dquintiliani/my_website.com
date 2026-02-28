@@ -5,9 +5,9 @@ import "./blog.css"
 
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Writing",
   description:
-    "Thinking on product management, data analytics, AI applications, and building things worth building.",
+    "Knowledge and stories I want to share with the world",
   openGraph: {
     title: "Blog",
     description:
@@ -31,16 +31,14 @@ export default function BlogPage() {
     
     <section id="blog">
       <div className="blog-header">
-        <p className="section-label">Blog</p>
-        <h2 className="section-title">
-          Ideas worth
-          <br />
-          writing down.
-        </h2>
+        <br></br>
+        <p className="section-label">Writing</p>
         <div className="divider"></div>
         <p className="blog-intro">
-          Thinking on product management, data analytics, AI applications, and
-          the craft of building things that actually work.
+          Knowledge and stories I want to share with the world
+        </p>
+        <p> 
+          <br></br>
         </p>
       </div>
 
