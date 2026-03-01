@@ -17,10 +17,6 @@ export function Hero() {
           </p>
           
           <div className="hero-actions">
-            <a href="#projects" className="btn btn-primary">View Projects</a>
-            <a href="#" className="btn btn-outline" target="_blank" rel="noopener noreferrer">
-              Download Resume
-            </a>
             <a href="#contact" className="btn btn-ghost">Contact Me</a>
           </div>
 

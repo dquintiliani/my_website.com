@@ -60,7 +60,15 @@ export function Contact() {
               rel="noopener noreferrer"
             >
               <span className="contact-icon">in</span>
-              <span>LinkedIn &mdash; <a href="https://www.linkedin.com/in/dominic-quintilian/">dominic-quintilian</a></span>
+              <span>LinkedIn 
+                <a
+                href="https://www.linkedin.com/in/dominic-quintilian/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                dominic-quintilian
+              </a>
+              </span>
             </a>
             <a
               href="#"
@@ -71,7 +79,13 @@ export function Contact() {
               <span className="contact-icon" style={{ fontSize: "0.9rem" }}>
                 {"\u2325"}
               </span>
-              <span>GitHub &mdash;<a href="https://github.com/dquintiliani">dquintiliani</a></span>
+              <span>GitHub &mdash;
+                <a
+                href="https://github.com/dquintiliani"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                dquintiliani</a></span>
             </a>
             <a
               href="#"
