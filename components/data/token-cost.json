@@ -1,0 +1,144 @@
+{
+  "date": "March 16, 2026",
+  "market_overview": {
+    "description": "Today's LLM market is highly competitive and rapidly evolving, with prices for equivalent performance down dramatically (e.g., GPT-4-level quality now costs a fraction of 2023 prices, with 98% reductions in some cases). The global LLM market segment is part of the broader AI explosion—projected to grow from billions today to $80B+ by 2033 at high CAGRs—driven by enterprise adoption in chatbots, agents, coding, and analysis.",
+  },
+  "pricing": {
+    "note": "API costs per 1M tokens (USD); input usually cheaper than output by 3-5x; batch discounts common; prices approximate from official sources and may vary slightly by region/volume/commitment. Real costs depend on input:output ratio and optimizations.",
+    "providers": {
+      "openai": {
+        "name": "OpenAI (GPT series)",
+        "note": "Newer GPT-5.x naming dominates; older GPT-4o references largely superseded.",
+        "models": [
+          {
+            "model": "GPT-5.4 (flagship)",
+            "input": 2.50,
+            "output": 15.00,
+            "cached_input": 0.25
+          },
+          {
+            "model": "GPT-5.2",
+            "input": 1.75,
+            "output": 14.00,
+            "cached_input": 0.175
+          },
+          {
+            "model": "GPT-5.2 Pro (premium reasoning)",
+            "input": 21.00,
+            "output": 168.00
+          },
+          {
+            "model": "GPT-5 Mini",
+            "input": 0.25,
+            "output": 2.00,
+            "cached_input": 0.025
+          }
+        ],
+        "batch_discount": "50% off",
+        "effective_total_note": "Effective total for balanced use often $0.75–$7.50/M for mid-tier equivalents."
+      },
+      "anthropic": {
+        "name": "Anthropic (Claude 4.5/4 series)",
+        "note": "Haiku/Sonnet/Opus tiers; batch/caching discounts up to 90% available; 200K context standard.",
+        "models": [
+          {
+            "model": "Claude Haiku 4.5 (fast/efficient)",
+            "input": 1.00,
+            "output": 5.00
+          },
+          {
+            "model": "Claude Sonnet 4.5/4 (balanced)",
+            "effective_total_approx": 6.00,
+            "input_range": "3–6"
+          },
+          {
+            "model": "Claude Opus 4.5/4.6 (complex reasoning)",
+            "input": "5–15",
+            "output": "25–30",
+            "effective_total_approx": 30.00
+          }
+        ],
+        "consumer_subscriptions": {
+          "Pro": "$20/mo (or $17 annual)",
+          "Max": "$100+/mo per user"
+        }
+      },
+      "google": {
+        "name": "Google (Gemini series)",
+        "note": "Strong free tiers + paid; tiered by context size; charges for thinking/grounding tokens in some cases.",
+        "models": [
+          {
+            "model": "Gemini 2.5 Pro",
+            "input": "1.25–2.50 (tiered ≤/>200K)",
+            "output": "10–15"
+          },
+          {
+            "model": "Gemini 2.5 Flash",
+            "input": 0.30,
+            "output": 2.50
+          },
+          {
+            "model": "Gemini 2.5 Flash-Lite",
+            "input": 0.10,
+            "output": 0.40
+          },
+          {
+            "model": "Gemini 3.1 Pro",
+            "input": "2.00–4.00",
+            "output": "12–18"
+          },
+          {
+            "model": "Gemini 1.5 Flash (older cheap option)",
+            "effective_total_approx": 0.38
+          }
+        ],
+        "extras": "Free tier (limited RPM/RPD) + caching/grounding extras. Excellent for high-volume or long-context."
+      },
+      "xai": {
+        "name": "xAI (Grok series)",
+        "note": "Competitive with huge 2M context on flagships; fast variants emphasize value.",
+        "models": [
+          {
+            "model": "Grok 4.20 Beta (flagship, variants like multi-agent/reasoning)",
+            "input": 2.00,
+            "output": 6.00,
+            "context": "2M"
+          },
+          {
+            "model": "Grok 4 Fast / 4.1 Fast (budget/high-speed)",
+            "input": 0.20,
+            "output": 0.50,
+            "context": "2M"
+          },
+          {
+            "model": "Grok 4-0709",
+            "input": 3.00,
+            "output": 15.00
+          },
+          {
+            "model": "Grok 3",
+            "input": 3.00,
+            "output": 15.00
+          },
+          {
+            "model": "Grok 3-mini",
+            "input": 0.30,
+            "output": 0.50
+          }
+        ],
+        "batch_discount": "50% off all token-based models.",
+        "credits": "New users often get free credits ($25+ signup + ongoing via programs)."
+      },
+      "other": {
+        "note": "Mistral / Cohere / others generally $0.20–$5 input range (mid-tier competitive with Flash/Mini models).",
+        "open_source": "Model download free. Inference via Groq/Together.ai/Fireworks often <$0.10–$0.50/M total (very fast); self-host depends on GPUs (hundreds–thousands/month for high volume).",
+        "realtime_multimodal_extras": "Per-second or image-specific add-ons ($0.40–$60/M equivalent)."
+      }
+    }
+  },
+  "recommendations": {
+    "cheapest_for_volume_simple_tasks": "Grok Fast ($0.20/$0.50), Gemini Flash-Lite (~$0.10 input), GPT-5 Mini, or Claude Haiku.",
+    "premium_reasoning_long_context": "Grok 4.20 or Claude Opus/GPT-5.4 (~$2–$15 input).",
+    "advice": "Test multiple via APIs (many have free credits). Match task to model + optimize aggressively—most production workloads run fine on mid/cheap tiers with 50-90% savings vs. flagship defaults. Market favors users who shop around and tune usage. Prices change frequently; always verify on official sites (openai.com/api/pricing, anthropic.com, ai.google.dev/pricing, docs.x.ai)."
+  }
+}

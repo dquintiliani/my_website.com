@@ -13,9 +13,21 @@ interface ModelPricing {
 }
 
 const MODELS: readonly ModelPricing[] = [
-  { id: "gpt-4.1-mini",       name: "gpt-4.1-mini",        provider: "OpenAI",    inputPricePer1K: 0.15, outputPricePer1K: 0.60 },
-  { id: "gpt-4.1",            name: "gpt-4.1",             provider: "OpenAI",    inputPricePer1K: 5.00, outputPricePer1K: 15.00 },
-  { id: "claude-3.7-sonnet",  name: "Claude 3.7 Sonnet",   provider: "Anthropic", inputPricePer1K: 3.00, outputPricePer1K: 15.00 },
+  // Cheap & fast tier (great for high-volume / simple tasks)
+  { id: "gemini-3.1-flash-lite", name: "Gemini 3.1 Flash-Lite", provider: "Google",     inputPricePer1K: 0.00010, outputPricePer1K: 0.00040 },
+  { id: "grok-4-fast",           name: "Grok 4 Fast",           provider: "xAI",        inputPricePer1K: 0.00020, outputPricePer1K: 0.00050 },
+  { id: "gpt-5-mini",            name: "GPT-5 Mini",            provider: "OpenAI",     inputPricePer1K: 0.00025, outputPricePer1K: 0.00200 },
+  { id: "claude-haiku-4.5",      name: "Claude Haiku 4.5",      provider: "Anthropic",  inputPricePer1K: 0.00100, outputPricePer1K: 0.00500 },
+
+  // Mid-tier balanced
+  { id: "gemini-2.5-flash",      name: "Gemini 2.5 Flash",      provider: "Google",     inputPricePer1K: 0.00030, outputPricePer1K: 0.00250 },
+  { id: "claude-sonnet-4.5",     name: "Claude Sonnet 4.5",     provider: "Anthropic",  inputPricePer1K: 0.00300, outputPricePer1K: 0.01500 },
+  { id: "gpt-5.2",               name: "GPT-5.2",               provider: "OpenAI",     inputPricePer1K: 0.00175, outputPricePer1K: 0.01400 },
+
+  // Flagship / reasoning-heavy
+  { id: "grok-4.20-beta",        name: "Grok 4.20 Beta",        provider: "xAI",        inputPricePer1K: 0.00200, outputPricePer1K: 0.00600 },
+  { id: "gpt-5.4",               name: "GPT-5.4",               provider: "OpenAI",     inputPricePer1K: 0.00250, outputPricePer1K: 0.01500 },
+  { id: "claude-opus-4.5",       name: "Claude Opus 4.5",       provider: "Anthropic",  inputPricePer1K: 0.00500, outputPricePer1K: 0.02500 },
 ] as const;
 
 interface FormState {
@@ -108,7 +120,7 @@ export default function ModelTokenBudgetEstimator() {
       </h2>
       <p style={s.desc}>
         Estimate daily and monthly LLM token usage and cost based on your
-        traffic and prompt assumptions.
+        traffic and prompt assumptions. Updated March 2026 pricing.
       </p>
 
       {/* ── Model selector ── */}
@@ -136,7 +148,7 @@ export default function ModelTokenBudgetEstimator() {
               <span style={s.modelName}>{m.name}</span>
               <span style={s.modelProvider}>{m.provider}</span>
               <span style={{ ...s.modelPricing, ...(active ? s.modelPricingActive : {}) }}>
-                ${m.inputPricePer1K.toFixed(2)} in · ${m.outputPricePer1K.toFixed(2)} out / 1K tokens
+                ${m.inputPricePer1K.toFixed(4)} in · ${m.outputPricePer1K.toFixed(4)} out / 1K tokens
               </span>
             </button>
           );
@@ -303,7 +315,6 @@ const s: Record<string, React.CSSProperties> = {
     fontFamily:      "'DM Sans', 'Plus Jakarta Sans', system-ui, sans-serif",
   },
 
-  // Header
   eyebrow: {
     fontSize:      "11px",
     fontWeight:    600,
@@ -334,7 +345,6 @@ const s: Record<string, React.CSSProperties> = {
     maxWidth:   "520px",
   },
 
-  // Section label
   sectionLabel: {
     fontSize:      "10px",
     fontWeight:    600,
@@ -344,7 +354,6 @@ const s: Record<string, React.CSSProperties> = {
     margin:        "0 0 12px",
   },
 
-  // Model selector
   modelGrid: {
     display:      "flex",
     gap:          "10px",
@@ -393,7 +402,6 @@ const s: Record<string, React.CSSProperties> = {
     color: "#2C5F14",
   },
 
-  // Inputs
   inputsGrid: {
     display:             "grid",
     gridTemplateColumns: "1fr 1fr",
@@ -432,7 +440,6 @@ const s: Record<string, React.CSSProperties> = {
     lineHeight: 1.5,
   },
 
-  // Results
   results: {
     borderTop:  "1px solid #D2CEC5",
     paddingTop: "32px",
@@ -457,7 +464,6 @@ const s: Record<string, React.CSSProperties> = {
     color:      "#AEADA5",
   },
 
-  // Stat cards
   statGrid: {
     display:             "grid",
     gridTemplateColumns: "1fr 1fr",
@@ -518,7 +524,6 @@ const s: Record<string, React.CSSProperties> = {
     marginTop:  "4px",
   },
 
-  // Narrative
   narrative: {
     borderLeft: "3px solid #2C5F14",
     padding:    "12px 0 12px 18px",
