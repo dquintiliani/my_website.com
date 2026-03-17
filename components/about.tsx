@@ -27,8 +27,8 @@ export function About() {
 
   const stats = [
     { value: "4+ yrs", label: "Data platform PM experience" },
-    { value: "5M+", label: "Users on systems I've owned" },
-    { value: "3", label: "Industries · One focus area" },
+    { value: "5M+",    label: "Users on systems I've owned" },
+    { value: "3",      label: "Industries · One focus area" },
   ];
 
   const paragraphs = [
@@ -51,77 +51,65 @@ export function About() {
   ];
 
   return (
-    <section id="about" style={s.section}>
-      <div style={s.inner}>
+    <section id="about">
+      <div className="about-inner">
 
         {/* Headline */}
-        <div style={s.top}>
-          <p style={s.eyebrow}>About</p>
-          <h2 style={s.headline}>
+        <div className="about-top">
+          <p className="section-label">About</p>
+          <h2 className="about-headline">
             Four years. Three industries.{" "}
-            <em style={s.em}>One through-line.</em>
+            <em>One through-line.</em>
           </h2>
         </div>
 
         {/* Two-column body */}
-        <div style={s.body}>
+        <div className="about-body">
 
           {/* Left: timeline + stats */}
-          <div style={s.left}>
-            <p style={s.timelineLabel}>Career</p>
+          <div className="about-left">
+            <p className="about-timeline-label">Career</p>
 
             {companies.map((co) => (
-              <div
-                key={co.name}
-                style={{
-                  ...s.company,
-                  borderTop: co.name === "Ticketmaster" ? "1px solid #D2CEC5" : undefined,
-                }}
-              >
-                <div style={s.dotCol}>
-                  <div style={s.dot} />
-                  {!co.last && <div style={s.line} />}
+              <div key={co.name} className="about-company">
+                <div className="about-dot-col">
+                  <div className="about-dot" />
+                  {!co.last && <div className="about-dot-line" />}
                 </div>
-                <div style={s.coInfo}>
-                  <p style={s.coName}>{co.name}</p>
-                  <p style={s.coRole}>
+                <div className="about-co-info">
+                  <p className="about-co-name">{co.name}</p>
+                  <p className="about-co-role">
                     {co.role}
                     <br />
                     {co.sub}
                   </p>
-                  <span style={s.coSignal}>{co.signal}</span>
+                  <span className="about-co-signal">{co.signal}</span>
                 </div>
               </div>
             ))}
 
-            <div style={s.stats}>
+            <div className="about-stats">
               {stats.map((st) => (
-                <div key={st.label} style={s.statRow}>
-                  <span style={s.statVal}>{st.value}</span>
-                  <span style={s.statDesc}>{st.label}</span>
+                <div key={st.label} className="about-stat-row">
+                  <span className="about-stat-value">{st.value}</span>
+                  <span className="about-stat-desc">{st.label}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Right: labeled paragraphs */}
-          <div style={s.right}>
-            {paragraphs.map((p, i) => (
-              <div
-                key={p.label}
-                style={{
-                  ...s.paraBlock,
-                  borderTop: i === 0 ? "1px solid #D2CEC5" : undefined,
-                }}
-              >
-                <p style={s.paraLabel}>{p.label}</p>
-                <p style={s.paraText}>{p.text}</p>
+          <div className="about-right">
+            {paragraphs.map((p) => (
+              <div key={p.label} className="about-para-block">
+                <p className="about-para-label">{p.label}</p>
+                <p className="about-para-text">{p.text}</p>
               </div>
             ))}
 
-            <div style={s.status}>
-              <div style={s.statusDot} />
-              <span style={s.statusText}>
+            <div className="about-status">
+              <div className="about-status-dot" />
+              <span className="about-status-text">
                 Product Manager · Open to opportunities in Toronto
               </span>
             </div>
@@ -132,187 +120,3 @@ export function About() {
     </section>
   );
 }
-
-const s: Record<string, React.CSSProperties> = {
-  section: {
-    backgroundColor: "#EEEAE3",
-    padding: "96px 0",
-    fontFamily: "'DM Sans', 'Plus Jakarta Sans', system-ui, sans-serif",
-  },
-  inner: {
-    maxWidth: "1060px",
-    margin: "0 auto",
-    padding: "0 40px",
-  },
-
-  // Headline row
-  top: {
-    marginBottom: "64px",
-  },
-  eyebrow: {
-    fontSize: "11px",
-    fontWeight: 600,
-    letterSpacing: "0.13em",
-    textTransform: "uppercase",
-    color: "#2C5F14",
-    margin: "0 0 18px",
-  },
-  headline: {
-    fontSize: "clamp(36px, 4.5vw, 56px)",
-    fontWeight: 700,
-    color: "#1A1916",
-    letterSpacing: "-0.03em",
-    lineHeight: 1.05,
-    margin: 0,
-  },
-  em: {
-    fontStyle: "italic",
-    color: "#2C5F14",
-  },
-
-  // Layout
-  body: {
-    display: "grid",
-    gridTemplateColumns: "260px 1fr",
-    gap: "64px",
-    alignItems: "start",
-  },
-
-  // Left column
-  left: {
-    display: "flex",
-    flexDirection: "column",
-    position: "sticky",
-    top: "40px",
-  },
-  timelineLabel: {
-    fontSize: "10px",
-    fontWeight: 600,
-    letterSpacing: "0.1em",
-    textTransform: "uppercase",
-    color: "#AEADA5",
-    margin: "0 0 16px",
-  },
-  company: {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: "14px",
-    padding: "16px 0",
-    borderBottom: "1px solid #D2CEC5",
-  },
-  dotCol: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    paddingTop: "5px",
-  },
-  dot: {
-    width: "8px",
-    height: "8px",
-    borderRadius: "50%",
-    backgroundColor: "#2C5F14",
-    flexShrink: 0,
-  },
-  line: {
-    width: "1px",
-    flex: 1,
-    backgroundColor: "#D2CEC5",
-    marginTop: "6px",
-    minHeight: "24px",
-  },
-  coInfo: {
-    flex: 1,
-  },
-  coName: {
-    fontSize: "14px",
-    fontWeight: 600,
-    color: "#1A1916",
-    margin: "0 0 3px",
-  },
-  coRole: {
-    fontSize: "12px",
-    color: "#7A7670",
-    lineHeight: 1.4,
-    margin: 0,
-  },
-  coSignal: {
-    display: "inline-block",
-    marginTop: "8px",
-    fontSize: "11px",
-    fontWeight: 600,
-    color: "#2C5F14",
-    backgroundColor: "#DCE9D4",
-    padding: "3px 8px",
-    borderRadius: "2px",
-  },
-  stats: {
-    marginTop: "32px",
-    paddingTop: "24px",
-    borderTop: "1px solid #D2CEC5",
-    display: "flex",
-    flexDirection: "column",
-    gap: "16px",
-  },
-  statRow: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "3px",
-  },
-  statVal: {
-    fontSize: "22px",
-    fontWeight: 700,
-    color: "#1A1916",
-    letterSpacing: "-0.02em",
-  },
-  statDesc: {
-    fontSize: "11px",
-    color: "#7A7670",
-    letterSpacing: "0.03em",
-    textTransform: "uppercase",
-    fontWeight: 500,
-  },
-
-  // Right column
-  right: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  paraBlock: {
-    padding: "24px 0",
-    borderBottom: "1px solid #D2CEC5",
-  },
-  paraLabel: {
-    fontSize: "10px",
-    fontWeight: 600,
-    letterSpacing: "0.1em",
-    textTransform: "uppercase",
-    color: "#AEADA5",
-    margin: "0 0 10px",
-  },
-  paraText: {
-    fontSize: "15px",
-    color: "#3D3B37",
-    lineHeight: 1.85,
-    margin: 0,
-  },
-
-  // Status
-  status: {
-    marginTop: "28px",
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-  },
-  statusDot: {
-    width: "7px",
-    height: "7px",
-    borderRadius: "50%",
-    backgroundColor: "#2C5F14",
-    flexShrink: 0,
-  },
-  statusText: {
-    fontSize: "12px",
-    color: "#7A7670",
-    letterSpacing: "0.03em",
-  },
-};
