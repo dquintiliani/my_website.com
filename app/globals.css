@@ -651,7 +651,7 @@ nav.site-nav {
 /* Floating stat cards */
 .hero-stat-card {
   position: absolute;
-  background: rgba(245, 240, 232, 0.95); /* var(--white) with alpha */
+  background: rgba(245, 240, 232, 0.9); /* var(--white) with alpha, 5% more translucent */
   border: 1px solid var(--warm-200);
   border-radius: 6px;
   padding: 10px 14px;
@@ -661,6 +661,7 @@ nav.site-nav {
   box-shadow: 0 2px 12px rgba(26, 25, 22, 0.06);
   backdrop-filter: blur(8px);
   opacity: 0;
+  z-index: 100;
 }
 .hero-stat-card--1 {
   bottom: 20px; left: -24px;

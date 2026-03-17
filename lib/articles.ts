@@ -10,6 +10,11 @@ export interface ArticleMeta {
   slug: string
 }
 
+// This module implements a very small MDX-based content system for a 
+// blog or article section. It loads .mdx files from a content/articles directory, 
+// parses their frontmatter manually, and exposes helper functions to retrieve article metadata, 
+// full article content, and slugs.
+
 export interface Article extends ArticleMeta {
   content: string
 }

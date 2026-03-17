@@ -1,5 +1,8 @@
 import * as React from 'react'
 
+// This React hook detects whether the user’s screen width is below a mobile breakpoint 
+// (768px) and returns a boolean indicating if the device is considered “mobile.”
+
 const MOBILE_BREAKPOINT = 768
 
 export function useIsMobile() {
