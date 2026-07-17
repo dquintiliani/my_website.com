@@ -33,12 +33,6 @@ const skills = [
     headline: "Defines data contracts and terminology standards that don't require a translator.",
     body: "At Ticketmaster, led the standardization of reporting terminology and data dictionaries across the Universe platform — establishing consistent definitions for orders, chargebacks, and reconciliation that reduced ambiguity across three downstream teams.",
   },
-  {
-    id: "06",
-    tag: "AI / LLM",
-    headline: "Actively building with LLMs — not just advising on them.",
-    body: "Currently developing a trend-detection tool that indexes Reddit, Hacker News, and arXiv to surface signal from unstructured text at scale. Brings hands-on Python and API integration experience to LLM product decisions — which means the \u201cshould we build this?\u201d conversation starts from a real architecture question, not a feature request.",
-  },
 ];
 
 export default function Skills() {

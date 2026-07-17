@@ -44,10 +44,6 @@ export function About() {
       label: "The focus",
       text: "Across all three, the through-line was the same: someone needed to bridge the gap between what the data team built and what the product team could actually use. That's the problem I'm drawn to, and it's why I've drifted toward data platform and self-serve analytics as a focus area.",
     },
-    {
-      label: "Outside work",
-      text: "I teach Python to teenagers in Roncesvalles and I'm building a trend-detection tool that indexes Reddit, Hacker News, and arXiv. I learn by building. It shows.",
-    },
   ];
 
   return (
