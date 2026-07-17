@@ -93,6 +93,7 @@ export function Navigation() {
     SECTIONS.find((s) => s.id === activeSection)?.label ?? SECTIONS[0].label;
   const activeIndex =
     SECTIONS.findIndex((s) => s.id === activeSection);
+  const hideProgressBar = pathname === "/projects" || pathname === "/blog";
 
   return (
     <header
@@ -361,19 +362,21 @@ export function Navigation() {
       )}
 
       {/* Scroll progress bar */}
-      <div
-        aria-hidden="true"
-        style={{
-          position:     "absolute",
-          bottom:       0,
-          left:         0,
-          height:       "2px",
-          width:        `${progress}%`,
-          background:   "#2C5F14",
-          borderRadius: "0 1px 1px 0",
-          transition:   "width 0.12s linear",
-        }}
-      />
+      {!hideProgressBar && (
+        <div
+          aria-hidden="true"
+          style={{
+            position:     "absolute",
+            bottom:       0,
+            left:         0,
+            height:       "2px",
+            width:        `${progress}%`,
+            background:   "#2C5F14",
+            borderRadius: "0 1px 1px 0",
+            transition:   "width 0.12s linear",
+          }}
+        />
+      )}
     </header>
   );
 }

@@ -37,10 +37,10 @@ export const TOOLS: Tool[] = [
     slug: "model-matchmaker",
     title: "Model Matchmaker",
     summary:
-      "A tongue-in-cheek dating quiz for LLMs. Answer eight questions about your use case, budget, and privacy needs, and it matches you with your ideal model — from GPT to a tiny on-device Phi.",
+      "A tongue-in-cheek dating quiz for LLMs. Answer eight questions about your use case, budget, and privacy needs, and it matches you with your ideal model for your personality.",
     href: "/model-matchmaker",
     built: "Built with AI · Interactive quiz",
-    tags: ["LLM Selection", "Playful"],
+    tags: ["LLM Selection", "Fun"],
     status: "experiment",
   },
   {
@@ -49,7 +49,7 @@ export const TOOLS: Tool[] = [
     summary:
       "A prompt engineering quiz platform with beginner and expert tracks — from clarity and constraints to chain-of-thought, few-shot learning, and injection prevention.",
     href: "https://quiz-website-ten-omega.vercel.app/",
-    built: "Built with AI · v0",
+    built: "With Next JS",
     tags: ["Prompt Engineering", "Quiz"],
     status: "live",
     external: true,

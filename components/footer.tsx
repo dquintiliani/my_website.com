@@ -55,7 +55,7 @@ export function Footer() {
                 <span style={s.availDot} />
                 <span style={s.availText}>Open to opportunities</span>
               </div>
-              <p style={s.availSub}>Toronto, ON · Data PM roles</p>
+              <p style={s.availSub}>Toronto, ON · Data Platform Roles, Solution Architect, and Technical Product Manager roles</p>
             </div>
             <div>
               <p style={s.colLabel}>Previously</p>

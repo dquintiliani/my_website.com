@@ -1687,6 +1687,43 @@ footer.site-footer {
   font-weight: 500;
 }
 
+/* Certifications */
+.about-certs {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--warm-200);
+}
+.about-cert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.about-cert-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.about-cert-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--green);
+  background: var(--green-muted);
+  padding: 3px 7px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.about-cert-name {
+  font-family: var(--font-head);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--warm-700);
+}
+
 /* ── Right column: labeled paragraphs ── */
 .about-right {
   display: flex;

@@ -31,6 +31,11 @@ export function About() {
     { value: "3",      label: "Industries · One focus area" },
   ];
 
+  const certifications = [
+    { badge: "AWS", name: "Certified Cloud Practitioner" },
+    { badge: "AWS", name: "Certified AI Practitioner" },
+  ];
+
   const paragraphs = [
     {
       label: "The work",
@@ -91,6 +96,18 @@ export function About() {
                   <span className="about-stat-desc">{st.label}</span>
                 </div>
               ))}
+            </div>
+
+            <div className="about-certs">
+              <p className="about-timeline-label">Certifications</p>
+              <div className="about-cert-list">
+                {certifications.map((cert) => (
+                  <div key={cert.name} className="about-cert-item">
+                    <span className="about-cert-badge">{cert.badge}</span>
+                    <span className="about-cert-name">{cert.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 

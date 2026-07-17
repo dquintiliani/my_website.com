@@ -30,7 +30,7 @@ export default function ProjectsPage() {
           </h1>
           <p className="blog-page-desc">
             Side tools and experiments I&apos;ve shipped by pairing product
-            thinking with AI. Each one is live — click in and try it.
+            thinking with AI. Each one is live — click in and try each one out!
           </p>
         </div>
 
