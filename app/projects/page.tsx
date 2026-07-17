@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllTools } from "@/lib/tools";
+import { ScrollFadeIn } from "@/components/scroll-fade-in";
 
 export const metadata: Metadata = {
   title: "Projects — Dominic Quintilian",
@@ -19,6 +20,7 @@ export default function ProjectsPage() {
 
   return (
     <section id="projects">
+      <ScrollFadeIn />
       <div className="blog-inner">
         {/* ── Header ── */}
         <div className="blog-header">
