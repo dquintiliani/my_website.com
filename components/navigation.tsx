@@ -17,11 +17,13 @@ const SECTIONS = [
   { id: "about",      label: "About"      },
   { id: "experience", label: "Experience" },
   { id: "skills",     label: "Skills"     },
+  { id: "projects",   label: "Projects"   },
   { id: "contact",    label: "Contact"    },
 ] as const satisfies readonly SectionConfig[];
 
 const NAV_LINKS = [
-  { href: "/blog", label: "Writing" },
+  { href: "/projects", label: "Projects" },
+  { href: "/blog",     label: "Writing"  },
 ] as const;
 
 const SCROLL_THRESHOLD = 40; // px before nav gains frosted state

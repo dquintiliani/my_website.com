@@ -1,118 +1,70 @@
+import Link from "next/link"
+import { getAllTools } from "@/lib/tools"
+
+// Homepage teaser — shows a few AI side-tools and links to the full /projects index.
+// Full listing lives in app/projects/page.tsx; both read from lib/tools.ts.
 export function Projects() {
-  const projects = [
-    {
-      number: "01",
-      title: "[Mini-Hackathon Project Name]",
-      summary:
-        "[One-line summary \u2014 e.g., \u201CAn LLM-powered triage tool that classifies incoming support tickets and suggests responses in real-time.\u201D]",
-      role: "[Product Lead / Solo Builder / PM & Designer]",
-      outcome: "[e.g., Reduced mock triage time by 60% in user testing]",
-      tags: ["LLM Prototyping", "Product Strategy"],
-      link: { text: "View project \u2192", href: "#" },
-    },
-    {
-      number: "02",
-      title: "[Python / Data Project Name]",
-      summary:
-        "[One-line summary \u2014 e.g., \u201CExploratory analysis of [dataset] to identify [insight], visualized with Plotly and shared as a public notebook.\u201D]",
-      role: "[Solo analyst / Data lead]",
-      outcome: "[e.g., Insight surfaced to stakeholders; informed Q3 roadmap]",
-      tags: ["Data Analysis", "Python"],
-      link: { text: "View on GitHub \u2192", href: "#" },
-    },
-    {
-      number: "03",
-      title: "[Professional Project or Case Study]",
-      summary:
-        "[One-line summary \u2014 e.g., \u201CRedesigned the onboarding experience for [product], cutting time-to-value from 14 days to 4.\u201D]",
-      role: "[Product Manager]",
-      outcome: "[e.g., 35% improvement in D7 activation rate]",
-      tags: ["Product Strategy", "Growth"],
-      link: { text: "Read case study \u2192", href: "#" },
-    },
-    {
-      number: "04",
-      title: "[Side Project or Hackathon]",
-      summary: "[One-line summary \u2014 what it is and who it\u2019s for.]",
-      role: "[Your role]",
-      outcome: "[Key result or status]",
-      tags: ["Hackathon", "AI / ML"],
-      link: { text: "View project \u2192", href: "#" },
-    },
-    {
-      number: "05",
-      title: "[Another Project]",
-      summary: "[One-line summary.]",
-      role: "[Your role]",
-      outcome: "[Key result]",
-      tags: ["Data Analysis", "Visualization"],
-      link: null,
-    },
-  ]
+  const tools = getAllTools().slice(0, 2)
 
   return (
     <section id="projects">
       <div className="projects-inner">
-        <p className="section-label">{"Work & Side Projects"}</p>
-        <h2 className="section-title">Selected projects.</h2>
+        <p className="section-label">{"Things I've built with AI"}</p>
+        <h2 className="section-title">Projects &amp; tools.</h2>
         <div className="divider"></div>
         <div className="projects-grid">
-          {projects.map((project, i) => (
-            <div key={i} className="project-card fade-in-element">
-              <p className="project-number">{project.number}</p>
-              <h3 className="project-title">{project.title}</h3>
-              <p className="project-summary">{project.summary}</p>
+          {tools.map((tool, i) => (
+            <Link
+              key={tool.slug}
+              href={tool.href}
+              className="project-card fade-in-element"
+              {...(tool.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              <p className="project-number">{String(i + 1).padStart(2, "0")}</p>
+              <h3 className="project-title">{tool.title}</h3>
+              <p className="project-summary">{tool.summary}</p>
               <div className="project-meta">
                 <span>
-                  <strong>My Role:</strong> {project.role}
+                  <strong>{tool.status === "live" ? "Live tool" : "Experiment"}</strong>
                 </span>
-                <span>
-                  <strong>Outcome:</strong> {project.outcome}
-                </span>
+                <span>{tool.built}</span>
               </div>
               <div className="project-tags">
-                {project.tags.map((tag) => (
+                {tool.tags.map((tag) => (
                   <span key={tag} className="tag">
                     {tag}
                   </span>
                 ))}
               </div>
-              {project.link && (
-                <a
-                  href={project.link.href}
-                  className="project-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {project.link.text}
-                </a>
-              )}
-            </div>
+              <span className="project-link">Open tool &rarr;</span>
+            </Link>
           ))}
-          <div
+
+          {/* View-all card */}
+          <Link
+            href="/projects"
             className="project-card fade-in-element"
             style={{
               borderStyle: "dashed",
               background: "transparent",
-              display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              textAlign: "center",
             }}
           >
             <p
               style={{
                 fontFamily: "var(--font-head)",
                 fontSize: "0.78rem",
-                color: "var(--warm-400)",
-                textAlign: "center",
+                fontWeight: 600,
                 letterSpacing: "0.06em",
+                color: "var(--warm-400)",
               }}
             >
-              Add more projects
-              <br />
-              or remove this card
+              View all projects
+              <br />&amp; tools &rarr;
             </p>
-          </div>
+          </Link>
         </div>
       </div>
     </section>
