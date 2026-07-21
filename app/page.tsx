@@ -6,6 +6,7 @@ import Projects from "@/components/projects"
 import { Contact } from "@/components/contact"
 import { Footer } from "@/components/footer"
 import { ScrollFadeIn } from "@/components/scroll-fade-in"
+import Folder from "@/components/folder"
 
 
 
@@ -15,6 +16,7 @@ export default function Page() {
       <Hero />
       <About />
       <Projects />
+      {/* <Folder />  */}
       <Contact />
       <Footer />
       <ScrollFadeIn />
