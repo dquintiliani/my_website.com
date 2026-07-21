@@ -14,7 +14,7 @@ export function Hero() {
             I've spent the past 5 years helping businesses optimize their data
             for AI, and better decision making.
           </p>
-          <Link href="#about" className="hero-cta">
+          <Link href="#contact" className="hero-cta">
             Learn more about how I can help your company
             <span className="hero-status-arrow" aria-hidden="true">
               →

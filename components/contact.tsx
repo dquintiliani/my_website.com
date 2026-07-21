@@ -61,209 +61,260 @@ export function Contact() {
 
   return (
     <section id="contact" className="contact-section">
-      <div className="contact-inner">
-        {/* Placement 4: Direct links */}
-        <div className="links-col">
-          {CONTACT_LINKS.map(({ href, icon, label, value, external }) => (
-            <a
-              key={href}
-              href={href}
-              target={external ? "_blank" : undefined}
-              rel={external ? "noopener noreferrer" : undefined}
-              className="link-row"
-            >
-              <span className="lnk-icon">{icon}</span>
-              <span className="link-info">
-                <span className="link-label">{label}</span>
-                <span className="link-value">{value}</span>
-              </span>
-            </a>
-          ))}
+      <div className="contact-container">
+        
+        {/* Header Section */}
+        <div className="contact-header">
+          <p className="eyebrow">Get in touch</p>
+          <h2 className="title">Reach out and Say Hi </h2>
         </div>
 
-        {/* Placement 5: Form */}
-        <form onSubmit={handleSubmit} className="form-container">
-          <p className="form-top-label">Or send a direct message</p>
-
-          <div className="field-row">
-            <div className="field-group">
-              <label className="field-label">Name</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your name"
-                required
-                className="input-control"
-              />
-            </div>
-            <div className="field-group">
-              <label className="field-label">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                required
-                className="input-control"
-              />
+        {/* Content Layout */}
+        <div className="contact-grid">
+          
+          {/* Direct Links Column inside Dotted Container */}
+          <div className="links-col">
+            <p className="section-label">Direct Channels</p>
+            <div className="dotted-card links-card">
+              {CONTACT_LINKS.map(({ href, icon, label, value, external }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  className="link-row"
+                >
+                  <span className="lnk-icon">{icon}</span>
+                  <div className="link-info">
+                    <span className="link-label">{label}</span>
+                    <span className="link-value">{value}</span>
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
 
-          <div className="field-group">
-            <label className="field-label">Message</label>
-            <textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="What are you working on?"
-              required
-              rows={4}
-              className="textarea-control"
-            />
-          </div>
+          {/* Form Column inside Dotted Container */}
+          <form onSubmit={handleSubmit} className="dotted-card form-container">
+            <p className="form-top-label">Or send a direct message</p>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="submit-btn"
-          >
-            {loading ? "Sending…" : "Send message →"}
-          </button>
+            <div className="field-row">
+              <div className="field-group">
+                <label className="field-label">Name</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
+                  required
+                  className="input-control"
+                />
+              </div>
 
-          {success && (
-            <div className="success-msg" role="status">
-              <span>✓</span>
-              Message sent — I&apos;ll be in touch shortly.
+              <div className="field-group">
+                <label className="field-label">Email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  required
+                  className="input-control"
+                />
+              </div>
             </div>
-          )}
-        </form>
+
+            <div className="field-group">
+              <label className="field-label">Message</label>
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="What are you working on?"
+                required
+                rows={4}
+                className="textarea-control"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="submit-btn"
+            >
+              {loading ? "Sending…" : "Send message →"}
+            </button>
+
+            {success && (
+              <div className="success-msg" role="status">
+                <span>✓</span> Message sent — I&apos;ll be in touch shortly.
+              </div>
+            )}
+          </form>
+
+        </div>
       </div>
 
       <style jsx>{`
-        /* --- Mobile First Base Styles --- */
+        /* Base Container */
         .contact-section {
-          background-color: #EEEAE3;
+          background-color: #F3EFE6;
+          color: #1C1C1A;
           padding: 64px 24px;
-          font-family: 'DM Sans', 'Plus Jakarta Sans', system-ui, sans-serif;
         }
 
+        .contact-container {
+          max-width: 1152px;
+          margin: 0 auto;
+        }
 
-        .contact-eyebrow {
-          font-size: 11px;
+        /* Header Styling */
+        .contact-header {
+          margin-bottom: 48px;
+        }
+
+        .eyebrow {
+          font-size: 12px;
           font-weight: 600;
-          letter-spacing: 0.13em;
+          letter-spacing: 0.05em;
           text-transform: uppercase;
-          color: #2C5F14;
-          margin: 0;
+          color: #2E4A32;
+          margin: 0 0 8px 0;
         }
 
-        .contact-heading {
-          font-size: clamp(32px, 8vw, 52px);
-          font-weight: 700;
-          color: #1A1916;
-          letter-spacing: -0.03em;
+        .title {
+          font-size: clamp(32px, 5vw, 48px);
+          font-weight: 600;
+          letter-spacing: -0.025em;
+          color: #1C1C1A;
+          margin: 0;
           line-height: 1.15;
-          margin: 0;
+          max-width: 640px;
         }
 
-        .contact-heading-em {
-          font-style: italic;
-          color: #2C5F14;
-          font-family: 'Playfair Display', Georgia, serif;
-          font-weight: 900;
+        .section-label {
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          color: rgba(0, 0, 0, 0.5);
+          margin: 0 0 8px 0;
         }
 
-        .contact-subhead {
-          font-size: 15px;
-          color: #7A7670;
-          line-height: 1.6;
-          font-weight: 400;
-          margin: 0;
+        /* Dotted Paper Card Base Class */
+        .dotted-card {
+          background-color: #FAF8F5;
+          /* Subtle dot grid pattern inside card */
+          background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1px);
+          background-size: 18px 18px;
+          border: 1px solid rgba(46, 74, 50, 0.2);
+          border-radius: 20px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
 
-        /* Links styling */
+        /* Layout Grid */
+        .contact-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 32px;
+          align-items: start;
+        }
+
+        /* Links Card */
         .links-col {
           display: flex;
           flex-direction: column;
+        }
+
+        .links-card {
+          padding: 12px;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
         }
 
         .link-row {
           display: flex;
           align-items: center;
           gap: 16px;
-          padding: 16px 0;
-          border-bottom: 1px solid #D2CEC5;
+          padding: 16px;
+          border-radius: 12px;
           text-decoration: none;
-          color: #3D3B37;
-          transition: color 0.15s ease;
+          background-color: rgba(250, 248, 245, 0.85); /* Slightly opaque to keep text readable */
+          backdrop-filter: blur(2px);
+          transition: background-color 0.2s ease;
         }
-        
-        .link-row:first-child {
-          border-top: 1px solid #D2CEC5;
+
+        .link-row:hover {
+          background-color: rgba(255, 255, 255, 0.95);
         }
 
         .lnk-icon {
-          width: 36px;
-          height: 36px;
-          border-radius: 8px;
-          background: #D2CEC5;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.05);
+          border: 1px solid rgba(0, 0, 0, 0.1);
           display: flex;
           align-items: center;
           justify-content: center;
           font-size: 14px;
-          font-weight: 600;
-          color: #7A7670;
+          font-weight: 500;
+          color: rgba(0, 0, 0, 0.6);
           flex-shrink: 0;
-          transition: background 0.15s ease, color 0.15s ease;
+          transition: all 0.2s ease;
         }
 
-        .link-row:hover {
-          color: #1A1916;
-        }
         .link-row:hover .lnk-icon {
-          background: #1A1916;
-          color: #EEEAE3;
+          background: #2E4A32;
+          color: #ffffff;
+          border-color: transparent;
         }
 
         .link-info {
           display: flex;
           flex-direction: column;
-          gap: 4px;
         }
 
         .link-label {
           font-size: 10px;
           font-weight: 600;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.05em;
           text-transform: uppercase;
-          color: #AEADA5;
+          color: rgba(0, 0, 0, 0.5);
         }
 
         .link-value {
           font-size: 14px;
           font-weight: 500;
+          color: #1C1C1A;
+          transition: color 0.2s ease;
         }
 
-        /* Form styling */
+        .link-row:hover .link-value {
+          color: #2E4A32;
+        }
+
+        /* Form Card */
         .form-container {
+          padding: 24px;
           display: flex;
           flex-direction: column;
+          gap: 20px;
         }
 
         .form-top-label {
           font-size: 10px;
           font-weight: 600;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: #AEADA5;
-          margin: 0 0 16px;
+          color: rgba(0, 0, 0, 0.45);
+          margin: 0;
         }
 
         .field-row {
           display: flex;
           flex-direction: column;
-          gap: 16px;
-          margin-bottom: 16px;
+          gap: 20px;
         }
 
         .field-group {
@@ -273,37 +324,38 @@ export function Contact() {
           width: 100%;
         }
 
-        .field-group + .field-group {
-          margin-top: 16px;
-        }
-
         .field-label {
-          font-size: 10px;
+          font-size: 11px;
           font-weight: 600;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.05em;
           text-transform: uppercase;
-          color: #AEADA5;
+          color: rgba(0, 0, 0, 0.5);
         }
 
         .input-control,
         .textarea-control {
           width: 100%;
-          background: #E4DFD5;
+          background-color: #E8E4DC;
           border: 1px solid transparent;
-          border-radius: 4px;
-          padding: 12px 14px;
-          font-size: 16px; /* 16px avoids iOS zoom */
+          border-radius: 12px;
+          padding: 14px 16px;
+          font-size: 14px;
           font-family: inherit;
-          color: #1A1916;
+          color: #1C1C1A;
           outline: none;
           box-sizing: border-box;
-          transition: border-color 0.15s ease, background 0.15s ease;
+          transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .input-control::placeholder,
+        .textarea-control::placeholder {
+          color: rgba(0, 0, 0, 0.4);
         }
 
         .input-control:focus,
         .textarea-control:focus {
-          border-color: #2C5F14;
-          background: #fff;
+          border-color: #2E4A32;
+          background-color: #FFFFFF;
         }
 
         .textarea-control {
@@ -311,125 +363,69 @@ export function Contact() {
           min-height: 120px;
         }
 
+        /* Submit Button */
         .submit-btn {
-          padding: 16px;
-          background: #1A1916;
-          color: #EEEAE3;
+          align-self: flex-end;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #1C1C1A;
+          color: #ffffff;
           border: none;
-          border-radius: 4px;
+          border-radius: 10px;
+          padding: 14px 28px;
           font-size: 12px;
-          font-weight: 600;
+          font-weight: 700;
           letter-spacing: 0.08em;
           text-transform: uppercase;
           cursor: pointer;
-          margin-top: 12px;
-          transition: background 0.2s ease;
+          transition: background-color 0.2s ease, transform 0.1s ease;
         }
 
         .submit-btn:hover:not(:disabled) {
-          background: #2C5F14;
+          background-color: #2E4A32;
+        }
+
+        .submit-btn:active:not(:disabled) {
+          transform: scale(0.97);
         }
 
         .submit-btn:disabled {
-          opacity: 0.7;
+          opacity: 0.5;
           cursor: not-allowed;
         }
 
         .success-msg {
-          margin-top: 12px;
-          padding: 12px;
-          background: #DCE9D4;
-          border-radius: 4px;
-          font-size: 13px;
-          color: #2C5F14;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background-color: rgba(46, 74, 50, 0.1);
+          color: #2E4A32;
+          padding: 16px;
+          border-radius: 12px;
+          font-size: 14px;
           font-weight: 500;
         }
 
-        .desktop-br {
-          display: none;
-        }
-
-        /* --- Desktop Grid Layout --- */
-        @media (min-width: 840px) {
-          .contact-section {
-            padding: 96px 40px;
-          }
-
-          /* Define the 12-column grid */
-          .contact-inner {
-            width: 100%;
-            max-width: 1080px; 
-            margin: 0 auto;
-            box-sizing: border-box;
-            
-            /* Mobile padding baseline */
-            padding: 64px 20px; 
-          }
-
-          /* Once the screen hits tablet/desktop sizes, apply the larger padding */
-          @media (min-width: 768px) {
-            .contact-inner {
-              padding: 150px 40px;
-            }
-          }
-
-          .desktop-br {
-            display: inline;
-          }
-
-          /* Placement Mapping */
-          .contact-eyebrow {
-            grid-column: 1 / 5;
-            grid-row: 1;
-          }
-
-          .contact-heading {
-            grid-column: 7 / 13;
-            grid-row: 1;
-            margin-top: -8px; /* Optically align with eyebrow text */
-          }
-
-          .contact-subhead {
-            grid-column: 1 / 5;
-            grid-row: 2;
-          }
-
-          .links-col {
-            grid-column: 7 / 10;
-            grid-row: 2;
-          }
-
+        /* Responsive Breakpoints */
+        @media (min-width: 640px) {
           .form-container {
-            grid-column: 10 / 13;
-            grid-row: 2;
+            padding: 36px;
           }
 
-          /* Desktop specific tweaks */
           .field-row {
             flex-direction: row;
           }
-          
-          .field-group + .field-group {
-            margin-top: 0;
+        }
+
+        @media (min-width: 1024px) {
+          .contact-section {
+            padding: 96px 24px;
           }
 
-          .input-control,
-          .textarea-control {
-            font-size: 14px; /* Can safely reduce size on desktop */
-          }
-
-          .submit-btn {
-            padding: 12px 24px;
-            width: auto;
-            align-self: flex-end;
-          }
-
-          .link-row {
-            padding: 12px 0;
-            gap: 12px;
-          }
-          .link-row:first-child {
-            border-top: none;
+          .contact-grid {
+            grid-template-columns: 5fr 7fr;
+            gap: 48px;
           }
         }
       `}</style>
