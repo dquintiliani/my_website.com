@@ -298,6 +298,15 @@
   transform: translateY(0);
 }
 
+/* Tactile dot-grid paper background, shared by about.tsx's cards + modal */
+.paper-texture {
+  background-color: #faf8f5;
+  background-image:
+    radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(240, 235, 225, 0.5) 100%);
+  background-size: 18px 18px, 100% 100%;
+}
+
 
 /* ============================================================
    NAVIGATION
