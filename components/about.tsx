@@ -29,7 +29,7 @@ export function About() {
       <div className="about-inner">
         <div className="about-head">
           <h2 className="about-headline">
-            Why I build products that turn messy data into decisions people can trust.
+           What I've Accomplished
           </h2>
           <a href="#contact" className="about-head-link">
             Get in touch <span aria-hidden="true">›</span>
