@@ -144,54 +144,7 @@ export function Navigation() {
         <nav role="navigation" aria-label="Primary" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
 
           {/* Section tracker pill */}
-          <div
-            aria-hidden="true"
-            style={{
-              display:      "flex",
-              alignItems:   "center",
-              gap:          "8px",
-              padding:      "5px 12px",
-              borderRadius: "20px",
-              border:       "1px solid #D2CEC5",
-              marginRight:  "8px",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              {SECTIONS.map((s, i) => (
-                <button
-                  key={s.id}
-                  onClick={() =>
-                    document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  title={s.label}
-                  style={{
-                    width:           "5px",
-                    height:          "5px",
-                    borderRadius:    "50%",
-                    border:          "none",
-                    padding:         0,
-                    cursor:          "pointer",
-                    backgroundColor: i === activeIndex ? "#2C5F14" : "#D2CEC5",
-                    transform:       i === activeIndex ? "scale(1.5)" : "scale(1)",
-                    transition:      "background 0.25s ease, transform 0.25s ease",
-                  }}
-                />
-              ))}
-            </div>
-            <span
-              style={{
-                fontSize:      "11px",
-                fontWeight:    500,
-                color:         "#7A7670",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                minWidth:      "60px",
-                transition:    "color 0.2s ease",
-              }}
-            >
-              {activeSectionLabel}
-            </span>
-          </div>
+
 
           {/* Divider */}
           <div
@@ -338,45 +291,12 @@ export function Navigation() {
               {label}
             </Link>
           ))}
-          <Link
-            href="#contact"
-            onClick={() => setMenuOpen(false)}
-            style={{
-              marginTop:      "12px",
-              display:        "block",
-              textAlign:      "center",
-              fontSize:       "13px",
-              fontWeight:     600,
-              letterSpacing:  "0.07em",
-              textTransform:  "uppercase",
-              color:          "#EEEAE3",
-              background:     "#1A1916",
-              textDecoration: "none",
-              padding:        "12px 18px",
-              borderRadius:   "4px",
-            }}
-          >
-            Contact
-          </Link>
+
         </div>
       )}
 
       {/* Scroll progress bar */}
-      {!hideProgressBar && (
-        <div
-          aria-hidden="true"
-          style={{
-            position:     "absolute",
-            bottom:       0,
-            left:         0,
-            height:       "2px",
-            width:        `${progress}%`,
-            background:   "#2C5F14",
-            borderRadius: "0 1px 1px 0",
-            transition:   "width 0.12s linear",
-          }}
-        />
-      )}
+
     </header>
   );
 }

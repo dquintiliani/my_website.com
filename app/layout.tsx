@@ -65,7 +65,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={nunitoSans.variable}>
       <body>
-        <Navigation />
         {children}
         <Analytics />
       </body>

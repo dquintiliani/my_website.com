@@ -1,133 +1,49 @@
 "use client";
 
+const CARDS = [
+  {
+    eyebrow: "Career",
+    title: "Data platform PM across three industries.",
+    body: "Ticketmaster (checkout & reporting), theScore (sports API platform), and Lululemon (merchandise systems) — five-plus years turning messy data into decisions people can trust.",
+  },
+  {
+    eyebrow: "Impact",
+    title: "56% faster, 75% cheaper.",
+    body: "Rebuilt theScore's sports API platform to cut latency by 56% and infrastructure cost by 75%, on systems serving 5M+ users.",
+  },
+  {
+    eyebrow: "Focus",
+    title: "One problem, many domains.",
+    body: "Ticketing, sports, and retail look different on the surface, but the work is the same: source-of-truth data and the systems that make it trustworthy.",
+  },
+  {
+    eyebrow: "Certifications",
+    title: "AWS Cloud & AI Practitioner.",
+    body: "Certified AWS Cloud Practitioner and AI Practitioner, grounding product decisions in how the platform actually works.",
+  },
+] as const;
+
 export function About() {
-  const companies = [
-    {
-      name: "Ticketmaster",
-      role: "Product Manager",
-      sub: "Checkout & Reporting",
-      signal: "Source of truth data",
-      last: false,
-    },
-    {
-      name: "TheScore",
-      role: "Technical PM",
-      sub: "Sports API Platform",
-      signal: "56% latency · 75% cost ↓",
-      last: false,
-    },
-    {
-      name: "Lululemon",
-      role: "Product Manager",
-      sub: "Merchandise Systems",
-      signal: "Global planning platform",
-      last: true,
-    },
-  ];
-
-  const stats = [
-    { value: "4+ yrs", label: "Data platform PM experience" },
-    { value: "5M+",    label: "Users on systems I've owned" },
-    { value: "3",      label: "Industries · One focus area" },
-  ];
-
-  const certifications = [
-    { badge: "AWS", name: "Certified Cloud Practitioner" },
-    { badge: "AWS", name: "Certified AI Practitioner" },
-  ];
-
-  const paragraphs = [
-    {
-      label: "The work",
-      text: "I've spent four-plus years making product decisions that live or die by what the data actually says — not what stakeholders assume it says.",
-    },
-    {
-      label: "The path",
-      text: "That work has taken me from ticketing infrastructure at Ticketmaster, where the margin for error on high-demand sale events is essentially zero, to analytics tooling at TheScore, where fan-facing product decisions move fast and instrumenting them correctly matters just as much as shipping them. Most recently at Lululemon, I worked inside the Merchandise Planning & Allocation systems that determine what shows up in stores — where a bad assumption upstream costs inventory, not just a sprint.",
-    },
-    {
-      label: "The focus",
-      text: "Across all three, the through-line was the same: someone needed to bridge the gap between what the data team built and what the product team could actually use. That's the problem I'm drawn to, and it's why I've drifted toward data platform and self-serve analytics as a focus area.",
-    },
-  ];
-
   return (
     <section id="about">
       <div className="about-inner">
-
-        {/* Headline */}
-        <div className="about-top">
-          <p className="section-label">About</p>
+        <div className="about-head">
           <h2 className="about-headline">
-            Four years. Three industries.{" "}
-            <em>One through-line.</em>
+            Why I build products that turn messy data into decisions people can trust.
           </h2>
+          <a href="#contact" className="about-head-link">
+            Get in touch <span aria-hidden="true">›</span>
+          </a>
         </div>
 
-        {/* Two-column body */}
-        <div className="about-body">
-
-          {/* Left: timeline + stats */}
-          <div className="about-left">
-            <p className="about-timeline-label">Career</p>
-
-            {companies.map((co) => (
-              <div key={co.name} className="about-company">
-                <div className="about-dot-col">
-                  <div className="about-dot" />
-                  {!co.last && <div className="about-dot-line" />}
-                </div>
-                <div className="about-co-info">
-                  <p className="about-co-name">{co.name}</p>
-                  <p className="about-co-role">
-                    {co.role}
-                    <br />
-                    {co.sub}
-                  </p>
-                  <span className="about-co-signal">{co.signal}</span>
-                </div>
-              </div>
-            ))}
-
-            <div className="about-stats">
-              {stats.map((st) => (
-                <div key={st.label} className="about-stat-row">
-                  <span className="about-stat-value">{st.value}</span>
-                  <span className="about-stat-desc">{st.label}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="about-certs">
-              <p className="about-timeline-label">Certifications</p>
-              <div className="about-cert-list">
-                {certifications.map((cert) => (
-                  <div key={cert.name} className="about-cert-item">
-                    <span className="about-cert-badge">{cert.badge}</span>
-                    <span className="about-cert-name">{cert.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right: labeled paragraphs */}
-          <div className="about-right">
-            {paragraphs.map((p) => (
-              <div key={p.label} className="about-para-block">
-                <p className="about-para-label">{p.label}</p>
-                <p className="about-para-text">{p.text}</p>
-              </div>
-            ))}
-
-            <div className="about-status">
-              <div className="about-status-dot" />
-              <span className="about-status-text">
-                Product Manager · Open to opportunities in Toronto
-              </span>
-            </div>
-          </div>
-
+        <div className="about-card-row">
+          {CARDS.map((card) => (
+            <article key={card.eyebrow} className="about-card">
+              <p className="about-card-eyebrow">{card.eyebrow}</p>
+              <h3 className="about-card-title">{card.title}</h3>
+              <p className="about-card-body">{card.body}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
