@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import type { Metadata } from "next";
 import { getAllTools, Tool } from "@/lib/tools";
 import { ScrollFadeIn } from "@/components/scroll-fade-in";
+import { CtaButton, CloseButton } from "@/components/ui/cta-button";
 
 export default function Projects() {
   const tools = getAllTools();
@@ -120,24 +121,6 @@ export default function Projects() {
             transform: scale(1) translateY(0);
           }
 
-          .close-btn {
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.2s ease;
-          }
-          .close-btn:hover {
-            transform: scale(1.06);
-            background-color: #e8e4dc;
-          }
-
-          .cta-btn {
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.2s ease, box-shadow 0.2s ease;
-          }
-          .cta-btn:hover {
-            transform: translateY(-1px);
-            background-color: #2c2b28;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-          }
         `}</style>
 
         {/* ── Tool Grid ── */}
@@ -253,30 +236,7 @@ export default function Projects() {
             }}
           >
             {/* Close Button */}
-            <button
-              onClick={handleClose}
-              aria-label="Close modal"
-              className="close-btn"
-              style={{
-                position: "absolute",
-                top: "20px",
-                right: "20px",
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                backgroundColor: "#f0ece1",
-                border: "none",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "0.85rem",
-                fontWeight: "bold",
-                color: "#42403b",
-              }}
-            >
-              ✕
-            </button>
+            <CloseButton onClick={handleClose} />
 
             <p
               style={{
@@ -341,26 +301,14 @@ export default function Projects() {
             </div>
 
             {/* Modal Action CTA */}
-            <a
+            <CtaButton
               href={selectedTool.href}
               {...(selectedTool.external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
-              className="cta-btn"
-              style={{
-                display: "inline-block",
-                backgroundColor: "#1a1a18",
-                color: "#ffffff",
-                padding: "12px 26px",
-                borderRadius: "980px",
-                fontWeight: 600,
-                fontSize: "0.92rem",
-                textDecoration: "none",
-                textAlign: "center",
-              }}
             >
               Open tool &rarr;
-            </a>
+            </CtaButton>
           </div>
         </div>
       )}

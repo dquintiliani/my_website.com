@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, CSSProperties } from "react";
+import { CtaButton, CloseButton } from "@/components/ui/cta-button";
 
 interface CardItem {
   id: string;
@@ -227,48 +228,6 @@ export function About() {
           transform: scale(0.95);
         }
 
-        .close-btn {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background-color: #eeeae3;
-          border: 1px solid rgba(0, 0, 0, 0.08);
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 0.9rem;
-          font-weight: bold;
-          color: #42403b;
-          transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .close-btn:hover {
-          transform: scale(1.08);
-          background-color: #e2ddd4;
-        }
-
-        .cta-btn {
-          display: inline-block;
-          background-color: #1a1a18;
-          color: #ffffff;
-          padding: 14px 28px;
-          border-radius: 980px;
-          font-weight: 600;
-          font-size: 0.92rem;
-          text-decoration: none;
-          text-align: center;
-          transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .cta-btn:hover {
-          transform: translateY(-1px);
-          background-color: #2c2b28;
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
       `}</style>
 
       <div style={{ maxWidth: "1152px", margin: "0 auto", padding: "0 24px" }}>
@@ -369,14 +328,7 @@ export function About() {
             style={modalCardStyle}
           >
             {/* Close Button */}
-            <button
-              onClick={handleClose}
-              aria-label="Close modal"
-              type="button"
-              className="close-btn"
-            >
-              ✕
-            </button>
+            <CloseButton onClick={handleClose} />
 
             {/* Eyebrow */}
             <p style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.05em", color: "rgba(0, 0, 0, 0.5)", textTransform: "uppercase", marginBottom: "12px", paddingRight: "40px" }}>
@@ -409,13 +361,9 @@ export function About() {
 
             {/* Action CTA Button */}
             {selectedCard.ctaText && (
-              <a
-                href={selectedCard.href || "#"}
-                onClick={handleClose}
-                className="cta-btn"
-              >
+              <CtaButton href={selectedCard.href || "#"} onClick={handleClose}>
                 {selectedCard.ctaText}
-              </a>
+              </CtaButton>
             )}
           </div>
         </div>
