@@ -3,6 +3,7 @@
 import { useState, useEffect, CSSProperties } from "react";
 import { getAllTools, Tool } from "@/lib/tools";
 import { ScrollFadeIn } from "@/components/scroll-fade-in";
+import { CtaButton, CloseButton } from "@/components/ui/cta-button";
 
 export default function Projects() {
   const tools = getAllTools();
@@ -142,48 +143,6 @@ export default function Projects() {
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
         }
 
-        .close-btn {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background-color: #eeeae3;
-          border: 1px solid rgba(0, 0, 0, 0.08);
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 0.9rem;
-          font-weight: bold;
-          color: #42403b;
-          transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .close-btn:hover {
-          transform: scale(1.08);
-          background-color: #e2ddd4;
-        }
-
-        .cta-btn {
-          display: inline-block;
-          background-color: #1a1a18;
-          color: #ffffff;
-          padding: 14px 28px;
-          border-radius: 980px;
-          font-weight: 600;
-          font-size: 0.92rem;
-          text-decoration: none;
-          text-align: center;
-          transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .cta-btn:hover {
-          transform: translateY(-1px);
-          background-color: #2c2b28;
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
       `}</style>
 
       <div className="blog-inner" style={{ maxWidth: "1100px", margin: "0 auto" }}>
@@ -248,13 +207,7 @@ export default function Projects() {
         <div onClick={handleClose} style={overlayStyle}>
           <div onClick={(e) => e.stopPropagation()} style={modalCardStyle}>
             {/* Close Button */}
-            <button
-              onClick={handleClose}
-              aria-label="Close modal"
-              className="close-btn"
-            >
-              ✕
-            </button>
+            <CloseButton onClick={handleClose} />
 
             <p style={{ fontSize: "0.82rem", fontWeight: 600, color: "#858076", textTransform: "uppercase", letterSpacing: "0.06em", margin: "0 0 8px 0" }}>
               {selectedTool.status === "live" ? "Live Tool" : "Experiment"}
@@ -276,13 +229,12 @@ export default function Projects() {
               ))}
             </div>
 
-            <a
+            <CtaButton
               href={selectedTool.href}
               {...(selectedTool.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="cta-btn"
             >
               Open tool &rarr;
-            </a>
+            </CtaButton>
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { CtaButton, CloseButton } from '@/components/ui/cta-button';
 
 // Types
 interface DocumentItem {
@@ -440,49 +441,6 @@ export const MessyDeskCanvas: React.FC = () => {
           transform: scale(1) translateY(0);
         }
 
-        .close-btn {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background-color: #eeeae3;
-          border: 1px solid rgba(0, 0, 0, 0.08);
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 0.9rem;
-          font-weight: bold;
-          color: #42403b;
-          transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .close-btn:hover {
-          transform: scale(1.08);
-          background-color: #e2ddd4;
-        }
-
-        .cta-btn {
-          display: inline-block;
-          background-color: #1a1a18;
-          color: #ffffff;
-          padding: 14px 28px;
-          border-radius: 980px;
-          font-weight: 600;
-          font-size: 0.92rem;
-          text-decoration: none;
-          text-align: center;
-          transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .cta-btn:hover {
-          transform: translateY(-1px);
-          background-color: #2c2b28;
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
         @media (max-width: 820px) {
           .scroll-track {
             height: auto;
@@ -621,13 +579,7 @@ export const MessyDeskCanvas: React.FC = () => {
             className="modal-card"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              className="close-btn"
-              onClick={() => setActiveDoc(null)}
-              aria-label="Close modal"
-            >
-              ✕
-            </button>
+            <CloseButton onClick={() => setActiveDoc(null)} />
 
             <p
               style={{
@@ -680,9 +632,7 @@ export const MessyDeskCanvas: React.FC = () => {
               ))}
             </div>
 
-            <a href={activeDoc.href} className="cta-btn">
-              {activeDoc.ctaText}
-            </a>
+            <CtaButton href={activeDoc.href}>{activeDoc.ctaText}</CtaButton>
           </div>
         )}
       </div>
