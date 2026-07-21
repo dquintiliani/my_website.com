@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { CtaButton, CloseButton } from "@/components/ui/cta-button";
+import { PaperTag } from "@/components/ui/paper-tag";
 import { cn } from "@/lib/utils";
 
 interface CardItem {
@@ -240,12 +241,7 @@ export function About() {
             {selectedCard.tags && selectedCard.tags.length > 0 && (
               <div className="mb-8 flex flex-wrap gap-2">
                 {selectedCard.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-xl border border-black/5 bg-[rgba(238,234,227,0.85)] px-3 py-1.5 text-xs font-semibold text-[#3a3834] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[2px]"
-                  >
-                    {tag}
-                  </span>
+                  <PaperTag key={tag}>{tag}</PaperTag>
                 ))}
               </div>
             )}
