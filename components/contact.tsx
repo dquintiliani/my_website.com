@@ -357,7 +357,20 @@ export function Contact() {
 
           /* Define the 12-column grid */
           .contact-inner {
+            width: 100%;
+            max-width: 1080px; 
+            margin: 0 auto;
+            box-sizing: border-box;
+            
+            /* Mobile padding baseline */
+            padding: 64px 20px; 
+          }
+
+          /* Once the screen hits tablet/desktop sizes, apply the larger padding */
+          @media (min-width: 768px) {
+            .contact-inner {
               padding: 150px 40px;
+            }
           }
 
           .desktop-br {
