@@ -229,6 +229,13 @@
 @keyframes cardReveal {
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(74, 155, 47, 0.2); }
+  50%      { box-shadow: 0 0 0 7px rgba(74, 155, 47, 0.08); }
+}
+.pulse-dot {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
 
 
 /* ============================================================
@@ -992,42 +999,7 @@ nav.site-nav {
 /* ============================================================
    FOOTER
    ============================================================ */
-footer.site-footer {
-  border-top: 1px solid var(--warm-200);
-  padding: 32px 24px;
-  background: var(--off-white-2);
-}
-.footer-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.footer-logo {
-  font-family: var(--font-head);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-.footer-logo span { color: var(--mustard); }
-.footer-note {
-  font-family: var(--font-head);
-  font-size: 0.7rem;
-  color: var(--warm-400);
-  letter-spacing: 0.04em;
-}
-.footer-links { display: flex; gap: 24px; }
-.footer-links a {
-  font-family: var(--font-head);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--warm-400);
-  transition: color var(--transition);
-}
-.footer-links a:hover { color: var(--green); }
+/* Footer styling lives entirely in components/footer.tsx (Tailwind classes). */
 
 #blog {
   background: var(--warm-100);
@@ -1420,7 +1392,6 @@ footer.site-footer {
 
 
   .skills-grid { grid-template-columns: 1fr 1fr; }
-  .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
   .writing-item { grid-template-columns: 1fr auto; gap: 8px; }
   .writing-date { grid-column: 1; grid-row: 1; }
   .writing-content { grid-column: 1 / -1; grid-row: 2; }
