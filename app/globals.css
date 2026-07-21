@@ -1110,15 +1110,7 @@ nav.site-nav {
 /* ============================================================
    CONTACT
    ============================================================ */
-#contact { padding: var(--section-pad); }
-.contact-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
-}
+
 .contact-heading {
   font-family: var(--font-head);
   font-size: clamp(2rem, 4vw, 3.2rem);
@@ -1589,7 +1581,6 @@ footer.site-footer {
   }
   .projects-grid { grid-template-columns: repeat(2, 1fr); }
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
-  .contact-inner { grid-template-columns: 1fr; gap: 56px; }
   .writing-item { grid-template-columns: 80px 1fr auto; gap: 16px; }
 }
 
@@ -1617,10 +1608,7 @@ footer.site-footer {
     display: none !important;
 }
 
-/* Base Mobile Layout (Stacked) */
-.contact-inner {
-  display: none !important;
-}
+
 
 .contact-heading {
   font-family: var(--font-head);
@@ -1663,23 +1651,6 @@ footer.site-footer {
 
 .contact-form-group {
   margin-bottom: 20px;
-}
-
-.contact-form-group input,
-.contact-form-group textarea {
-  width: 100%;
-  box-sizing: border-box;
-  font-family: var(--font-body);
-  font-size: 16px; /* Prevents iOS Safari auto-zoom on focus */
-  color: var(--black);
-  background: var(--warm-100);
-  border: 1px solid var(--warm-200);
-  border-radius: 2px;
-  padding: 14px 16px;
-  outline: none;
-  transition: border-color var(--transition);
-  resize: vertical;
-  -webkit-appearance: none;
 }
 
 .contact-form-group input:focus,
@@ -1732,14 +1703,7 @@ footer.site-footer {
 }
 
 /* Base Mobile Layout (Stacked) */
-.contact-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr; /* Single column on mobile */
-  gap: 40px;
-  align-items: start;
-}
+
 
 .contact-heading {
   font-family: var(--font-head);
@@ -1907,12 +1871,7 @@ footer.site-footer {
 
 
 /* Desktop Styles (768px and up) */
-@media (min-width: 768px) {
-  .contact-inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-  }
-}
+
 @media (min-width: 768px) {
   .hero-inner {
     flex-direction: row;
