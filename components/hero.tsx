@@ -14,12 +14,11 @@ export function Hero() {
 
           <div className="hero-eyebrow">
             <div className="hero-eyebrow-line" />
-            <span className="hero-eyebrow-text">Data Platform PM</span>
           </div>
 
           <h1 className="hero-name">
             Dominic<br />
-            Quintili<em>an</em>
+            <em>Quintilian</em>
           </h1>
 
           <div className="hero-statement">
