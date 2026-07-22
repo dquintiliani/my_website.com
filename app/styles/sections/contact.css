@@ -278,6 +278,9 @@
   padding: var(--sp-16);
 }
 @media (prefers-reduced-motion: no-preference) {
+  .contact-card.is-sealed {
+    animation: cardFold 0.7s ease-out forwards;
+  }
   .contact-envelope-overlay {
     opacity: 0;
     animation: envelopeSealIn 0.7s ease-out forwards;
@@ -293,6 +296,10 @@
   }
 }
 
+@keyframes cardFold {
+  from { transform: scale(1); }
+  to   { transform: scale(0.25); }
+}
 @keyframes envelopeSealIn {
   from { opacity: 0; transform: scale(0.96); }
   to   { opacity: 1; transform: scale(1); }
@@ -336,9 +343,9 @@
   }
 }
 @keyframes cardFlyAway {
-  0%   { transform: translateX(0) rotate(0deg) scale(1); opacity: 1; }
+  0%   { transform: translateX(0) rotate(0deg) scale(0.25); opacity: 1; }
   70%  { opacity: 1; }
-  100% { transform: translateX(130vw) rotate(6deg) scale(0.85); opacity: 0; }
+  100% { transform: translateX(130vw) rotate(10deg) scale(0.18); opacity: 0; }
 }
 
 /* Parks the card once it has flown away — without this, removing
