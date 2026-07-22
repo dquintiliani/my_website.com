@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 const HEATMAP_ROWS = 5;
 const HEATMAP_COLS = 8;
 
-// Static, hand-tuned intensity levels (1-5) purely for a pleasant decorative pattern.
+// Static, hand-tuned intensity levels (1-6) purely for a pleasant decorative pattern.
 const HEATMAP_INTENSITIES = [
   [1, 2, 3, 4, 5, 4, 3, 2],
-  [2, 3, 4, 5, 5, 4, 3, 2],
-  [1, 2, 3, 4, 4, 3, 2, 1],
-  [2, 3, 3, 4, 5, 4, 2, 1],
+  [2, 3, 4, 5, 6, 5, 3, 2],
+  [1, 2, 4, 5, 6, 4, 2, 1],
+  [2, 3, 4, 6, 5, 4, 2, 1],
   [1, 1, 2, 3, 4, 3, 2, 1],
 ];
 
@@ -55,6 +55,7 @@ function HeroHeatmap() {
   const gridHeight = 220;
   const cellWidth = gridWidth / HEATMAP_COLS;
   const cellHeight = gridHeight / HEATMAP_ROWS;
+  const tickLength = 6;
 
   return (
     <svg
@@ -62,6 +63,49 @@ function HeroHeatmap() {
       className="hero-illustration"
       aria-label="Simple heatmap visualization"
     >
+      <line
+        x1={gridX}
+        y1={gridY + gridHeight}
+        x2={gridX + gridWidth}
+        y2={gridY + gridHeight}
+        className="heatmap-axis"
+      />
+      <line
+        x1={gridX}
+        y1={gridY}
+        x2={gridX}
+        y2={gridY + gridHeight}
+        className="heatmap-axis"
+      />
+
+      {Array.from({ length: HEATMAP_COLS + 1 }, (_, i) => {
+        const x = gridX + i * cellWidth;
+        return (
+          <line
+            key={`x-tick-${i}`}
+            x1={x}
+            y1={gridY + gridHeight}
+            x2={x}
+            y2={gridY + gridHeight + tickLength}
+            className="heatmap-tick"
+          />
+        );
+      })}
+
+      {Array.from({ length: HEATMAP_ROWS + 1 }, (_, i) => {
+        const y = gridY + i * cellHeight;
+        return (
+          <line
+            key={`y-tick-${i}`}
+            x1={gridX - tickLength}
+            y1={y}
+            x2={gridX}
+            y2={y}
+            className="heatmap-tick"
+          />
+        );
+      })}
+
       {HEATMAP_INTENSITIES.flatMap((row, rowIdx) =>
         row.map((level, colIdx) => {
           const index = rowIdx * HEATMAP_COLS + colIdx;
