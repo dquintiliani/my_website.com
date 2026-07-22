@@ -73,6 +73,10 @@ const lerp = (start: number, end: number, progress: number): number => {
   return start + (end - start) * progress;
 };
 
+// Scroll distance (px) over which the scatter → organized animation plays
+// out while the desk is sticky-pinned.
+const ANIMATION_SCROLL_DISTANCE = 480;
+
 export const MessyDeskCanvas: React.FC = () => {
   const [activeDoc, setActiveDoc] = useState<DocumentItem | null>(null);
   const [progress, setProgress] = useState<number>(0);
@@ -94,14 +98,15 @@ export const MessyDeskCanvas: React.FC = () => {
         return;
       }
 
-      const height = window.innerHeight;
-      const animationStart = height * 0.95;
-      const animationEnd = height * 0.45;
-      const animationRange = animationStart - animationEnd;
       const deskHeight = deskWorkspaceRef.current?.offsetHeight || 520;
       const stickyTop = 100;
-      const minTrackHeight = Math.max(height, deskHeight + animationRange + stickyTop);
-      setScrollTrackHeight(`${minTrackHeight}px`);
+      // Track height = room for the desk to sit sticky-pinned (deskHeight +
+      // stickyTop) plus the scroll distance dedicated to the scatter →
+      // organized animation. Anything beyond that just leaves the desk
+      // pinned in place doing nothing before the next section, since
+      // getBoundingClientRect() on the sticky element itself freezes the
+      // instant it locks to `top: 100` — see handleScroll below.
+      setScrollTrackHeight(`${deskHeight + stickyTop + ANIMATION_SCROLL_DISTANCE}px`);
     };
 
     handleResize();
@@ -112,14 +117,15 @@ export const MessyDeskCanvas: React.FC = () => {
   const handleScroll = useCallback(() => {
     if (isMobile || !scrollTrackRef.current) return;
 
-    const deskRect = deskWorkspaceRef.current?.getBoundingClientRect();
-    if (!deskRect) return;
+    // Read the track's own rect, not the sticky desk's — the sticky
+    // element's rect stops changing the moment it locks to `top: 100`,
+    // while the track keeps scrolling underneath it for the whole
+    // pinned duration, so it's the only element whose position tracks
+    // scroll progress continuously.
+    const trackRect = scrollTrackRef.current.getBoundingClientRect();
+    const stickyTop = 100;
 
-    const animationStart = window.innerHeight * 0.95;
-    const animationEnd = window.innerHeight * 0.45;
-    const animationRange = animationStart - animationEnd;
-
-    let rawProgress = (animationStart - deskRect.top) / animationRange;
+    let rawProgress = (stickyTop - trackRect.top) / ANIMATION_SCROLL_DISTANCE;
     rawProgress = Math.max(0, Math.min(1, rawProgress));
 
     const eased =
@@ -174,7 +180,7 @@ export const MessyDeskCanvas: React.FC = () => {
   }, [activeDoc]);
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center overflow-x-hidden bg-[#f7f4ed] px-5 py-12 text-[var(--black)]">
+    <div className="relative flex min-h-screen flex-col items-center overflow-x-clip bg-[#f7f4ed] px-5 py-12 text-[var(--black)]">
       <div className="mx-auto w-full max-w-[1100px]">
         {/* Header */}
         <header className="relative mb-8 text-center">
