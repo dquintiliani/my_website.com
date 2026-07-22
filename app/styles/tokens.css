@@ -55,6 +55,15 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
 
+  /* Heatmap sequential scale — single hue (--green) ramped by intensity,
+     derived rather than hard-coded so it stays in sync with the brand color. */
+  --heat-1: color-mix(in srgb, var(--green) 10%, var(--white));
+  --heat-2: color-mix(in srgb, var(--green) 26%, var(--white));
+  --heat-3: color-mix(in srgb, var(--green) 44%, var(--white));
+  --heat-4: color-mix(in srgb, var(--green) 64%, var(--white));
+  --heat-5: color-mix(in srgb, var(--green) 84%, var(--white));
+  --heat-6: var(--green);
+
   /* Sidebar */
   --sidebar: var(--warm-100);
   --sidebar-foreground: var(--black);

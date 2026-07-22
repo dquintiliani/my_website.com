@@ -197,20 +197,31 @@
     }
 
 .hero-illustration .heatmap-cell {
-  rx: var(--radius);
+  rx: 0;
   stroke: var(--white);
-  stroke-width: 2;
+  stroke-width: 0.75;
   opacity: 0;
   transform-origin: center;
-  transform: scale(0.9);
+  transform: scale(0.94);
   animation: heatmapIn 0.35s ease-out forwards;
 }
 
-.hero-illustration .heat-1 { fill: var(--warm-200); }
-.hero-illustration .heat-2 { fill: var(--mustard-muted); }
-.hero-illustration .heat-3 { fill: var(--mustard); }
-.hero-illustration .heat-4 { fill: var(--chart-5); }
-.hero-illustration .heat-5 { fill: var(--green); }
+.hero-illustration .heat-1 { fill: var(--heat-1); }
+.hero-illustration .heat-2 { fill: var(--heat-2); }
+.hero-illustration .heat-3 { fill: var(--heat-3); }
+.hero-illustration .heat-4 { fill: var(--heat-4); }
+.hero-illustration .heat-5 { fill: var(--heat-5); }
+.hero-illustration .heat-6 { fill: var(--heat-6); }
+
+.hero-illustration .heatmap-axis {
+  stroke: rgba(26, 26, 26, 0.1);
+  stroke-width: 1;
+}
+
+.hero-illustration .heatmap-tick {
+  stroke: rgba(26, 26, 26, 0.1);
+  stroke-width: 1;
+}
 
 @keyframes heatmapIn {
   0% {
