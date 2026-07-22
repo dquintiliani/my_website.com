@@ -13,7 +13,7 @@ export default function Page() {
       <Hero />
       <About />
       <Projects />
-      {/* <Folder />  */}
+      <Folder />
       <Contact />
       <Footer />
     </>
