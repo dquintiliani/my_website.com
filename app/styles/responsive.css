@@ -1,0 +1,123 @@
+/* ============================================================
+   RESPONSIVE
+
+   Canonical breakpoint scale for this site — use these values for any
+   new @media rule rather than introducing a new one-off number:
+     400px  extra small
+     640px  mobile
+     768px  large mobile / small tablet
+     900px  tablet
+   (Plain CSS @media conditions can't reference a custom-property
+   token the way Tailwind's @theme breakpoints can, so this list is
+   the source of truth instead.)
+   ============================================================ */
+
+/* ── Tablet: 900px ── */
+@media (max-width: 900px) {
+  :root {
+    --section-pad: 72px 24px;
+  }
+
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .writing-item { grid-template-columns: 80px 1fr auto; gap: 16px; }
+}
+
+/* ── Large mobile / small tablet: 768px ── */
+@media (max-width: 768px) {
+  .hero-inner {
+    text-align: center;
+    padding: 0 24px;
+  }
+  .about-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
+/* ── Mobile: 640px ── */
+@media (max-width: 640px) {
+  :root { --section-pad: 56px 20px; }
+
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .writing-item { grid-template-columns: 1fr auto; gap: 8px; }
+  .writing-date { grid-column: 1; grid-row: 1; }
+  .writing-content { grid-column: 1 / -1; grid-row: 2; }
+  .writing-arrow { grid-column: 2; grid-row: 1; }
+  .image-fade-wrapper  {
+    -webkit-mask-image: radial-gradient(ellipse at center, black 70%, transparent 99%);
+  mask-image: radial-gradient(ellipse at center, black 70%, transparent 99%);
+  }
+  .about-inner,
+  .blog-inner,
+  .article-page { padding-top: var(--sp-10); padding-bottom: var(--sp-10); padding-left: 1rem; padding-right: 1rem; }
+  .blog-featured { grid-template-columns: 1fr; gap: 40px; }
+  .blog-feat-number    { font-size: 5rem; }
+  .article-footer { flex-direction: column; align-items: flex-start; gap: var(--sp-3); }
+  .article-cta { opacity: 1; transform: translateX(0); }
+  .prose table { display: block; overflow-x: auto; white-space: nowrap; }
+
+  .hero-image-container {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 24px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .hero-overlay-badge {
+    display: block;
+    right: 0px;
+    bottom: -40px;
+    width: min(120px, 32%);
+    max-width: 140px;
+    aspect-ratio: 1 / 1;
+    padding: 10px;
+    transform: translateY(0);
+  }
+
+  .hero-inner {
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .hero {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-image-frame {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #hero {
+    padding: 64px 0;
+    min-height: 100svh;
+  }
+}
+
+/* ── Extra small: 400px ── */
+@media (max-width: 400px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Desktop: 768px and up ── */
+@media (min-width: 768px) {
+  .hero-inner {
+    flex-direction: row;
+    gap: 4rem;
+  }
+
+  .hero {
+    flex: 1;
+  }
+
+  .hero-image-container {
+    flex: 1;
+  }
+}

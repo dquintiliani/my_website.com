@@ -2,6 +2,10 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CtaButton, CloseButton } from '@/components/ui/cta-button';
+import { PaperTag } from '@/components/ui/paper-tag';
+import { paperModalCardVariants } from '@/components/ui/paper-card';
+import { cn } from '@/lib/utils';
+import { BREAKPOINTS } from '@/lib/breakpoints';
 
 // Types
 interface DocumentItem {
@@ -83,7 +87,7 @@ export const MessyDeskCanvas: React.FC = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth <= 820;
+      const mobile = window.innerWidth <= BREAKPOINTS.tablet;
       setIsMobile(mobile);
       if (mobile) {
         setScrollTrackHeight('auto');
@@ -170,315 +174,30 @@ export const MessyDeskCanvas: React.FC = () => {
   }, [activeDoc]);
 
   return (
-    <div className="desk-app-root">
+    <div className="relative flex min-h-screen flex-col items-center overflow-x-hidden bg-[#F3EFE6] px-5 py-12 font-[Inter,-apple-system,BlinkMacSystemFont,sans-serif] text-[#1C1C1A]">
+      {/* Google Fonts import: no Tailwind/next-font equivalent for a one-off component font */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,600&display=swap');
-
-        .desk-app-root {
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          background-color: #F3EFE6;
-          color: #1C1C1A;
-          min-height: 100vh;
-          padding: 48px 20px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          position: relative;
-          overflow-x: hidden;
-        }
-
-        .app-container {
-          max-width: 1100px;
-          width: 100%;
-          margin: 0 auto;
-        }
-
-        .header-section {
-          text-align: center;
-          margin-bottom: 32px;
-        }
-
-        .section-eyebrow {
-          font-size: 0.85rem;
-          font-weight: 600;
-          color: #2E4A32;
-          text-transform: uppercase;
-          letter-spacing: 0.06em;
-          margin-bottom: 8px;
-        }
-
-        .section-title {
-          font-size: 2.5rem;
-          font-weight: 700;
-          letter-spacing: -0.02em;
-          color: #1C1C1A;
-          margin-bottom: 12px;
-        }
-
-        .section-title em {
-          font-family: 'Playfair Display', serif;
-          font-style: italic;
-        }
-
-        .section-desc {
-          font-size: 1rem;
-          color: #66625b;
-          line-height: 1.55;
-          max-width: 580px;
-          margin: 0 auto 24px auto;
-        }
-
-        .scroll-indicator {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          padding: 8px 18px;
-          background: rgba(250, 248, 245, 0.85);
-          border: 1px solid rgba(180, 170, 150, 0.5);
-          border-radius: 980px;
-          font-size: 0.82rem;
-          font-weight: 600;
-          color: #2E4A32;
-          backdrop-filter: blur(6px);
-          box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-          margin-bottom: 24px;
-        }
-
-        .progress-bar-bg {
-          width: 60px;
-          height: 6px;
-          background: rgba(0,0,0,0.08);
-          border-radius: 10px;
-          overflow: hidden;
-        }
-
-        .progress-bar-fill {
-          height: 100%;
-          background: #2E4A32;
-          border-radius: 10px;
-          transition: width 0.05s linear;
-        }
-
-        .scroll-track {
-          position: relative;
-          height: auto;
-          width: 100%;
-        }
-
-        .sticky-desk-wrapper {
-          position: sticky;
-          top: 100px;
-          width: 100%;
-        }
-
-        .header-section {
-          position: relative;
-        }
-
-        .desk-workspace {
-          position: relative;
-          width: 100%;
-          min-height: 520px;
-          background-color: rgba(240, 235, 225, 0.45);
-          background-image:
-            radial-gradient(circle at 1px 1px, rgba(102, 92, 79, 0.18) 0.75px, transparent 0.75px),
-            linear-gradient(rgba(102, 92, 79, 0.08) 1px, transparent 1px);
-          background-size: 24px 24px, 24px 24px;
-          background-position: 0 0, 0 0;
-          border: 1px dashed rgba(180, 170, 150, 0.4);
-          border-radius: 24px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 40px 20px;
-          transition: background-color 0.4s ease, border-color 0.4s ease;
-        }
-
-        .coffee-stain {
-          position: absolute;
-          top: 30px;
-          right: 60px;
-          width: 110px;
-          height: 110px;
-          border-radius: 50%;
-          border: 6px solid rgba(140, 95, 55, 0.07);
-          box-shadow: inset 0 0 12px rgba(140, 95, 55, 0.05);
-          pointer-events: none;
-          transition: opacity 0.3s ease;
-        }
-
- 
-
-
-        .pile-container {
-          position: relative;
-          width: 100%;
-          max-width: 960px;
-          height: 420px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .paper-card {
-          position: absolute;
-          width: 310px;
-          padding: 36px 24px 28px 24px;
-          cursor: pointer;
-          text-align: left;
-          background-color: #F6F4EF;
-          background-image: linear-gradient(180deg, #FAFAF7 0%, #EFECE4 100%);
-          border: 1px solid #D1CAC0;
-          border-radius: 0 10px 12px 12px;
-          box-shadow:
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
-            0 4px 12px rgba(40, 30, 20, 0.06),
-            0 12px 24px -6px rgba(40, 30, 20, 0.1);
-          will-change: transform;
-          transform: translate(var(--card-translate-x, 0), var(--card-translate-y, 0)) rotate(var(--card-rotate, 0deg));
-          transition: transform 0.25s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        /* FIXED: Restored Folder Tab styling using staggered pseudo-elements */
-        .paper-card::before {
-          content: '';
-          position: absolute;
-          top: -22px;
-          left: 0;
-          width: 120px;
-          height: 23px;
-          background-color: #FAFAF7;
-          background-image: linear-gradient(180deg, #FFFFFF 0%, #FAFAF7 100%);
-          border: 1px solid #D1CAC0;
-          border-bottom: none;
-          border-radius: 8px 12px 0 0;
-          z-index: -1;
-          box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
-        }
-
-        .paper-card:hover {
-          border-color: rgba(2, 4, 2, 0.6);
-          box-shadow:
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
-            0 16px 40px rgba(40, 30, 20, 0.14);
-        }
-
-        .tape-accent {
-          position: absolute;
-          top: 12px;
-          left: 28px;
-          width: 44px;
-          height: 12px;
-          opacity: 0.8;
-          border-radius: 2px;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .doc-tag {
-          background-color: rgba(238, 234, 227, 0.85);
-          backdrop-filter: blur(2px);
-          color: #3a3834;
-          font-size: 0.75rem;
-          padding: 5px 12px;
-          border-radius: 12px;
-          font-weight: 600;
-          border: 1px solid rgba(0, 0, 0, 0.05);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
-        }
-
-        .modal-overlay {
-          position: fixed;
-          inset: 0;
-          z-index: 9999;
-          background-color: rgba(30, 25, 20, 0.45);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-          opacity: 0;
-          pointer-events: none;
-          backdrop-filter: blur(0px);
-          -webkit-backdrop-filter: blur(0px);
-          transition: opacity 0.35s ease, backdrop-filter 0.35s ease;
-        }
-
-        .modal-overlay.visible {
-          opacity: 1;
-          pointer-events: auto;
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-        }
-
-        .modal-card {
-          position: relative;
-          z-index: 10000;
-          width: 100%;
-          max-width: 560px;
-          padding: 40px;
-          border-radius: 28px;
-          box-sizing: border-box;
-
-          background-color: #faf8f5;
-          background-image: 
-            radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1px),
-            linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(240, 235, 225, 0.5) 100%);
-          background-size: 18px 18px, 100% 100%;
-
-          border: 1px solid rgba(180, 170, 150, 0.5);
-          box-shadow:
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
-            0 24px 60px rgba(0, 0, 0, 0.18),
-            0 4px 16px rgba(0, 0, 0, 0.08);
-
-          opacity: 0;
-          transform: scale(0.95) translateY(12px);
-          transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .modal-overlay.visible .modal-card {
-          opacity: 1;
-          transform: scale(1) translateY(0);
-        }
-
-        @media (max-width: 820px) {
-          .scroll-track {
-            height: auto;
-          }
-        
-          .pile-container {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 24px !important;
-            height: auto !important;
-          }
-          .paper-card {
-            position: relative !important;
-            transform: none !important;
-            top: auto !important;
-            left: auto !important;
-            width: 100% !important;
-          }
-
-        }
       `}</style>
 
-      <div className="app-container">
+      <div className="mx-auto w-full max-w-[1100px]">
         {/* Header */}
-        <header className="header-section">
-          <p className="section-eyebrow">Data System Architecture</p>
-          <h1 className="section-title">
-            Bringing Order to <em>Chaotic</em> Systems.
+        <header className="relative mb-8 text-center">
+          <p className="mb-2 text-[0.85rem] font-semibold uppercase tracking-[0.06em] text-[#2E4A32]">
+            Data System Architecture
+          </p>
+          <h1 className="mb-3 text-[2.5rem] font-bold tracking-[-0.02em] text-[#1C1C1A]">
+            Bringing Order to <em className="font-['Playfair_Display',serif] italic">Chaotic</em> Systems.
           </h1>
 
-          <p className="section-desc">
+          <p className="mx-auto mb-6 max-w-[580px] text-base leading-[1.55] text-[#66625b]">
             Scroll down to transform the chaotic desk stack into an organized system, then click any folder to inspect its architecture.
           </p>
 
-          <div className="scroll-indicator">
-            <div className="progress-bar-bg">
+          <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[rgba(180,170,150,0.5)] bg-[rgba(250,248,245,0.85)] px-[18px] py-2 text-[0.82rem] font-semibold text-[#2E4A32] shadow-[0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-[6px]">
+            <div className="h-1.5 w-[60px] overflow-hidden rounded-[10px] bg-black/[0.08]">
               <div
-                className="progress-bar-fill"
+                className="h-full rounded-[10px] bg-[#2E4A32] transition-[width] duration-[50ms] ease-linear"
                 style={{ width: `${Math.round(progress * 100)}%` }}
               />
             </div>
@@ -486,78 +205,45 @@ export const MessyDeskCanvas: React.FC = () => {
         </header>
 
         {/* Scroll Track */}
-        <div ref={scrollTrackRef}  style={{ height: scrollTrackHeight }}>
-          <div className="sticky-desk-wrapper">
-            <div ref={deskWorkspaceRef} className="desk-workspace">
+        <div ref={scrollTrackRef} style={{ height: scrollTrackHeight }}>
+          <div className="sticky top-[100px] w-full">
+            <div
+              ref={deskWorkspaceRef}
+              className="relative flex min-h-[520px] w-full items-center justify-center rounded-3xl border border-dashed border-[rgba(180,170,150,0.4)] bg-[rgba(240,235,225,0.45)] bg-[image:radial-gradient(circle_at_1px_1px,rgba(102,92,79,0.18)_0.75px,transparent_0.75px),linear-gradient(rgba(102,92,79,0.08)_1px,transparent_1px)] bg-[length:24px_24px,24px_24px] px-5 py-10 transition-[background-color,border-color] duration-[400ms] ease-in-out"
+            >
               {/* Props */}
-              <div ref={coffeeStainRef} className="coffee-stain" />
+              <div
+                ref={coffeeStainRef}
+                className="pointer-events-none absolute right-[60px] top-[30px] h-[110px] w-[110px] rounded-full border-[6px] border-[rgba(140,95,55,0.07)] shadow-[inset_0_0_12px_rgba(140,95,55,0.05)] transition-opacity duration-300 ease-in-out"
+              />
 
               {/* Folder Cards Pile */}
-              <div className="pile-container">
+              <div className="relative flex h-[420px] w-full max-w-[960px] items-center justify-center max-[900px]:h-auto max-[900px]:flex-col max-[900px]:gap-6">
                 {DOCUMENTS.map((doc, idx) => (
                   <div
                     key={doc.id}
                     ref={(el) => {
                       cardRefs.current[idx] = el;
                     }}
-                    className="paper-card"
                     onClick={() => setActiveDoc(doc)}
+                    className="absolute w-[310px] cursor-pointer rounded-[0_10px_12px_12px] border border-[#D1CAC0] bg-[#F6F4EF] bg-[image:linear-gradient(180deg,#FAFAF7_0%,#EFECE4_100%)] px-6 pb-7 pt-9 text-left shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_4px_12px_rgba(40,30,20,0.06),0_12px_24px_-6px_rgba(40,30,20,0.1)] [will-change:transform] before:absolute before:-top-[22px] before:left-0 before:z-[-1] before:h-[23px] before:w-[120px] before:rounded-t-lg before:border before:border-b-0 before:border-[#D1CAC0] before:bg-[#FAFAF7] before:bg-[image:linear-gradient(180deg,#FFFFFF_0%,#FAFAF7_100%)] before:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] before:content-[''] hover:border-[rgba(2,4,2,0.6)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_16px_40px_rgba(40,30,20,0.14)] max-[900px]:static max-[900px]:w-full max-[900px]:!transform-none [transition:transform_0.25s_ease,border-color_0.3s_ease,box-shadow_0.3s_ease]"
                   >
                     {doc.badgeColor && (
                       <div
-                        className="tape-accent"
+                        className="absolute left-7 top-3 h-3 w-11 rounded-sm opacity-80 shadow-[0_1px_3px_rgba(0,0,0,0.1)]"
                         style={{ backgroundColor: doc.badgeColor }}
                       />
                     )}
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        marginBottom: '12px',
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontSize: '0.75rem',
-                          fontWeight: 600,
-                          letterSpacing: '0.05em',
-                          color: '#858076',
-                          textTransform: 'uppercase',
-                          margin: 0,
-                        }}
-                      >
+                    <div className="mb-3 flex items-center justify-between">
+                      <p className="m-0 text-xs font-semibold uppercase tracking-[0.05em] text-[#858076]">
                         {doc.eyebrow}
                       </p>
-                      <span
-                        style={{
-                          fontSize: '0.875rem',
-                          fontWeight: 300,
-                          color: 'rgba(0, 0, 0, 0.4)',
-                        }}
-                      >
-                        ↗
-                      </span>
+                      <span className="text-sm font-light text-black/40">↗</span>
                     </div>
-                    <h3
-                      style={{
-                        fontSize: '1.15rem',
-                        fontWeight: 700,
-                        lineHeight: 1.3,
-                        marginBottom: '10px',
-                        color: '#1C1C1A',
-                      }}
-                    >
+                    <h3 className="mb-2.5 text-[1.15rem] font-bold leading-[1.3] text-[#1C1C1A]">
                       {doc.title}
                     </h3>
-                    <p
-                      style={{
-                        fontSize: '0.85rem',
-                        color: '#66625b',
-                        lineHeight: 1.5,
-                        margin: 0,
-                      }}
-                    >
+                    <p className="m-0 text-[0.85rem] leading-[1.5] text-[#66625b]">
                       {doc.body}
                     </p>
                   </div>
@@ -566,69 +252,38 @@ export const MessyDeskCanvas: React.FC = () => {
             </div>
           </div>
         </div>
-
       </div>
 
       {/* Modal Overlay */}
       <div
-        className={`modal-overlay ${activeDoc ? 'visible' : ''}`}
         onClick={() => setActiveDoc(null)}
+        className={cn(
+          "fixed inset-0 z-[9999] flex items-center justify-center bg-[rgba(30,25,20,0.45)] p-5 [transition:opacity_0.35s_ease,backdrop-filter_0.35s_ease]",
+          activeDoc
+            ? "pointer-events-auto opacity-100 backdrop-blur-md"
+            : "pointer-events-none opacity-0 backdrop-blur-none",
+        )}
       >
         {activeDoc && (
           <div
-            className="modal-card"
             onClick={(e) => e.stopPropagation()}
+            className={paperModalCardVariants({ active: !!activeDoc })}
           >
             <CloseButton onClick={() => setActiveDoc(null)} />
 
-            <p
-              style={{
-                fontSize: '0.75rem',
-                fontWeight: 600,
-                letterSpacing: '0.05em',
-                color: '#858076',
-                textTransform: 'uppercase',
-                marginBottom: '12px',
-                paddingRight: '40px',
-              }}
-            >
+            <p className="mb-3 pr-10 text-xs font-semibold uppercase tracking-[0.05em] text-[#858076]">
               {activeDoc.eyebrow}
             </p>
-            <h2
-              style={{
-                fontSize: '1.75rem',
-                fontWeight: 700,
-                letterSpacing: '-0.01em',
-                color: '#1C1C1A',
-                marginBottom: '16px',
-                lineHeight: 1.25,
-              }}
-            >
+            <h2 className="mb-4 text-[1.75rem] font-bold leading-[1.25] tracking-[-0.01em] text-[#1C1C1A]">
               {activeDoc.title}
             </h2>
-            <p
-              style={{
-                fontSize: '1rem',
-                color: '#66625b',
-                lineHeight: 1.6,
-                marginBottom: '24px',
-              }}
-            >
+            <p className="mb-6 text-base leading-[1.6] text-[#66625b]">
               {activeDoc.body} {activeDoc.details}
             </p>
 
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '8px',
-                marginBottom: '32px',
-              }}
-            >
+            <div className="mb-8 flex flex-wrap gap-2">
               {activeDoc.tags.map((tag) => (
-                <span key={tag} className="doc-tag">
-                  {tag}
-                </span>
+                <PaperTag key={tag}>{tag}</PaperTag>
               ))}
             </div>
 

@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { Metadata } from "next";
 import { getAllTools, Tool } from "@/lib/tools";
 import { ScrollFadeIn } from "@/components/scroll-fade-in";
 import { CtaButton, CloseButton } from "@/components/ui/cta-button";
+import { cn } from "@/lib/utils";
 
 export default function Projects() {
   const tools = getAllTools();
@@ -48,150 +48,55 @@ export default function Projects() {
     }, 400);
   };
 
+  const isModalActive = isVisible && !isClosing;
+
   return (
-    <section id="projects" style={{ backgroundColor: "#f7f4ed", minHeight: "100vh", padding: "40px 20px" }}>
+    <section
+      id="projects"
+      className="min-h-screen bg-[#f7f4ed] px-5 py-10"
+    >
       <ScrollFadeIn />
-      <div className="blog-inner" style={{ maxWidth: "1100px", margin: "0 auto" }}>
+      <div className="blog-inner mx-auto max-w-[1100px]">
         {/* ── Header ── */}
-        <div className="blog-header" style={{ marginBottom: "32px" }}>
-          <p className="section-label" style={{ color: "#7a7670", fontSize: "0.9rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+        <div className="blog-header mb-8">
+          <p className="section-label text-[0.9rem] font-semibold uppercase tracking-[0.05em] text-[#7a7670]">
             Projects
           </p>
-          <h1 className="blog-page-title" style={{ color: "#1a1a18", fontSize: "2.5rem", fontWeight: 700, margin: "8px 0" }}>
-            Solo Builds <em style={{ fontFamily: "serif", fontStyle: "italic" }}>AI</em>.
+          <h1 className="blog-page-title my-2 text-[2.5rem] font-bold text-[#1a1a18]">
+            Solo Builds <em className="font-serif italic">AI</em>.
           </h1>
-          <p className="blog-page-desc" style={{ color: "#66625b", fontSize: "1.05rem", lineHeight: 1.5, maxWidth: "600px" }}>
+          <p className="blog-page-desc max-w-[600px] text-[1.05rem] leading-[1.5] text-[#66625b]">
             Side tools and experiments I&apos;ve shipped by pairing product
             thinking with AI. Each one is live — click in and try each one out!
           </p>
         </div>
 
-        {/* ── CSS Styles Matching Warm Cream Theme ── */}
-        <style jsx>{`
-          .tool-card {
-            position: relative;
-            background-color: #ffffff;
-            border-radius: 24px;
-            padding: 28px 24px;
-            border: 1px solid rgba(0, 0, 0, 0.04);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s ease;
-            will-change: transform, box-shadow;
-          }
-
-          .tool-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
-            border-color: rgba(0, 0, 0, 0.08);
-          }
-
-          /* Smooth Transition Layer */
-          .modal-overlay {
-            opacity: 0;
-            backdrop-filter: blur(0px);
-            -webkit-backdrop-filter: blur(0px);
-            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              backdrop-filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              -webkit-backdrop-filter 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, backdrop-filter;
-          }
-
-          .modal-overlay.visible {
-            opacity: 1;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-          }
-
-          .modal-card {
-            opacity: 0;
-            transform: scale(0.97) translateY(10px);
-            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-          }
-
-          .modal-card.visible {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-          }
-
-        `}</style>
-
         {/* ── Tool Grid ── */}
-        <div
-          style={{
-            marginTop: "16px",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: "24px",
-          }}
-        >
+        <div className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
           {tools.map((tool, i) => (
             <div
               key={tool.slug}
-              className="tool-card"
               onClick={() => handleOpen(tool)}
+              className="relative flex cursor-pointer flex-col justify-between rounded-3xl border border-black/[0.04] bg-white p-7 px-6 shadow-[0_2px_12px_rgba(0,0,0,0.02)] [transition:transform_0.4s_cubic-bezier(0.16,1,0.3,1),box-shadow_0.4s_cubic-bezier(0.16,1,0.3,1),border-color_0.3s_ease] [will-change:transform,box-shadow] hover:-translate-y-[3px] hover:border-black/[0.08] hover:shadow-[0_12px_30px_rgba(0,0,0,0.05)]"
             >
               <div>
-                <p
-                  style={{
-                    fontSize: "0.85rem",
-                    fontWeight: 600,
-                    color: "#a39f97",
-                    margin: "0 0 12px 0",
-                  }}
-                >
+                <p className="mb-3 text-[0.85rem] font-semibold text-[#a39f97]">
                   {String(i + 1).padStart(2, "0")}
                 </p>
-                <h3
-                  style={{
-                    fontSize: "1.35rem",
-                    fontWeight: 700,
-                    color: "#1a1a18",
-                    margin: "0 0 10px 0",
-                    lineHeight: 1.25,
-                    letterSpacing: "-0.01em",
-                  }}
-                >
+                <h3 className="mb-2.5 text-[1.35rem] font-bold leading-[1.25] tracking-[-0.01em] text-[#1a1a18]">
                   {tool.title}
                 </h3>
-                <p
-                  style={{
-                    fontSize: "0.92rem",
-                    color: "#66625b",
-                    lineHeight: 1.5,
-                    margin: "0 0 24px 0",
-                  }}
-                >
+                <p className="mb-6 text-[0.92rem] leading-[1.5] text-[#66625b]">
                   {tool.summary}
                 </p>
               </div>
 
               <div>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "8px",
-                    flexWrap: "wrap",
-                  }}
-                >
+                <div className="flex flex-wrap gap-2">
                   {tool.tags.map((tag) => (
                     <span
                       key={tag}
-                      style={{
-                        backgroundColor: "#f2efe9",
-                        color: "#3a3834",
-                        fontSize: "0.75rem",
-                        padding: "5px 12px",
-                        borderRadius: "14px",
-                        fontWeight: 600,
-                      }}
+                      className="rounded-[14px] bg-[#f2efe9] px-3 py-1.5 text-xs font-semibold text-[#3a3834]"
                     >
                       {tag}
                     </span>
@@ -207,93 +112,38 @@ export default function Projects() {
       {selectedTool && (
         <div
           onClick={handleClose}
-          className={`modal-overlay ${isVisible && !isClosing ? "visible" : ""}`}
-          style={{
-            position: "fixed",
-            inset: 0,
-            backgroundColor: "rgba(40, 35, 30, 0.25)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "20px",
-            zIndex: 1000,
-          }}
+          className={cn(
+            "fixed inset-0 z-[1000] flex items-center justify-center bg-[rgba(40,35,30,0.25)] p-5 [transition:opacity_0.45s_cubic-bezier(0.16,1,0.3,1),backdrop-filter_0.45s_cubic-bezier(0.16,1,0.3,1)] [will-change:opacity,backdrop-filter]",
+            isModalActive ? "opacity-100 backdrop-blur-[10px]" : "opacity-0 backdrop-blur-none",
+          )}
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className={`modal-card ${isVisible && !isClosing ? "visible" : ""}`}
-            style={{
-              backgroundColor: "#fcfbf8",
-              borderRadius: "28px",
-              padding: "40px",
-              maxWidth: "540px",
-              width: "100%",
-              boxShadow:
-                "0 24px 60px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.03)",
-              border: "1px solid #e8e4dc",
-              position: "relative",
-              transformOrigin: "center center",
-            }}
+            className={cn(
+              "relative w-full max-w-[540px] origin-center rounded-[28px] border border-[#e8e4dc] bg-[#fcfbf8] p-10 shadow-[0_24px_60px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.03)] [transition:opacity_0.45s_cubic-bezier(0.16,1,0.3,1),transform_0.45s_cubic-bezier(0.16,1,0.3,1)] [will-change:opacity,transform]",
+              isModalActive ? "translate-y-0 scale-100 opacity-100" : "translate-y-[10px] scale-[0.97] opacity-0",
+            )}
           >
             {/* Close Button */}
             <CloseButton onClick={handleClose} />
 
-            <p
-              style={{
-                fontSize: "0.82rem",
-                fontWeight: 600,
-                color: "#858076",
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-                margin: "0 0 8px 0",
-              }}
-            >
+            <p className="mb-2 text-[0.82rem] font-semibold uppercase tracking-[0.06em] text-[#858076]">
               {selectedTool.status === "live" ? "Live Tool" : "Experiment"}
             </p>
 
-            <h2
-              style={{
-                fontSize: "1.85rem",
-                fontWeight: 700,
-                color: "#1a1a18",
-                margin: "0 0 12px 0",
-                lineHeight: 1.2,
-                letterSpacing: "-0.01em",
-              }}
-            >
+            <h2 className="mb-3 text-[1.85rem] font-bold leading-[1.2] tracking-[-0.01em] text-[#1a1a18]">
               {selectedTool.title}
             </h2>
 
-            <p
-              style={{
-                fontSize: "1rem",
-                color: "#66625b",
-                lineHeight: 1.55,
-                margin: "0 0 24px 0",
-              }}
-            >
+            <p className="mb-6 text-base leading-[1.55] text-[#66625b]">
               {selectedTool.summary}
             </p>
 
-            <div
-              style={{
-                display: "flex",
-                gap: "8px",
-                flexWrap: "wrap",
-                marginBottom: "32px",
-              }}
-            >
+            <div className="mb-8 flex flex-wrap gap-2">
               {selectedTool.tags.map((tag) => (
                 <span
                   key={tag}
-                  style={{
-                    backgroundColor: "#f2efe9",
-                    color: "#3a3834",
-                    fontSize: "0.78rem",
-                    padding: "6px 14px",
-                    borderRadius: "16px",
-                    fontWeight: 600,
-                  }}
+                  className="rounded-2xl bg-[#f2efe9] px-3.5 py-1.5 text-[0.78rem] font-semibold text-[#3a3834]"
                 >
                   {tag}
                 </span>
