@@ -1,0 +1,48 @@
+/* ============================================================
+   SITE NAV
+   Quiet, typographic navigation — no box/pill chrome. A backdrop only
+   appears once the user has scrolled, staying invisible at the top of
+   the page where the Hero already carries the visual weight.
+   ============================================================ */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+.site-nav--scrolled {
+  background: rgba(245, 240, 232, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--warm-200);
+}
+
+.site-nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: var(--sp-4) 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-6);
+}
+
+.site-nav-link {
+  font-family: var(--font-head);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm-700);
+  transition: color var(--transition);
+}
+.site-nav-link:hover {
+  color: var(--green);
+}
+.site-nav-link--active {
+  color: var(--green);
+}

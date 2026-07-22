@@ -1,25 +1,26 @@
 "use client";
 
 import { useState } from "react";
+import { Mail, Linkedin, Github } from "lucide-react";
 
 const CONTACT_LINKS = [
   {
     href: "mailto:dquintilian@gmail.com",
-    icon: "✉",
+    Icon: Mail,
     label: "Email",
     value: "dquintilian@gmail.com",
     external: false,
   },
   {
     href: "https://www.linkedin.com/in/dominic-quintilian/",
-    icon: "in",
+    Icon: Linkedin,
     label: "LinkedIn",
     value: "dominic-quintilian",
     external: true,
   },
   {
     href: "https://github.com/dquintiliani",
-    icon: "⌥",
+    Icon: Github,
     label: "GitHub",
     value: "dquintiliani",
     external: true,
@@ -75,8 +76,8 @@ export function Contact() {
           {/* Direct Links Column inside Dotted Container */}
           <div className="contact-links-col">
             <p className="contact-channels-label">Direct Channels</p>
-            <div className="contact-dotted-card contact-links-card">
-              {CONTACT_LINKS.map(({ href, icon, label, value, external }) => (
+            <div className="paper-texture contact-links-card">
+              {CONTACT_LINKS.map(({ href, Icon, label, value, external }) => (
                 <a
                   key={href}
                   href={href}
@@ -84,7 +85,9 @@ export function Contact() {
                   rel={external ? "noopener noreferrer" : undefined}
                   className="contact-link-row"
                 >
-                  <span className="contact-link-icon">{icon}</span>
+                  <span className="contact-link-icon">
+                    <Icon size={18} strokeWidth={1.75} aria-hidden="true" />
+                  </span>
                   <div className="contact-link-info">
                     <span className="contact-link-label">{label}</span>
                     <span className="contact-link-value">{value}</span>
@@ -95,7 +98,7 @@ export function Contact() {
           </div>
 
           {/* Form Column inside Dotted Container */}
-          <form onSubmit={handleSubmit} className="contact-dotted-card contact-form">
+          <form onSubmit={handleSubmit} className="paper-texture contact-form">
             <p className="contact-form-top-label">Or send a direct message</p>
 
             <div className="contact-field-row">

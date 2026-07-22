@@ -72,11 +72,20 @@
   --sp-6:  1.5rem;
   --sp-8:  2rem;
   --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
   --sp-20: 5rem;
+  --sp-24: 6rem;
+  --sp-32: 8rem;
 
   /* ── Misc ── */
   --content-width: 800px;
   --surface-2: rgba(0, 0, 0, 0.05);
+
+  /* ── Dot-grid paper texture (shared by .paper-texture, paper-card variants) ── */
+  --paper-bg: #faf8f5;
+  --paper-dot-color: rgba(0, 0, 0, 0.12);
+  --paper-dot-size: 18px;
 
   /* ── Typography ── */
   --font-head: var(--font-nunito-sans), 'Nunito Sans', sans-serif;

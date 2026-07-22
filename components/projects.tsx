@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { getAllTools, Tool } from "@/lib/tools";
-import { ScrollFadeIn } from "@/components/scroll-fade-in";
 import { CtaButton, CloseButton } from "@/components/ui/cta-button";
 import { PaperTag } from "@/components/ui/paper-tag";
 import { paperCardVariants, paperModalCardVariants } from "@/components/ui/paper-card";
@@ -54,8 +53,6 @@ export default function Projects() {
       id="projects"
       className="min-h-screen bg-[#f7f4ed] px-5 py-10"
     >
-      <ScrollFadeIn />
-
       <div
         className="blog-inner mx-auto max-w-[1100px]"
       >

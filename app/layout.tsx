@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
-import { Nunito_Sans } from 'next/font/google'
+import { Nunito_Sans, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { SiteNav } from '@/components/site-nav'
 import './globals.css'
 
 const nunitoSans = Nunito_Sans({
@@ -8,6 +9,13 @@ const nunitoSans = Nunito_Sans({
   weight: ['300', '400', '500', '600', '700', '800'],
   style: ['normal', 'italic'],
   variable: '--font-nunito-sans',
+})
+
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['700', '900'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair-display',
 })
 
 export const metadata: Metadata = {
@@ -62,8 +70,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={nunitoSans.variable}>
+    <html lang="en" className={`${nunitoSans.variable} ${playfairDisplay.variable}`}>
       <body>
+        <SiteNav />
         {children}
         <Analytics />
       </body>
