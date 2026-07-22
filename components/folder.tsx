@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CtaButton, CloseButton } from '@/components/ui/cta-button';
 import { PaperTag } from '@/components/ui/paper-tag';
 import { cn } from '@/lib/utils';
+import { BREAKPOINTS } from '@/lib/breakpoints';
 
 // Types
 interface DocumentItem {
@@ -85,7 +86,7 @@ export const MessyDeskCanvas: React.FC = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth <= 820;
+      const mobile = window.innerWidth <= BREAKPOINTS.tablet;
       setIsMobile(mobile);
       if (mobile) {
         setScrollTrackHeight('auto');
@@ -216,7 +217,7 @@ export const MessyDeskCanvas: React.FC = () => {
               />
 
               {/* Folder Cards Pile */}
-              <div className="relative flex h-[420px] w-full max-w-[960px] items-center justify-center max-[820px]:h-auto max-[820px]:flex-col max-[820px]:gap-6">
+              <div className="relative flex h-[420px] w-full max-w-[960px] items-center justify-center max-[900px]:h-auto max-[900px]:flex-col max-[900px]:gap-6">
                 {DOCUMENTS.map((doc, idx) => (
                   <div
                     key={doc.id}
@@ -224,7 +225,7 @@ export const MessyDeskCanvas: React.FC = () => {
                       cardRefs.current[idx] = el;
                     }}
                     onClick={() => setActiveDoc(doc)}
-                    className="absolute w-[310px] cursor-pointer rounded-[0_10px_12px_12px] border border-[#D1CAC0] bg-[#F6F4EF] bg-[image:linear-gradient(180deg,#FAFAF7_0%,#EFECE4_100%)] px-6 pb-7 pt-9 text-left shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_4px_12px_rgba(40,30,20,0.06),0_12px_24px_-6px_rgba(40,30,20,0.1)] [will-change:transform] before:absolute before:-top-[22px] before:left-0 before:z-[-1] before:h-[23px] before:w-[120px] before:rounded-t-lg before:border before:border-b-0 before:border-[#D1CAC0] before:bg-[#FAFAF7] before:bg-[image:linear-gradient(180deg,#FFFFFF_0%,#FAFAF7_100%)] before:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] before:content-[''] hover:border-[rgba(2,4,2,0.6)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_16px_40px_rgba(40,30,20,0.14)] max-[820px]:static max-[820px]:w-full max-[820px]:!transform-none [transition:transform_0.25s_ease,border-color_0.3s_ease,box-shadow_0.3s_ease]"
+                    className="absolute w-[310px] cursor-pointer rounded-[0_10px_12px_12px] border border-[#D1CAC0] bg-[#F6F4EF] bg-[image:linear-gradient(180deg,#FAFAF7_0%,#EFECE4_100%)] px-6 pb-7 pt-9 text-left shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_4px_12px_rgba(40,30,20,0.06),0_12px_24px_-6px_rgba(40,30,20,0.1)] [will-change:transform] before:absolute before:-top-[22px] before:left-0 before:z-[-1] before:h-[23px] before:w-[120px] before:rounded-t-lg before:border before:border-b-0 before:border-[#D1CAC0] before:bg-[#FAFAF7] before:bg-[image:linear-gradient(180deg,#FFFFFF_0%,#FAFAF7_100%)] before:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] before:content-[''] hover:border-[rgba(2,4,2,0.6)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_16px_40px_rgba(40,30,20,0.14)] max-[900px]:static max-[900px]:w-full max-[900px]:!transform-none [transition:transform_0.25s_ease,border-color_0.3s_ease,box-shadow_0.3s_ease]"
                   >
                     {doc.badgeColor && (
                       <div

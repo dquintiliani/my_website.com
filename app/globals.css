@@ -1653,6 +1653,16 @@
 
 /* ============================================================
    RESPONSIVE
+
+   Canonical breakpoint scale for this site — use these values for any
+   new @media rule rather than introducing a new one-off number:
+     400px  extra small
+     640px  mobile
+     768px  large mobile / small tablet
+     900px  tablet
+   (Plain CSS @media conditions can't reference a custom-property
+   token the way Tailwind's @theme breakpoints can, so this list is
+   the source of truth instead.)
    ============================================================ */
 
 /* ── Tablet: 900px ── */
@@ -1699,54 +1709,49 @@
   .article-footer { flex-direction: column; align-items: flex-start; gap: var(--sp-3); }
   .article-cta { opacity: 1; transform: translateX(0); }
   .prose table { display: block; overflow-x: auto; white-space: nowrap; }
-}
 
-@media (max-width: 640px) {
   .hero-image-container {
     display: flex;
-  width: 100%;
-  max-width: 100%;
-  margin-top: 24px;
-  justify-content: center;
-    }
+    width: 100%;
+    max-width: 100%;
+    margin-top: 24px;
+    justify-content: center;
+    padding: 0;
+  }
 
-    .hero-overlay-badge {
-  display: block;
-  right: 0px;
-  bottom: -40px;
-  width: min(120px, 32%);
-  max-width: 140px;
-  aspect-ratio: 1 / 1;
-  padding: 10px;
-  transform: translateY(0);
-    }
+  .hero-overlay-badge {
+    display: block;
+    right: 0px;
+    bottom: -40px;
+    width: min(120px, 32%);
+    max-width: 140px;
+    aspect-ratio: 1 / 1;
+    padding: 10px;
+    transform: translateY(0);
+  }
 
-    .hero-inner {
+  .hero-inner {
     gap: 20px;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 0 16px;
-    }
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 16px;
+  }
 
-    .hero {
-  width: 100%;
-  max-width: 100%;
-    }
+  .hero {
+    width: 100%;
+    max-width: 100%;
+  }
 
-    .hero-image-frame {
-  width: 100%;
-  max-width: 100%;
-    }
+  .hero-image-frame {
+    width: 100%;
+    max-width: 100%;
+  }
 
-    .hero-image-container {
-  padding: 0;
-    }
-
-    #hero {
+  #hero {
     padding: 64px 0;
-  min-height: 100svh;
-    }
+    min-height: 100svh;
+  }
 }
 
 /* ── Extra small: 400px ── */
