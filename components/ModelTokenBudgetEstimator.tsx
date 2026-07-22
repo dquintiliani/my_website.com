@@ -17,20 +17,22 @@ interface ModelPricing {
 
 const MODELS: readonly ModelPricing[] = [
   // Cheap & fast tier (great for high-volume / simple tasks)
-  { id: "gemini-3.1-flash-lite", name: "Gemini 3.1 Flash-Lite", provider: "Google",     inputPricePer1K: 0.00010, outputPricePer1K: 0.00040 },
-  { id: "grok-4-fast",           name: "Grok 4 Fast",           provider: "xAI",        inputPricePer1K: 0.00020, outputPricePer1K: 0.00050 },
-  { id: "gpt-5-mini",            name: "GPT-5 Mini",            provider: "OpenAI",     inputPricePer1K: 0.00025, outputPricePer1K: 0.00200 },
-  { id: "claude-haiku-4.5",      name: "Claude Haiku 4.5",      provider: "Anthropic",  inputPricePer1K: 0.00100, outputPricePer1K: 0.00500 },
+  { id: "gemini-2.5-flash-lite", name: "Gemini 2.5 Flash-Lite", provider: "Google",     inputPricePer1K: 0.00010,  outputPricePer1K: 0.00040 },
+  { id: "deepseek-v4-flash",     name: "DeepSeek V4 Flash",     provider: "DeepSeek",   inputPricePer1K: 0.00014,  outputPricePer1K: 0.00028 },
+  { id: "gpt-5.4-nano",          name: "GPT-5.4 Nano",          provider: "OpenAI",     inputPricePer1K: 0.00020,  outputPricePer1K: 0.00125 },
+  { id: "deepseek-v4-pro",       name: "DeepSeek V4 Pro",       provider: "DeepSeek",   inputPricePer1K: 0.000435, outputPricePer1K: 0.00087 },
 
   // Mid-tier balanced
-  { id: "gemini-2.5-flash",      name: "Gemini 2.5 Flash",      provider: "Google",     inputPricePer1K: 0.00030, outputPricePer1K: 0.00250 },
-  { id: "claude-sonnet-4.5",     name: "Claude Sonnet 4.5",     provider: "Anthropic",  inputPricePer1K: 0.00300, outputPricePer1K: 0.01500 },
-  { id: "gpt-5.2",               name: "GPT-5.2",               provider: "OpenAI",     inputPricePer1K: 0.00175, outputPricePer1K: 0.01400 },
+  { id: "gemini-3-flash",        name: "Gemini 3 Flash",        provider: "Google",     inputPricePer1K: 0.00050, outputPricePer1K: 0.00300 },
+  { id: "deepseek-r1",           name: "DeepSeek R1",           provider: "DeepSeek",   inputPricePer1K: 0.00055, outputPricePer1K: 0.00219 },
+  { id: "gpt-5.4-mini",          name: "GPT-5.4 Mini",          provider: "OpenAI",     inputPricePer1K: 0.00075, outputPricePer1K: 0.00450 },
+  { id: "claude-haiku-4.5",      name: "Claude Haiku 4.5",      provider: "Anthropic",  inputPricePer1K: 0.00100, outputPricePer1K: 0.00500 },
 
   // Flagship / reasoning-heavy
-  { id: "grok-4.20-beta",        name: "Grok 4.20 Beta",        provider: "xAI",        inputPricePer1K: 0.00200, outputPricePer1K: 0.00600 },
-  { id: "gpt-5.4",               name: "GPT-5.4",               provider: "OpenAI",     inputPricePer1K: 0.00250, outputPricePer1K: 0.01500 },
-  { id: "claude-opus-4.5",       name: "Claude Opus 4.5",       provider: "Anthropic",  inputPricePer1K: 0.00500, outputPricePer1K: 0.02500 },
+  { id: "claude-sonnet-5",       name: "Claude Sonnet 5",       provider: "Anthropic",  inputPricePer1K: 0.00200, outputPricePer1K: 0.01000 },
+  { id: "gemini-3.1-pro",        name: "Gemini 3.1 Pro",        provider: "Google",     inputPricePer1K: 0.00200, outputPricePer1K: 0.01200 },
+  { id: "claude-opus-4.8",       name: "Claude Opus 4.8",       provider: "Anthropic",  inputPricePer1K: 0.00500, outputPricePer1K: 0.02500 },
+  { id: "gpt-5.5",               name: "GPT-5.5",               provider: "OpenAI",     inputPricePer1K: 0.00500, outputPricePer1K: 0.03000 },
 ] as const;
 
 interface FormState {
@@ -64,6 +66,16 @@ function fmtInt(n: number): string {
 
 function fmtUSD(n: number): string {
   return "$" + n.toFixed(2);
+}
+
+// 4 decimals by default, extended to 5 only when needed to keep
+// nearby per-1K prices (e.g. DeepSeek's sub-cent tiers) distinguishable.
+function fmtPricePer1K(n: number): string {
+  let s = n.toFixed(5);
+  while (s.length > s.indexOf(".") + 5 && s.endsWith("0")) {
+    s = s.slice(0, -1);
+  }
+  return s;
 }
 
 function budgetNarrative(monthlyCost: number): string {
@@ -124,7 +136,7 @@ export default function ModelTokenBudgetEstimator() {
         </h1>
         <p className="tbe-desc">
           Estimate daily and monthly LLM token usage and cost based on your
-          traffic and prompt assumptions. Updated March 2026 pricing.
+          traffic and prompt assumptions. Updated July 2026 pricing.
         </p>
 
         {/* ── Model selector ── */}
@@ -150,7 +162,7 @@ export default function ModelTokenBudgetEstimator() {
                   <span className="tbe-model-name">{m.name}</span>
                   <span className="tbe-model-provider">{m.provider}</span>
                   <span className="tbe-model-pricing">
-                    ${m.inputPricePer1K.toFixed(4)} in · ${m.outputPricePer1K.toFixed(4)} out / 1K tokens
+                    ${fmtPricePer1K(m.inputPricePer1K)} in · ${fmtPricePer1K(m.outputPricePer1K)} out / 1K tokens
                   </span>
                 </button>
               );
