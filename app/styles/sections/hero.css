@@ -277,3 +277,28 @@
   text-anchor: end;
   dominant-baseline: middle;
 }
+
+.hero-illustration .nn-edge {
+  stroke: rgba(26, 26, 26, 0.1);
+  stroke-width: 1;
+  opacity: 0;
+  animation: nnEdgeIn 0.3s ease-out forwards;
+}
+
+@keyframes nnEdgeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.hero-illustration .nn-node {
+  stroke: var(--white);
+  stroke-width: 2;
+  transform-origin: center;
+  animation: heatmapIn 0.35s ease-out forwards;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+}
+
+.hero-illustration .nn-color-input { fill: var(--chart-4); }
+.hero-illustration .nn-color-hidden { fill: var(--chart-3); }
+.hero-illustration .nn-color-output { fill: var(--chart-1); }
