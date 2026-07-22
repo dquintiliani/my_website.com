@@ -31,6 +31,16 @@ const HISTOGRAM_Y_GRID = [
   { y: 221, label: "10" },
 ];
 
+// Static, hand-tuned neural network layout (layer x-position, node y-positions,
+// color token) purely for a pleasant decorative pattern.
+const NN_LAYERS = [
+  { x: 80, ys: [40, 120, 200, 280], color: "1" },
+  { x: 220, ys: [40, 88, 136, 184, 232, 280], color: "2" },
+  { x: 360, ys: [40, 88, 136, 184, 232, 280], color: "3" },
+  { x: 500, ys: [40, 160, 280], color: "4" },
+] as const;
+const NN_NODE_RADIUS = 10;
+
 // Static, hand-tuned intensity levels (1-6) purely for a pleasant decorative pattern.
 const HEATMAP_INTENSITIES = [
   [1, 2, 3, 4, 5, 4, 3, 2],
@@ -214,20 +224,67 @@ function HeroHistogram() {
   );
 }
 
+function HeroNeuralNet() {
+  return (
+    <svg
+      viewBox="0 0 560 320"
+      className="hero-illustration"
+      aria-label="Simple neural network visualization"
+    >
+      {NN_LAYERS.slice(0, -1).flatMap((layer, layerIndex) => {
+        const nextLayer = NN_LAYERS[layerIndex + 1];
+        const stageDelay = 0.15 + layerIndex * 0.25;
+        return layer.ys.flatMap((y1, i) =>
+          nextLayer.ys.map((y2, j) => (
+            <line
+              key={`edge-${layerIndex}-${i}-${j}`}
+              x1={layer.x}
+              y1={y1}
+              x2={nextLayer.x}
+              y2={y2}
+              className="nn-edge"
+              style={{
+                animationDelay: `${
+                  stageDelay + (i * nextLayer.ys.length + j) * 0.004
+                }s`,
+              }}
+            />
+          ))
+        );
+      })}
+
+      {NN_LAYERS.flatMap((layer, layerIndex) => {
+        const stageDelay = 0.05 + layerIndex * 0.25;
+        return layer.ys.map((y, i) => (
+          <circle
+            key={`node-${layerIndex}-${i}`}
+            cx={layer.x}
+            cy={y}
+            r={NN_NODE_RADIUS}
+            className={`nn-node nn-color-${layer.color}`}
+            style={{ animationDelay: `${stageDelay + i * 0.02}s` }}
+          />
+        ));
+      })}
+    </svg>
+  );
+}
+
+const HERO_ILLUSTRATIONS = [
+  "bar-chart",
+  "heatmap",
+  "histogram",
+  "neural-net",
+] as const;
+type HeroIllustration = (typeof HERO_ILLUSTRATIONS)[number];
+
 export function Hero() {
-  const [illustration, setIllustration] = useState<
-    "bar-chart" | "heatmap" | "histogram"
-  >("bar-chart");
+  const [illustration, setIllustration] =
+    useState<HeroIllustration>("bar-chart");
 
   useEffect(() => {
-    const roll = Math.random();
-    if (roll < 1 / 3) {
-      setIllustration("heatmap");
-    } else if (roll < 2 / 3) {
-      setIllustration("histogram");
-    } else {
-      setIllustration("bar-chart");
-    }
+    const index = Math.floor(Math.random() * HERO_ILLUSTRATIONS.length);
+    setIllustration(HERO_ILLUSTRATIONS[index]);
   }, []);
 
   return (
@@ -255,6 +312,8 @@ export function Hero() {
               <HeroHeatmap />
             ) : illustration === "histogram" ? (
               <HeroHistogram />
+            ) : illustration === "neural-net" ? (
+              <HeroNeuralNet />
             ) : (
               <HeroBarChart />
             )}
