@@ -63,97 +63,110 @@ export function Contact() {
   return (
     <section id="contact" className="contact-section">
       <div className="contact-container">
+        <div className="contact-card">
+          <div className="contact-monogram" aria-hidden="true">DQ</div>
 
-        {/* Header Section */}
-        <div className="contact-header">
-          <p className="contact-eyebrow">Get in touch</p>
-          <h2 className="contact-title">Reach out and Say Hi </h2>
-        </div>
+          <header className="contact-header">
+            <p className="contact-kicker">Get in Touch</p>
+            <h2 className="contact-title">
+              Reach Out
+              <br />
+              and <em>Say Hi</em>
+            </h2>
+            <div className="contact-rule" />
+            <p className="contact-subtitle">
+              Whether you&apos;re hiring, collaborating, or simply want to
+              exchange ideas, I&apos;d love to hear from you.
+            </p>
+          </header>
 
-        {/* Content Layout */}
-        <div className="contact-grid">
-
-          {/* Direct Links Column inside Dotted Container */}
-          <div className="contact-links-col">
-            <p className="contact-channels-label">Direct Channels</p>
-            <div className="paper-texture contact-links-card">
+          <div className="contact-content">
+            <aside className="contact-info">
               {CONTACT_LINKS.map(({ href, Icon, label, value, external }) => (
                 <a
                   key={href}
                   href={href}
                   target={external ? "_blank" : undefined}
                   rel={external ? "noopener noreferrer" : undefined}
-                  className="contact-link-row"
+                  className="contact-info-item"
                 >
-                  <span className="contact-link-icon">
-                    <Icon size={18} strokeWidth={1.75} aria-hidden="true" />
+                  <span className="contact-info-label">{label}</span>
+                  <span className="contact-info-value">
+                    <Icon size={15} strokeWidth={1.75} aria-hidden="true" />
+                    {value}
                   </span>
-                  <div className="contact-link-info">
-                    <span className="contact-link-label">{label}</span>
-                    <span className="contact-link-value">{value}</span>
-                  </div>
+                  <span className="contact-info-divider" />
                 </a>
               ))}
-            </div>
+            </aside>
+
+            <form
+              id="contact-form"
+              onSubmit={handleSubmit}
+              className="contact-form"
+            >
+              <div className="contact-row">
+                <div className="contact-field">
+                  <label htmlFor="contact-name">Name</label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                    required
+                    className="contact-input"
+                  />
+                </div>
+
+                <div className="contact-field">
+                  <label htmlFor="contact-email">Email</label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@email.com"
+                    required
+                    className="contact-input"
+                  />
+                </div>
+              </div>
+
+              <div className="contact-field">
+                <label htmlFor="contact-message">Your Letter</label>
+                <textarea
+                  id="contact-message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Tell me about your project..."
+                  required
+                  rows={5}
+                  className="contact-textarea"
+                />
+              </div>
+
+              {success && (
+                <div className="contact-success-msg" role="status">
+                  <span>✓</span> Message sent — I&apos;ll be in touch shortly.
+                </div>
+              )}
+            </form>
           </div>
 
-          {/* Form Column inside Dotted Container */}
-          <form onSubmit={handleSubmit} className="paper-texture contact-form">
-            <p className="contact-form-top-label">Or send a direct message</p>
-
-            <div className="contact-field-row">
-              <div className="contact-field-group">
-                <label className="contact-field-label">Name</label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Your name"
-                  required
-                  className="contact-input"
-                />
-              </div>
-
-              <div className="contact-field-group">
-                <label className="contact-field-label">Email</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  required
-                  className="contact-input"
-                />
-              </div>
-            </div>
-
-            <div className="contact-field-group">
-              <label className="contact-field-label">Message</label>
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="What are you working on?"
-                required
-                rows={4}
-                className="contact-textarea"
-              />
-            </div>
-
+          <div className="contact-footer">
+            <p className="contact-footer-note">
+              Toronto, Ontario&nbsp;•&nbsp;Designed with Intention
+            </p>
             <button
               type="submit"
+              form="contact-form"
               disabled={loading}
               className="contact-submit-btn"
             >
-              {loading ? "Sending…" : "Send message →"}
+              {loading ? "Sending…" : "Seal & Send →"}
             </button>
-
-            {success && (
-              <div className="contact-success-msg" role="status">
-                <span>✓</span> Message sent — I&apos;ll be in touch shortly.
-              </div>
-            )}
-          </form>
-
+          </div>
         </div>
       </div>
     </section>

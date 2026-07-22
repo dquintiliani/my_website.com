@@ -25,6 +25,17 @@
     order: -1;
     padding: var(--sp-8) var(--sp-8) 0;
   }
+
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: var(--sp-10);
+  }
+  .contact-card {
+    padding: 40px;
+  }
+  .contact-title {
+    font-size: clamp(2.2rem, 8vw, 3rem);
+  }
 }
 
 /* ── Large mobile / small tablet: 768px ── */
@@ -72,6 +83,20 @@
     padding-left: 0;
     border-top: 1px solid var(--warm-200);
     padding-top: var(--sp-6);
+  }
+
+  .contact-row { grid-template-columns: 1fr; }
+  .contact-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-6);
+  }
+  .contact-monogram {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+    top: 20px;
+    right: 20px;
   }
 
   .hero-image-container {
