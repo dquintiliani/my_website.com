@@ -1,8 +1,96 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+const HEATMAP_ROWS = 5;
+const HEATMAP_COLS = 8;
+
+// Static, hand-tuned intensity levels (1-5) purely for a pleasant decorative pattern.
+const HEATMAP_INTENSITIES = [
+  [1, 2, 3, 4, 5, 4, 3, 2],
+  [2, 3, 4, 5, 5, 4, 3, 2],
+  [1, 2, 3, 4, 4, 3, 2, 1],
+  [2, 3, 3, 4, 5, 4, 2, 1],
+  [1, 1, 2, 3, 4, 3, 2, 1],
+];
+
+function HeroBarChart() {
+  return (
+    <svg
+      viewBox="0 0 560 320"
+      className="hero-illustration"
+      aria-label="Simple bar chart visualization"
+    >
+      <defs>
+        <linearGradient id="heroCardBg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="100%" stopColor="#f8f4ea" />
+        </linearGradient>
+      </defs>
+
+      <line x1="56" y1="94" x2="504" y2="94" className="grid-line" />
+      <line x1="56" y1="156" x2="504" y2="156" className="grid-line" />
+      <line x1="56" y1="218" x2="504" y2="218" className="grid-line" />
+
+      <rect x="96" y="132" width="46" height="108" className="data-bar bar-1" />
+      <rect x="176" y="108" width="46" height="132" className="data-bar bar-2" />
+      <rect x="256" y="94" width="46" height="146" className="data-bar bar-3" />
+      <rect x="336" y="80" width="46" height="160" className="data-bar bar-4" />
+      <rect x="416" y="154" width="46" height="86" className="data-bar bar-5" />
+
+      <path
+        d="M119 132 C155 132 185 116 199 108 S257 94 279 94 S339 80 359 80 S421 154 437 154"
+        className="line-series"
+        fill="none"
+      />
+    </svg>
+  );
+}
+
+function HeroHeatmap() {
+  const gridX = 56;
+  const gridY = 40;
+  const gridWidth = 448;
+  const gridHeight = 220;
+  const cellWidth = gridWidth / HEATMAP_COLS;
+  const cellHeight = gridHeight / HEATMAP_ROWS;
+
+  return (
+    <svg
+      viewBox="0 0 560 320"
+      className="hero-illustration"
+      aria-label="Simple heatmap visualization"
+    >
+      {HEATMAP_INTENSITIES.flatMap((row, rowIdx) =>
+        row.map((level, colIdx) => {
+          const index = rowIdx * HEATMAP_COLS + colIdx;
+          return (
+            <rect
+              key={`${rowIdx}-${colIdx}`}
+              x={gridX + colIdx * cellWidth}
+              y={gridY + rowIdx * cellHeight}
+              width={cellWidth}
+              height={cellHeight}
+              className={`heatmap-cell heat-${level}`}
+              style={{ animationDelay: `${0.2 + index * 0.015}s` }}
+            />
+          );
+        })
+      )}
+    </svg>
+  );
+}
 
 export function Hero() {
+  const [illustration, setIllustration] = useState<"bar-chart" | "heatmap">(
+    "bar-chart"
+  );
+
+  useEffect(() => {
+    setIllustration(Math.random() < 0.2 ? "heatmap" : "bar-chart");
+  }, []);
+
   return (
     <section id="hero">
       <div className="hero-inner">
@@ -24,34 +112,7 @@ export function Hero() {
 
         <div className="hero-image-container">
           <div className="hero-image-frame">
-            <svg
-              viewBox="0 0 560 320"
-              className="hero-illustration"
-              aria-label="Simple bar chart visualization"
-            >
-              <defs>
-                <linearGradient id="heroCardBg" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#ffffff" />
-                  <stop offset="100%" stopColor="#f8f4ea" />
-                </linearGradient>
-              </defs>
-
-              <line x1="56" y1="94" x2="504" y2="94" className="grid-line" />
-              <line x1="56" y1="156" x2="504" y2="156" className="grid-line" />
-              <line x1="56" y1="218" x2="504" y2="218" className="grid-line" />
-
-              <rect x="96" y="132" width="46" height="108" className="data-bar bar-1" />
-              <rect x="176" y="108" width="46" height="132" className="data-bar bar-2" />
-              <rect x="256" y="94" width="46" height="146" className="data-bar bar-3" />
-              <rect x="336" y="80" width="46" height="160" className="data-bar bar-4" />
-              <rect x="416" y="154" width="46" height="86" className="data-bar bar-5" />
-
-              <path
-                d="M119 132 C155 132 185 116 199 108 S257 94 279 94 S339 80 359 80 S421 154 437 154"
-                className="line-series"
-                fill="none"
-              />
-            </svg>
+            {illustration === "heatmap" ? <HeroHeatmap /> : <HeroBarChart />}
           </div>
         </div>
       </div>
