@@ -2,9 +2,34 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const HEATMAP_ROWS = 5;
 const HEATMAP_COLS = 8;
+
+// Static, hand-tuned histogram bins purely for a pleasant decorative pattern.
+const HISTOGRAM_BINS = [
+  { range: "0 – 10", count: 14, x: 42, y: 199, height: 76, color: "a" },
+  { range: "10 – 20", count: 26, x: 109, y: 134, height: 141, color: "b" },
+  { range: "20 – 30", count: 38, x: 176, y: 68, height: 207, color: "c" },
+  { range: "30 – 40", count: 34, x: 243, y: 90, height: 185, color: "d" },
+  { range: "40 – 50", count: 22, x: 310, y: 156, height: 120, color: "e" },
+  { range: "50 – 60", count: 11, x: 377, y: 215, height: 60, color: "b" },
+  { range: "60 – 70", count: 5, x: 445, y: 248, height: 27, color: "a" },
+] as const;
+const HISTOGRAM_BAR_WIDTH = 67;
+const HISTOGRAM_BASELINE = 275;
+const HISTOGRAM_X_LABELS = [0, 10, 20, 30, 40, 50, 60, 70];
+const HISTOGRAM_Y_GRID = [
+  { y: 58, label: "40" },
+  { y: 112, label: "30" },
+  { y: 166, label: "20" },
+  { y: 221, label: "10" },
+];
 
 // Static, hand-tuned intensity levels (1-6) purely for a pleasant decorative pattern.
 const HEATMAP_INTENSITIES = [
@@ -126,13 +151,83 @@ function HeroHeatmap() {
   );
 }
 
-export function Hero() {
-  const [illustration, setIllustration] = useState<"bar-chart" | "heatmap">(
-    "bar-chart"
+function HeroHistogram() {
+  return (
+    <svg
+      viewBox="0 0 560 320"
+      className="hero-illustration"
+      aria-label="Simple histogram visualization"
+    >
+      <line x1="42" y1="58" x2="512" y2="58" className="grid-line" />
+      <line x1="42" y1="112" x2="512" y2="112" className="grid-line" />
+      <line x1="42" y1="166" x2="512" y2="166" className="grid-line" />
+      <line x1="42" y1="221" x2="512" y2="221" className="grid-line" />
+      {HISTOGRAM_Y_GRID.map(({ y, label }) => (
+        <text
+          key={label}
+          x="36"
+          y={y}
+          className="hist-axis-label hist-y-axis-label"
+        >
+          {label}
+        </text>
+      ))}
+
+      <line
+        x1="42"
+        y1={HISTOGRAM_BASELINE}
+        x2="512"
+        y2={HISTOGRAM_BASELINE}
+        className="hist-axis"
+      />
+      <line x1="42" y1="32" x2="42" y2={HISTOGRAM_BASELINE} className="hist-axis" />
+
+      {HISTOGRAM_BINS.map((bin, index) => (
+        <Tooltip key={bin.range}>
+          <TooltipTrigger asChild>
+            <rect
+              x={bin.x}
+              y={bin.y}
+              width={HISTOGRAM_BAR_WIDTH}
+              height={bin.height}
+              className={`hist-bar hist-color-${bin.color}`}
+              style={{ animationDelay: `${0.2 + index * 0.03}s` }}
+            />
+          </TooltipTrigger>
+          <TooltipContent>
+            Bin {bin.range}: {bin.count}
+          </TooltipContent>
+        </Tooltip>
+      ))}
+
+      {HISTOGRAM_X_LABELS.map((label, index) => (
+        <text
+          key={label}
+          x={42 + index * HISTOGRAM_BAR_WIDTH}
+          y="289"
+          className="hist-axis-label"
+        >
+          {label}
+        </text>
+      ))}
+    </svg>
   );
+}
+
+export function Hero() {
+  const [illustration, setIllustration] = useState<
+    "bar-chart" | "heatmap" | "histogram"
+  >("bar-chart");
 
   useEffect(() => {
-    setIllustration(Math.random() < 0.2 ? "heatmap" : "bar-chart");
+    const roll = Math.random();
+    if (roll < 1 / 3) {
+      setIllustration("heatmap");
+    } else if (roll < 2 / 3) {
+      setIllustration("histogram");
+    } else {
+      setIllustration("bar-chart");
+    }
   }, []);
 
   return (
@@ -156,7 +251,13 @@ export function Hero() {
 
         <div className="hero-image-container">
           <div className="hero-image-frame">
-            {illustration === "heatmap" ? <HeroHeatmap /> : <HeroBarChart />}
+            {illustration === "heatmap" ? (
+              <HeroHeatmap />
+            ) : illustration === "histogram" ? (
+              <HeroHistogram />
+            ) : (
+              <HeroBarChart />
+            )}
           </div>
         </div>
       </div>

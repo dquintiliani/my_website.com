@@ -234,3 +234,46 @@
     opacity: 1;
   }
 }
+
+.hero-illustration .hist-bar {
+  cursor: pointer;
+  stroke: var(--white);
+  stroke-width: 2;
+  transform-origin: center bottom;
+  transform: scaleY(0.95);
+  opacity: 0;
+  animation: popUp 0.4s ease-out forwards;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.06));
+  transition: opacity var(--transition), filter var(--transition);
+  will-change: transform, opacity;
+}
+
+.hero-illustration .hist-bar:hover {
+  opacity: 0.88;
+  stroke: var(--green);
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.12));
+}
+
+.hero-illustration .hist-color-a { fill: var(--chart-1); }
+.hero-illustration .hist-color-b { fill: var(--chart-4); }
+.hero-illustration .hist-color-c { fill: var(--chart-3); }
+.hero-illustration .hist-color-d { fill: var(--chart-5); }
+.hero-illustration .hist-color-e { fill: var(--green); }
+
+.hero-illustration .hist-axis {
+  stroke: rgba(26, 26, 26, 0.1);
+  stroke-width: 1;
+}
+
+.hero-illustration .hist-axis-label {
+  font-family: var(--font-head);
+  font-size: 10px;
+  fill: var(--warm-600);
+  font-weight: 500;
+  text-anchor: middle;
+}
+
+.hero-illustration .hist-y-axis-label {
+  text-anchor: end;
+  dominant-baseline: middle;
+}
