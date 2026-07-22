@@ -77,6 +77,9 @@ const lerp = (start: number, end: number, progress: number): number => {
 // out while the desk is sticky-pinned.
 const ANIMATION_SCROLL_DISTANCE = 480;
 
+// Distance from the viewport top the header + desk stick to while pinned.
+const STICKY_TOP = 100;
+
 export const MessyDeskCanvas: React.FC = () => {
   const [activeDoc, setActiveDoc] = useState<DocumentItem | null>(null);
   const [progress, setProgress] = useState<number>(0);
@@ -84,6 +87,7 @@ export const MessyDeskCanvas: React.FC = () => {
   const [scrollTrackHeight, setScrollTrackHeight] = useState<string>('auto');
 
   const scrollTrackRef = useRef<HTMLDivElement>(null);
+  const stickyContentRef = useRef<HTMLDivElement>(null);
   const deskWorkspaceRef = useRef<HTMLDivElement>(null);
   const coffeeStainRef = useRef<HTMLDivElement>(null);
   const stickyNoteRef = useRef<HTMLDivElement>(null);
@@ -98,15 +102,15 @@ export const MessyDeskCanvas: React.FC = () => {
         return;
       }
 
-      const deskHeight = deskWorkspaceRef.current?.offsetHeight || 520;
-      const stickyTop = 100;
-      // Track height = room for the desk to sit sticky-pinned (deskHeight +
-      // stickyTop) plus the scroll distance dedicated to the scatter →
-      // organized animation. Anything beyond that just leaves the desk
-      // pinned in place doing nothing before the next section, since
-      // getBoundingClientRect() on the sticky element itself freezes the
-      // instant it locks to `top: 100` — see handleScroll below.
-      setScrollTrackHeight(`${deskHeight + stickyTop + ANIMATION_SCROLL_DISTANCE}px`);
+      const stickyContentHeight = stickyContentRef.current?.offsetHeight || 900;
+      // Track height = room for the header + desk to sit sticky-pinned
+      // together (stickyContentHeight + STICKY_TOP) plus the scroll distance
+      // dedicated to the scatter → organized animation. Anything beyond that
+      // just leaves them pinned in place doing nothing before the next
+      // section, since getBoundingClientRect() on the sticky element itself
+      // freezes the instant it locks to `top: STICKY_TOP` — see handleScroll
+      // below.
+      setScrollTrackHeight(`${stickyContentHeight + STICKY_TOP + ANIMATION_SCROLL_DISTANCE}px`);
     };
 
     handleResize();
@@ -117,15 +121,14 @@ export const MessyDeskCanvas: React.FC = () => {
   const handleScroll = useCallback(() => {
     if (isMobile || !scrollTrackRef.current) return;
 
-    // Read the track's own rect, not the sticky desk's — the sticky
-    // element's rect stops changing the moment it locks to `top: 100`,
+    // Read the track's own rect, not the sticky content's — the sticky
+    // element's rect stops changing the moment it locks to `top: STICKY_TOP`,
     // while the track keeps scrolling underneath it for the whole
     // pinned duration, so it's the only element whose position tracks
     // scroll progress continuously.
     const trackRect = scrollTrackRef.current.getBoundingClientRect();
-    const stickyTop = 100;
 
-    let rawProgress = (stickyTop - trackRect.top) / ANIMATION_SCROLL_DISTANCE;
+    let rawProgress = (STICKY_TOP - trackRect.top) / ANIMATION_SCROLL_DISTANCE;
     rawProgress = Math.max(0, Math.min(1, rawProgress));
 
     const eased =
@@ -182,32 +185,32 @@ export const MessyDeskCanvas: React.FC = () => {
   return (
     <div className="relative flex min-h-screen flex-col items-center overflow-x-clip bg-[#f7f4ed] px-5 py-12 text-[var(--black)]">
       <div className="mx-auto w-full max-w-[1100px]">
-        {/* Header */}
-        <header className="relative mb-8 text-center">
-          <p className="mb-2 text-[0.85rem] font-semibold uppercase tracking-[0.06em] text-[#2e4a32]">
-            Data System Architecture
-          </p>
-          <h1 className="mb-3 text-[2.5rem] font-bold tracking-[-0.02em] text-[var(--black)]">
-            Bringing Order to <em className="font-serif italic">Chaotic</em> Systems.
-          </h1>
-
-          <p className="mx-auto mb-6 max-w-[580px] text-base leading-[1.55] text-[#66625b]">
-            Scroll down to transform the chaotic desk stack into an organized system, then click any folder to inspect its architecture.
-          </p>
-
-          <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[rgba(180,170,150,0.5)] bg-[rgba(250,248,245,0.85)] px-[18px] py-2 text-[0.82rem] font-semibold text-[#2e4a32] shadow-[0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-[6px]">
-            <div className="h-1.5 w-[60px] overflow-hidden rounded-[10px] bg-black/[0.08]">
-              <div
-                className="h-full rounded-[10px] bg-[#2e4a32] transition-[width] duration-[50ms] ease-linear"
-                style={{ width: `${Math.round(progress * 100)}%` }}
-              />
-            </div>
-          </div>
-        </header>
-
         {/* Scroll Track */}
         <div ref={scrollTrackRef} style={{ height: scrollTrackHeight }}>
-          <div className="sticky top-[100px] w-full">
+          <div ref={stickyContentRef} className="sticky w-full" style={{ top: STICKY_TOP }}>
+            {/* Header — stays pinned alongside the desk for the whole animation */}
+            <header className="relative mb-8 text-center">
+              <p className="mb-2 text-[0.85rem] font-semibold uppercase tracking-[0.06em] text-[#2e4a32]">
+                Data System Architecture
+              </p>
+              <h1 className="mb-3 text-[2.5rem] font-bold tracking-[-0.02em] text-[var(--black)]">
+                Bringing Order to <em className="font-serif italic">Chaotic</em> Systems.
+              </h1>
+
+              <p className="mx-auto mb-6 max-w-[580px] text-base leading-[1.55] text-[#66625b]">
+                Scroll down to transform the chaotic desk stack into an organized system, then click any folder to inspect its architecture.
+              </p>
+
+              <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[rgba(180,170,150,0.5)] bg-[rgba(250,248,245,0.85)] px-[18px] py-2 text-[0.82rem] font-semibold text-[#2e4a32] shadow-[0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-[6px]">
+                <div className="h-1.5 w-[60px] overflow-hidden rounded-[10px] bg-black/[0.08]">
+                  <div
+                    className="h-full rounded-[10px] bg-[#2e4a32] transition-[width] duration-[50ms] ease-linear"
+                    style={{ width: `${Math.round(progress * 100)}%` }}
+                  />
+                </div>
+              </div>
+            </header>
+
             <div
               ref={deskWorkspaceRef}
               className="relative flex min-h-[520px] w-full items-center justify-center rounded-3xl border border-dashed border-[rgba(180,170,150,0.4)] bg-[rgba(240,235,225,0.45)] bg-[image:radial-gradient(circle_at_1px_1px,rgba(102,92,79,0.18)_0.75px,transparent_0.75px),linear-gradient(rgba(102,92,79,0.08)_1px,transparent_1px)] bg-[length:24px_24px,24px_24px] px-5 py-10 transition-[background-color,border-color] duration-[400ms] ease-in-out"
