@@ -19,6 +19,10 @@ export interface Tool {
   featured?: boolean;
   /** True if href points off-site (opens in a new tab) */
   external?: boolean;
+  /** Short highlight bullets shown in the project detail modal */
+  features: { title: string; description: string }[];
+  /** Screenshot shown in the project detail modal's preview frame */
+  image?: string;
 }
 
 export const TOOLS: Tool[] = [
@@ -32,6 +36,21 @@ export const TOOLS: Tool[] = [
     tags: ["Data Analysis", "Excel Export"],
     status: "live",
     featured: true,
+    image: "/images/tools/data-generator.png",
+    features: [
+      {
+        title: "Realistic Mock Data",
+        description: "Create thousands of believable records across e-commerce, analytics, CRM, and finance instantly.",
+      },
+      {
+        title: "Export Ready",
+        description: "Download straight to Excel, CSV, or JSON for your pipeline or dashboard.",
+      },
+      {
+        title: "Dirty Data Simulation",
+        description: "Add duplicates, nulls, and malformed values to stress-test cleaning workflows.",
+      },
+    ],
   },
   {
     slug: "model-budget",
@@ -43,6 +62,20 @@ export const TOOLS: Tool[] = [
     tags: ["LLM Tooling", "Cost Modeling"],
     status: "live",
     featured: true,
+    features: [
+      {
+        title: "Live Token Estimates",
+        description: "Sketch prompt, context, and call volume and watch the spend update in real time.",
+      },
+      {
+        title: "Frontier Model Coverage",
+        description: "Compares pricing across today's leading models side by side.",
+      },
+      {
+        title: "Plan Before You Build",
+        description: "Catch runaway cost scenarios before writing a line of code.",
+      },
+    ],
   },
   {
     slug: "model-matchmaker",
@@ -53,6 +86,21 @@ export const TOOLS: Tool[] = [
     built: "Built with AI · Interactive quiz",
     tags: ["LLM Selection", "Fun"],
     status: "experiment",
+    image: "/images/tools/model-matchmaker.png",
+    features: [
+      {
+        title: "Eight-Question Quiz",
+        description: "Answer a few quick prompts about use case, budget, and privacy needs.",
+      },
+      {
+        title: "Personality-Based Match",
+        description: "Get paired with the model that fits your workflow — and your vibe.",
+      },
+      {
+        title: "Just for Fun",
+        description: "A tongue-in-cheek way to explore what's out there.",
+      },
+    ],
   },
   {
     slug: "promptsmith",
@@ -64,6 +112,20 @@ export const TOOLS: Tool[] = [
     tags: ["Prompt Engineering", "Quiz"],
     status: "live",
     external: true,
+    features: [
+      {
+        title: "Beginner & Expert Tracks",
+        description: "Structured paths from clarity and constraints to chain-of-thought.",
+      },
+      {
+        title: "Hands-On Quizzes",
+        description: "Practice prompt engineering concepts with interactive questions.",
+      },
+      {
+        title: "Injection Prevention",
+        description: "Covers few-shot learning and defending prompts against misuse.",
+      },
+    ],
   },
 ];
 

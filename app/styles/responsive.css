@@ -18,6 +18,13 @@
     --section-pad: 72px 24px;
   }
 
+  .project-modal-grid {
+    grid-template-columns: 1fr;
+  }
+  .project-modal-preview {
+    order: -1;
+    padding: var(--sp-8) var(--sp-8) 0;
+  }
 }
 
 /* ── Large mobile / small tablet: 768px ── */
@@ -30,6 +37,16 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+  }
+  .project-modal-info {
+    padding: var(--sp-10) var(--sp-8);
+  }
+  .project-modal-title {
+    font-size: 2rem;
+  }
+  .project-modal-desc {
+    font-size: 1rem;
+    margin-bottom: var(--sp-8);
   }
 }
 
