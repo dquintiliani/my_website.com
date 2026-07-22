@@ -34,7 +34,7 @@ const DOCUMENTS: DocumentItem[] = [
     tags: ['ETL Pipelines', 'Data Ingestion', 'Schema Design'],
     ctaText: 'View architecture →',
     href: '#pipelines',
-    badgeColor: '#E05A47',
+    badgeColor: 'var(--chart-1)',
     scatter: { x: -80, y: -15, rot: -5.5 },
     organized: { x: -320, y: 0, rot: 0 },
   },
@@ -48,7 +48,7 @@ const DOCUMENTS: DocumentItem[] = [
     tags: ['Data Governance', 'Single Source of Truth', 'KPI Modeling'],
     ctaText: 'See governance framework →',
     href: '#governance',
-    badgeColor: '#4A7C59',
+    badgeColor: 'var(--green)',
     scatter: { x: 30, y: -30, rot: 4.2 },
     organized: { x: 0, y: 0, rot: 0 },
   },
@@ -62,7 +62,7 @@ const DOCUMENTS: DocumentItem[] = [
     tags: ['Database Optimization', 'AWS Cloud', 'Cost Reduction'],
     ctaText: 'Read optimization case →',
     href: '#optimization',
-    badgeColor: '#D9A036',
+    badgeColor: 'var(--chart-4)',
     scatter: { x: -20, y: 40, rot: -2.5 },
     organized: { x: 320, y: 0, rot: 0 },
   },
@@ -174,30 +174,25 @@ export const MessyDeskCanvas: React.FC = () => {
   }, [activeDoc]);
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center overflow-x-hidden bg-[#F3EFE6] px-5 py-12 font-[Inter,-apple-system,BlinkMacSystemFont,sans-serif] text-[#1C1C1A]">
-      {/* Google Fonts import: no Tailwind/next-font equivalent for a one-off component font */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,600&display=swap');
-      `}</style>
-
+    <div className="relative flex min-h-screen flex-col items-center overflow-x-hidden bg-[#f7f4ed] px-5 py-12 text-[var(--black)]">
       <div className="mx-auto w-full max-w-[1100px]">
         {/* Header */}
         <header className="relative mb-8 text-center">
-          <p className="mb-2 text-[0.85rem] font-semibold uppercase tracking-[0.06em] text-[#2E4A32]">
+          <p className="mb-2 text-[0.85rem] font-semibold uppercase tracking-[0.06em] text-[#2e4a32]">
             Data System Architecture
           </p>
-          <h1 className="mb-3 text-[2.5rem] font-bold tracking-[-0.02em] text-[#1C1C1A]">
-            Bringing Order to <em className="font-['Playfair_Display',serif] italic">Chaotic</em> Systems.
+          <h1 className="mb-3 text-[2.5rem] font-bold tracking-[-0.02em] text-[var(--black)]">
+            Bringing Order to <em className="font-serif italic">Chaotic</em> Systems.
           </h1>
 
           <p className="mx-auto mb-6 max-w-[580px] text-base leading-[1.55] text-[#66625b]">
             Scroll down to transform the chaotic desk stack into an organized system, then click any folder to inspect its architecture.
           </p>
 
-          <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[rgba(180,170,150,0.5)] bg-[rgba(250,248,245,0.85)] px-[18px] py-2 text-[0.82rem] font-semibold text-[#2E4A32] shadow-[0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-[6px]">
+          <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[rgba(180,170,150,0.5)] bg-[rgba(250,248,245,0.85)] px-[18px] py-2 text-[0.82rem] font-semibold text-[#2e4a32] shadow-[0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-[6px]">
             <div className="h-1.5 w-[60px] overflow-hidden rounded-[10px] bg-black/[0.08]">
               <div
-                className="h-full rounded-[10px] bg-[#2E4A32] transition-[width] duration-[50ms] ease-linear"
+                className="h-full rounded-[10px] bg-[#2e4a32] transition-[width] duration-[50ms] ease-linear"
                 style={{ width: `${Math.round(progress * 100)}%` }}
               />
             </div>
@@ -240,7 +235,7 @@ export const MessyDeskCanvas: React.FC = () => {
                       </p>
                       <span className="text-sm font-light text-black/40">↗</span>
                     </div>
-                    <h3 className="mb-2.5 text-[1.15rem] font-bold leading-[1.3] text-[#1C1C1A]">
+                    <h3 className="mb-2.5 text-[1.15rem] font-bold leading-[1.3] text-[var(--black)]">
                       {doc.title}
                     </h3>
                     <p className="m-0 text-[0.85rem] leading-[1.5] text-[#66625b]">
@@ -274,7 +269,7 @@ export const MessyDeskCanvas: React.FC = () => {
             <p className="mb-3 pr-10 text-xs font-semibold uppercase tracking-[0.05em] text-[#858076]">
               {activeDoc.eyebrow}
             </p>
-            <h2 className="mb-4 text-[1.75rem] font-bold leading-[1.25] tracking-[-0.01em] text-[#1C1C1A]">
+            <h2 className="mb-4 text-[1.75rem] font-bold leading-[1.25] tracking-[-0.01em] text-[var(--black)]">
               {activeDoc.title}
             </h2>
             <p className="mb-6 text-base leading-[1.6] text-[#66625b]">
