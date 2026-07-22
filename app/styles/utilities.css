@@ -1,0 +1,70 @@
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-label {
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 48px;
+}
+
+.divider {
+  width: 48px;
+  height: 2px;
+  background: var(--mustard);
+  margin-bottom: 40px;
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+  background: var(--mustard-light);
+  color: var(--accent-foreground);
+  margin: 3px 3px 3px 0;
+}
+
+/* Scroll reveal */
+.fade-in-element {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.fade-in-element.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tactile dot-grid paper background, shared by about.tsx's cards + modal */
+.paper-texture {
+  background-color: #faf8f5;
+  background-image:
+    radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(240, 235, 225, 0.5) 100%);
+  background-size: 18px 18px, 100% 100%;
+}
+
+/* Footer styling lives entirely in components/footer.tsx (Tailwind classes) — no CSS here. */

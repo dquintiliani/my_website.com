@@ -1,0 +1,113 @@
+/* ============================================================
+   ABOUT
+   ============================================================ */
+#about {
+  background: var(--warm-100);
+  padding: 96px 0;
+}
+.about-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+/* ── Headline row: title left, CTA link right ── */
+.about-head {
+  display: flex;
+  align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 56px;
+  }
+
+  .about-headline {
+    font-family: var(--font-head);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin: 0;
+    max-width: 20ch;
+  }
+
+  .about-headline em {
+    font-style: italic;
+    color: var(--green);
+  }
+
+  .about-head-link {
+    display: inline-flex;
+  align-items: center;
+  gap: 4px;
+    flex-shrink: 0;
+  font-family: var(--font-head);
+  font-size: 1rem;
+    font-weight: 500;
+    color: var(--green);
+    white-space: nowrap;
+    padding-bottom: 6px;
+    transition: color var(--transition), gap var(--transition);
+  }
+
+  .about-head-link:hover {
+    color: var(--green-light);
+    gap: 8px;
+  }
+
+  .about-head-link span {
+    font-size: 1.1em;
+}
+/* ── Card row: horizontal scroll, snap ── */
+.about-card-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(280px, 1fr);
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+  margin: 0 -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  scrollbar-width: none;
+}
+.about-card-row::-webkit-scrollbar {
+  display: none;
+}
+.about-card {
+  scroll-snap-align: start;
+  background: var(--white);
+  border-radius: 18px;
+  padding: 32px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+    min-height: 340px;
+}
+.about-card-eyebrow {
+  font-family: var(--font-head);
+  font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--warm-700);
+    margin: 0;
+  }
+
+  .about-card-title {
+    font-family: var(--font-head);
+    font-size: 1.6rem;
+    font-weight: 700;
+  color: var(--black);
+  letter-spacing: -0.02em;
+    line-height: 1.12;
+    margin: 4px 0 0;
+}
+.about-card-body {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--warm-700);
+  line-height: 1.6;
+  margin: 8px 0 0;
+}
