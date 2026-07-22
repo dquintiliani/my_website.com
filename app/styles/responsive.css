@@ -49,6 +49,14 @@
   .article-cta { opacity: 1; transform: translateX(0); }
   .prose table { display: block; overflow-x: auto; white-space: nowrap; }
 
+  .tbe-stat-grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .tbe-stat + .tbe-stat {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--warm-200);
+    padding-top: var(--sp-6);
+  }
+
   .hero-image-container {
     display: flex;
     width: 100%;
