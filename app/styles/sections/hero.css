@@ -299,7 +299,6 @@
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
 }
 
-.hero-illustration .nn-color-1 { fill: var(--chart-1); }
-.hero-illustration .nn-color-2 { fill: var(--chart-4); }
-.hero-illustration .nn-color-3 { fill: var(--chart-3); }
-.hero-illustration .nn-color-4 { fill: var(--green); }
+.hero-illustration .nn-color-input { fill: var(--chart-4); }
+.hero-illustration .nn-color-hidden { fill: var(--chart-3); }
+.hero-illustration .nn-color-output { fill: var(--chart-1); }

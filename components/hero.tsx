@@ -32,14 +32,17 @@ const HISTOGRAM_Y_GRID = [
 ];
 
 // Static, hand-tuned neural network layout (layer x-position, node y-positions,
-// color token) purely for a pleasant decorative pattern.
+// color token) purely for a pleasant decorative pattern: 3 inputs feeding
+// three fully-connected hidden layers of 4, collapsing to a single output.
 const NN_LAYERS = [
-  { x: 80, ys: [40, 120, 200, 280], color: "1" },
-  { x: 220, ys: [40, 88, 136, 184, 232, 280], color: "2" },
-  { x: 360, ys: [40, 88, 136, 184, 232, 280], color: "3" },
-  { x: 500, ys: [40, 160, 280], color: "4" },
+  { x: 60, ys: [40, 160, 280], color: "input" },
+  { x: 187, ys: [40, 120, 200, 280], color: "hidden" },
+  { x: 314, ys: [40, 120, 200, 280], color: "hidden" },
+  { x: 441, ys: [40, 120, 200, 280], color: "hidden" },
+  { x: 520, ys: [160], color: "output" },
 ] as const;
-const NN_NODE_RADIUS = 10;
+const NN_NODE_RADIUS = 14;
+const NN_OUTPUT_STUB_X = 560;
 
 // Static, hand-tuned intensity levels (1-6) purely for a pleasant decorative pattern.
 const HEATMAP_INTENSITIES = [
@@ -233,7 +236,7 @@ function HeroNeuralNet() {
     >
       {NN_LAYERS.slice(0, -1).flatMap((layer, layerIndex) => {
         const nextLayer = NN_LAYERS[layerIndex + 1];
-        const stageDelay = 0.15 + layerIndex * 0.25;
+        const stageDelay = 0.15 + layerIndex * 0.2;
         return layer.ys.flatMap((y1, i) =>
           nextLayer.ys.map((y2, j) => (
             <line
@@ -253,8 +256,17 @@ function HeroNeuralNet() {
         );
       })}
 
+      <line
+        x1={NN_LAYERS[NN_LAYERS.length - 1].x}
+        y1={NN_LAYERS[NN_LAYERS.length - 1].ys[0]}
+        x2={NN_OUTPUT_STUB_X}
+        y2={NN_LAYERS[NN_LAYERS.length - 1].ys[0]}
+        className="nn-edge"
+        style={{ animationDelay: "0.95s" }}
+      />
+
       {NN_LAYERS.flatMap((layer, layerIndex) => {
-        const stageDelay = 0.05 + layerIndex * 0.25;
+        const stageDelay = 0.05 + layerIndex * 0.2;
         return layer.ys.map((y, i) => (
           <circle
             key={`node-${layerIndex}-${i}`}
