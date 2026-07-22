@@ -44,7 +44,7 @@
 }
 
 .hero-name {
-  font-family: var(--font-playfair-display), Georgia, serif;
+  font-family: var(--font-nunito-sans), Georgia, serif;
   font-size: clamp(3rem, 7vw, 5.75rem);
   font-weight: 900;
   color: var(--black);
