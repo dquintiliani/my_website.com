@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { getAllTools, Tool } from "@/lib/tools";
 import { CtaButton, CloseButton } from "@/components/ui/cta-button";
 import { PaperTag } from "@/components/ui/paper-tag";
-import { paperCardVariants, paperModalCardVariants } from "@/components/ui/paper-card";
+import { paperCardVariants } from "@/components/ui/paper-card";
 import { cn } from "@/lib/utils";
 
 export default function Projects() {
@@ -105,7 +105,7 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Fixed Paper Modal Overlay */}
+      {/* Fixed Project Preview Modal Overlay */}
       {selectedTool && (
         <div
           onClick={handleClose}
@@ -118,35 +118,77 @@ export default function Projects() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className={paperModalCardVariants({ active: isModalActive })}
+            className={cn(
+              "project-modal",
+              "[transition:opacity_0.35s_cubic-bezier(0.16,1,0.3,1),transform_0.35s_cubic-bezier(0.16,1,0.3,1)]",
+              isModalActive ? "translate-y-0 scale-100 opacity-100" : "translate-y-3 scale-95 opacity-0",
+            )}
           >
-            {/* Close Button */}
-            <CloseButton onClick={handleClose} />
+            <CloseButton onClick={handleClose} className="right-6 top-6 md:right-8 md:top-8" />
 
-            <p className="mb-2 text-[0.82rem] font-semibold uppercase tracking-[0.06em] text-[#858076]">
-              {selectedTool.status === "live" ? "Live Tool" : "Experiment"}
-            </p>
+            <div className="project-modal-grid">
+              {/* Left: info */}
+              <aside className="project-modal-info">
+                <span className="project-modal-tag">
+                  {selectedTool.status === "live" ? "Live Tool" : "Experiment"}
+                </span>
 
-            <h2 className="mb-3 text-[1.85rem] font-bold leading-[1.2] tracking-[-0.01em] text-[#1a1a18]">
-              {selectedTool.title}
-            </h2>
+                <h2 className="project-modal-title">{selectedTool.title}</h2>
 
-            <p className="mb-6 text-base leading-[1.55] text-[#66625b]">
-              {selectedTool.summary}
-            </p>
+                <p className="project-modal-desc">{selectedTool.summary}</p>
 
-            <div className="mb-8 flex flex-wrap gap-2">
-              {selectedTool.tags.map((tag) => (
-                <PaperTag key={tag}>{tag}</PaperTag>
-              ))}
+                <div className="mb-8 flex flex-wrap gap-2">
+                  {selectedTool.tags.map((tag) => (
+                    <PaperTag key={tag}>{tag}</PaperTag>
+                  ))}
+                </div>
+
+                <div className="project-modal-features">
+                  {selectedTool.features.map((feature) => (
+                    <div className="project-modal-feature" key={feature.title}>
+                      <div className="project-modal-feature-icon" aria-hidden="true" />
+                      <div>
+                        <h4>{feature.title}</h4>
+                        <p>{feature.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="project-modal-actions">
+                  <CtaButton
+                    href={selectedTool.href}
+                    {...(selectedTool.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  >
+                    Open tool &rarr;
+                  </CtaButton>
+                </div>
+              </aside>
+
+              {/* Right: visual preview */}
+              <section className="project-modal-preview">
+                <div className="project-modal-frame">
+                  {selectedTool.image ? (
+                    <img
+                      src={selectedTool.image}
+                      alt={`${selectedTool.title} screenshot`}
+                      className="project-modal-image"
+                    />
+                  ) : (
+                    <div className="project-modal-placeholder">
+                      <h3>{selectedTool.title}</h3>
+                      <p>Click in to explore the live tool.</p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="project-modal-dots">
+                  <span className="active" />
+                  <span />
+                  <span />
+                </div>
+              </section>
             </div>
-
-            <CtaButton
-              href={selectedTool.href}
-              {...(selectedTool.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            >
-              Open tool &rarr;
-            </CtaButton>
           </div>
         </div>
       )}
