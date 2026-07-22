@@ -21,6 +21,8 @@ export interface Tool {
   external?: boolean;
   /** Short highlight bullets shown in the project detail modal */
   features: { title: string; description: string }[];
+  /** Screenshot shown in the project detail modal's preview frame */
+  image?: string;
 }
 
 export const TOOLS: Tool[] = [
@@ -34,6 +36,7 @@ export const TOOLS: Tool[] = [
     tags: ["Data Analysis", "Excel Export"],
     status: "live",
     featured: true,
+    image: "/images/tools/data-generator.png",
     features: [
       {
         title: "Realistic Mock Data",
@@ -83,6 +86,7 @@ export const TOOLS: Tool[] = [
     built: "Built with AI · Interactive quiz",
     tags: ["LLM Selection", "Fun"],
     status: "experiment",
+    image: "/images/tools/model-matchmaker.png",
     features: [
       {
         title: "Eight-Question Quiz",

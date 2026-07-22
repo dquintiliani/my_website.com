@@ -168,10 +168,18 @@ export default function Projects() {
               {/* Right: visual preview */}
               <section className="project-modal-preview">
                 <div className="project-modal-frame">
-                  <div className="project-modal-placeholder">
-                    <h3>{selectedTool.title}</h3>
-                    <p>Click in to explore the live tool.</p>
-                  </div>
+                  {selectedTool.image ? (
+                    <img
+                      src={selectedTool.image}
+                      alt={`${selectedTool.title} screenshot`}
+                      className="project-modal-image"
+                    />
+                  ) : (
+                    <div className="project-modal-placeholder">
+                      <h3>{selectedTool.title}</h3>
+                      <p>Click in to explore the live tool.</p>
+                    </div>
+                  )}
                 </div>
 
                 <div className="project-modal-dots">

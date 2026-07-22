@@ -118,6 +118,13 @@
   overflow: hidden;
 }
 
+.project-modal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
 .project-modal-placeholder {
   text-align: center;
   color: var(--warm-400);
