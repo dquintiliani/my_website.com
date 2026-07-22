@@ -100,57 +100,22 @@ export function Navigation() {
       role="banner"
       data-scrolled={scrolled}
       data-menu-open={menuOpen}
-      style={{
-        position:   "sticky",
-        top:        0,
-        zIndex:     50,
-        width:      "100%",
-        background: scrolled ? "rgba(238,234,227,0.88)" : "#EEEAE3",
-        backdropFilter:         scrolled ? "blur(14px)" : "none",
-        WebkitBackdropFilter:   scrolled ? "blur(14px)" : "none",
-        boxShadow:  scrolled ? "0 1px 0 #D2CEC5" : "none",
-        transition: "background 0.35s ease, box-shadow 0.35s ease",
-      }}
+      className="nav-header"
     >
-      <div
-        style={{
-          maxWidth:       "1080px",
-          margin:         "0 auto",
-          padding:        "0 40px",
-          height:         "68px",
-          display:        "flex",
-          alignItems:     "center",
-          justifyContent: "space-between",
-        }}
-      >
+      <div className="nav-inner-row">
         {/* Logo */}
-        <Link
-          href="/"
-          aria-label="DQ. — home"
-          style={{
-            fontSize:       "21px",
-            fontWeight:     100,
-            color:          "#1A1916",
-            letterSpacing:  "-0.04em",
-            textDecoration: "none",
-            lineHeight:     1,
-            fontFamily:    "'Playfair Display', Georgia, serif",
-          }}
-        >
-          Dominic Quintilian<span style={{ color: "#2C5F14" }}>.</span>
+        <Link href="/" aria-label="DQ. — home" className="nav-logo-link">
+          Dominic Quintilian<span>.</span>
         </Link>
 
         {/* Desktop nav */}
-        <nav role="navigation" aria-label="Primary" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+        <nav role="navigation" aria-label="Primary" className="nav-desktop">
 
           {/* Section tracker pill */}
 
 
           {/* Divider */}
-          <div
-            aria-hidden="true"
-            style={{ width: "1px", height: "16px", background: "#D2CEC5", margin: "0 2px" }}
-          />
+          <div aria-hidden="true" className="nav-divider" />
 
           {/* Route links */}
           {NAV_LINKS.map(({ href, label }) => (
@@ -158,46 +123,14 @@ export function Navigation() {
               key={href}
               href={href}
               aria-current={pathname === href ? "page" : undefined}
-              style={{
-                fontSize:       "12px",
-                fontWeight:     500,
-                color:          pathname === href ? "#1A1916" : "#7A7670",
-                textDecoration: "none",
-                padding:        "6px 10px",
-                borderRadius:   "4px",
-                letterSpacing:  "0.07em",
-                textTransform:  "uppercase",
-                transition:     "color 0.15s ease, background 0.15s ease",
-              }}
+              className="nav-route-link"
             >
               {label}
             </Link>
           ))}
 
           {/* CTA */}
-          <Link
-            href="#contact"
-            style={{
-              fontSize:       "12px",
-              fontWeight:     600,
-              letterSpacing:  "0.07em",
-              textTransform:  "uppercase",
-              color:          "#EEEAE3",
-              background:     "#1A1916",
-              textDecoration: "none",
-              padding:        "8px 18px",
-              borderRadius:   "4px",
-              marginLeft:     "4px",
-              transition:     "background 0.2s ease",
-              display:        "inline-block",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.background = "#2C5F14";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.background = "#1A1916";
-            }}
-          >
+          <Link href="#contact" className="nav-cta-link">
             Contact
           </Link>
 
@@ -207,29 +140,10 @@ export function Navigation() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((v) => !v)}
-            style={{
-              display:         "none", // shown via CSS at mobile breakpoint
-              flexDirection:   "column",
-              gap:             "5px",
-              background:      "none",
-              border:          "none",
-              cursor:          "pointer",
-              padding:         "4px",
-              marginLeft:      "8px",
-            }}
+            className="nav-toggle-btn"
           >
             {[0, 1, 2].map((i) => (
-              <span
-                key={i}
-                style={{
-                  display:         "block",
-                  width:           "22px",
-                  height:          "2px",
-                  backgroundColor: "#1A1916",
-                  borderRadius:    "1px",
-                  transition:      "transform 0.2s ease, opacity 0.2s ease",
-                }}
-              />
+              <span key={i} className="nav-toggle-bar" />
             ))}
           </button>
         </nav>
@@ -241,14 +155,7 @@ export function Navigation() {
           id="mobile-menu"
           role="dialog"
           aria-label="Mobile navigation"
-          style={{
-            padding:    "16px 40px 24px",
-            borderTop:  "1px solid #D2CEC5",
-            background: "rgba(238,234,227,0.97)",
-            display:    "flex",
-            flexDirection: "column",
-            gap:        "4px",
-          }}
+          className="nav-mobile-menu"
         >
           {SECTIONS.map((s) => (
             <button
@@ -257,37 +164,14 @@ export function Navigation() {
                 document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" });
                 setMenuOpen(false);
               }}
-              style={{
-                background:    "none",
-                border:        "none",
-                textAlign:     "left",
-                cursor:        "pointer",
-                fontSize:      "15px",
-                fontWeight:    s.id === activeSection ? 600 : 400,
-                color:         s.id === activeSection ? "#1A1916" : "#7A7670",
-                padding:       "10px 0",
-                borderBottom:  "1px solid #D2CEC5",
-                fontFamily:    "inherit",
-                letterSpacing: "0.02em",
-              }}
+              data-active={s.id === activeSection}
+              className="nav-mobile-section-btn"
             >
               {s.label}
             </button>
           ))}
           {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              style={{
-                fontSize:       "15px",
-                fontWeight:     400,
-                color:          "#7A7670",
-                textDecoration: "none",
-                padding:        "10px 0",
-                borderBottom:   "1px solid #D2CEC5",
-                display:        "block",
-              }}
-            >
+            <Link key={href} href={href} className="nav-mobile-route-link">
               {label}
             </Link>
           ))}
