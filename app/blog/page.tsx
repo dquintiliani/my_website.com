@@ -66,11 +66,7 @@ export default function BlogPage() {
                 {featured.tags.map((tag, i) => (
                   <span
                     key={tag}
-                    className={
-                      i === 0
-                        ? "blog-feat-tag blog-feat-tag--primary"
-                        : "blog-feat-tag"
-                    }
+                    className={i === 0 ? "pill-tag pill-tag--primary" : "pill-tag"}
                   >
                     {tag}
                   </span>
@@ -78,9 +74,8 @@ export default function BlogPage() {
               </div>
             </div>
 
-            {/* Decorative right column */}
+            {/* Right column */}
             <div className="blog-featured-aside">
-              <p className="blog-feat-number" aria-hidden="true">01</p>
               <p className="blog-feat-context">
                 Most recent article ·{" "}
                 <strong>
@@ -98,11 +93,7 @@ export default function BlogPage() {
           <div role="list">
             {articles.map((article, i) => (
               /* Client component — needs hover interaction */
-              <ArticleRow
-                key={article.slug}
-                article={article}
-                isFirst={i === 0}
-              />
+              <ArticleRow key={article.slug} article={article} index={i} />
             ))}
           </div>
         </div>

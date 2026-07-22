@@ -9,11 +9,9 @@
 @import './styles/base.css';
 @import './styles/utilities.css';
 
+@import './styles/sections/nav.css';
 @import './styles/sections/hero.css';
 @import './styles/sections/about.css';
-@import './styles/sections/experience.css';
-@import './styles/sections/skills.css';
-@import './styles/sections/writing.css';
 @import './styles/sections/contact.css';
 @import './styles/sections/blog.css';
 
