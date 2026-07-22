@@ -23,6 +23,17 @@ export interface Tool {
 
 export const TOOLS: Tool[] = [
   {
+    slug: "data-generator",
+    title: "Sample Data Generator",
+    summary:
+      "Generate realistic mock datasets — e-commerce orders, web analytics, ad spend, CRM, inventory, finance, and support tickets — with adjustable row counts, messy/dirty data, and duplicates, then export straight to Excel.",
+    href: "/data-generator",
+    built: "Built with AI · React + Next.js",
+    tags: ["Data Analysis", "Excel Export"],
+    status: "live",
+    featured: true,
+  },
+  {
     slug: "model-budget",
     title: "Model Token Budget Estimator",
     summary:
