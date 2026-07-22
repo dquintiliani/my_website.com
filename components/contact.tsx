@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Mail, Linkedin, Github } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const CONTACT_LINKS = [
   {
@@ -28,6 +29,7 @@ const CONTACT_LINKS = [
 ] as const;
 
 export function Contact() {
+  const { ref, isVisible } = useScrollReveal<HTMLDivElement>();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -63,7 +65,10 @@ export function Contact() {
   return (
     <section id="contact" className="contact-section">
       <div className="contact-container">
-        <div className="contact-card">
+        <div
+          ref={ref}
+          className={`contact-card${isVisible ? " is-visible" : ""}`}
+        >
           <div className="contact-monogram" aria-hidden="true">DQ</div>
 
           <header className="contact-header">
