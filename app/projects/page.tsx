@@ -12,7 +12,7 @@ export default function Projects() {
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
-  // Handle escape key to close modal
+
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape" && selectedTool) {
