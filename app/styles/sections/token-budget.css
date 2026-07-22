@@ -1,0 +1,224 @@
+/* ============================================================
+   TOKEN BUDGET ESTIMATOR
+   ============================================================ */
+.tbe-page {
+  background: var(--white);
+  padding: var(--section-pad);
+}
+
+.tbe-inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.tbe-heading {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--black);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 var(--sp-4);
+}
+.tbe-heading em {
+  font-style: italic;
+  color: var(--green);
+}
+
+.tbe-desc {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--warm-600);
+  line-height: 1.7;
+  max-width: 56ch;
+  margin: 0 0 var(--sp-16);
+}
+
+.tbe-block {
+  margin-bottom: var(--sp-16);
+}
+.tbe-block-label {
+  margin-bottom: var(--sp-4);
+}
+
+/* ── Model grid ── */
+.tbe-model-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--sp-3);
+}
+
+.tbe-model {
+  position: relative;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+  background: var(--white);
+  border: 1px solid var(--warm-200);
+  border-radius: var(--radius);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: border-color var(--transition), background var(--transition);
+}
+.tbe-model:hover {
+  border-color: var(--warm-400);
+}
+.tbe-model[data-active='true'] {
+  border-color: var(--green);
+  background: var(--green-muted);
+}
+
+.tbe-model-name {
+  font-family: var(--font-head);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--black);
+  padding-right: var(--sp-6);
+}
+.tbe-model-provider {
+  font-size: 0.75rem;
+  color: var(--warm-400);
+}
+.tbe-model-pricing {
+  font-size: 0.72rem;
+  color: var(--warm-600);
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.tbe-model[data-active='true'] .tbe-model-pricing {
+  color: var(--green);
+}
+
+.tbe-model-check {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Parameters ── */
+.tbe-params-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--sp-6);
+}
+
+.tbe-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.tbe-field-label {
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--warm-400);
+}
+.tbe-field-hint {
+  font-size: 0.75rem;
+  color: var(--warm-400);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Results ── */
+.tbe-results {
+  border-top: 1px solid var(--warm-200);
+  padding-top: var(--sp-10);
+}
+.tbe-results-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-8);
+}
+.tbe-results-sub {
+  font-size: 0.85rem;
+  color: var(--warm-400);
+}
+.tbe-results-sub strong {
+  color: var(--black);
+  font-weight: 600;
+}
+
+.tbe-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-10);
+  margin-bottom: var(--sp-10);
+}
+.tbe-stat + .tbe-stat {
+  border-left: 1px solid var(--warm-200);
+  padding-left: var(--sp-10);
+}
+.tbe-stat-label {
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--warm-400);
+  margin: 0 0 var(--sp-3);
+}
+.tbe-stat-cost {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: var(--black);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.tbe-stat-breakdown {
+  font-size: 0.8rem;
+  color: var(--warm-400);
+  margin: 4px 0 var(--sp-4);
+}
+.tbe-stat-tokens {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tbe-stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--warm-600);
+}
+.tbe-stat-row span:last-child {
+  font-weight: 600;
+  color: var(--black);
+  font-variant-numeric: tabular-nums;
+}
+
+.tbe-narrative {
+  border-left: 2px solid var(--green);
+  padding: 2px 0 2px var(--sp-4);
+}
+.tbe-narrative-label {
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin: 0 0 6px;
+}
+.tbe-narrative-text {
+  font-size: 0.95rem;
+  color: var(--warm-700);
+  line-height: 1.7;
+  margin: 0;
+}

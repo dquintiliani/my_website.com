@@ -1,6 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Check } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 // ─── Types & constants ────────────────────────────────────────────────────────
 
@@ -14,20 +17,22 @@ interface ModelPricing {
 
 const MODELS: readonly ModelPricing[] = [
   // Cheap & fast tier (great for high-volume / simple tasks)
-  { id: "gemini-3.1-flash-lite", name: "Gemini 3.1 Flash-Lite", provider: "Google",     inputPricePer1K: 0.00010, outputPricePer1K: 0.00040 },
-  { id: "grok-4-fast",           name: "Grok 4 Fast",           provider: "xAI",        inputPricePer1K: 0.00020, outputPricePer1K: 0.00050 },
-  { id: "gpt-5-mini",            name: "GPT-5 Mini",            provider: "OpenAI",     inputPricePer1K: 0.00025, outputPricePer1K: 0.00200 },
-  { id: "claude-haiku-4.5",      name: "Claude Haiku 4.5",      provider: "Anthropic",  inputPricePer1K: 0.00100, outputPricePer1K: 0.00500 },
+  { id: "gemini-2.5-flash-lite", name: "Gemini 2.5 Flash-Lite", provider: "Google",     inputPricePer1K: 0.00010,  outputPricePer1K: 0.00040 },
+  { id: "deepseek-v4-flash",     name: "DeepSeek V4 Flash",     provider: "DeepSeek",   inputPricePer1K: 0.00014,  outputPricePer1K: 0.00028 },
+  { id: "gpt-5.4-nano",          name: "GPT-5.4 Nano",          provider: "OpenAI",     inputPricePer1K: 0.00020,  outputPricePer1K: 0.00125 },
+  { id: "deepseek-v4-pro",       name: "DeepSeek V4 Pro",       provider: "DeepSeek",   inputPricePer1K: 0.000435, outputPricePer1K: 0.00087 },
 
   // Mid-tier balanced
-  { id: "gemini-2.5-flash",      name: "Gemini 2.5 Flash",      provider: "Google",     inputPricePer1K: 0.00030, outputPricePer1K: 0.00250 },
-  { id: "claude-sonnet-4.5",     name: "Claude Sonnet 4.5",     provider: "Anthropic",  inputPricePer1K: 0.00300, outputPricePer1K: 0.01500 },
-  { id: "gpt-5.2",               name: "GPT-5.2",               provider: "OpenAI",     inputPricePer1K: 0.00175, outputPricePer1K: 0.01400 },
+  { id: "gemini-3-flash",        name: "Gemini 3 Flash",        provider: "Google",     inputPricePer1K: 0.00050, outputPricePer1K: 0.00300 },
+  { id: "deepseek-r1",           name: "DeepSeek R1",           provider: "DeepSeek",   inputPricePer1K: 0.00055, outputPricePer1K: 0.00219 },
+  { id: "gpt-5.4-mini",          name: "GPT-5.4 Mini",          provider: "OpenAI",     inputPricePer1K: 0.00075, outputPricePer1K: 0.00450 },
+  { id: "claude-haiku-4.5",      name: "Claude Haiku 4.5",      provider: "Anthropic",  inputPricePer1K: 0.00100, outputPricePer1K: 0.00500 },
 
   // Flagship / reasoning-heavy
-  { id: "grok-4.20-beta",        name: "Grok 4.20 Beta",        provider: "xAI",        inputPricePer1K: 0.00200, outputPricePer1K: 0.00600 },
-  { id: "gpt-5.4",               name: "GPT-5.4",               provider: "OpenAI",     inputPricePer1K: 0.00250, outputPricePer1K: 0.01500 },
-  { id: "claude-opus-4.5",       name: "Claude Opus 4.5",       provider: "Anthropic",  inputPricePer1K: 0.00500, outputPricePer1K: 0.02500 },
+  { id: "claude-sonnet-5",       name: "Claude Sonnet 5",       provider: "Anthropic",  inputPricePer1K: 0.00200, outputPricePer1K: 0.01000 },
+  { id: "gemini-3.1-pro",        name: "Gemini 3.1 Pro",        provider: "Google",     inputPricePer1K: 0.00200, outputPricePer1K: 0.01200 },
+  { id: "claude-opus-4.8",       name: "Claude Opus 4.8",       provider: "Anthropic",  inputPricePer1K: 0.00500, outputPricePer1K: 0.02500 },
+  { id: "gpt-5.5",               name: "GPT-5.5",               provider: "OpenAI",     inputPricePer1K: 0.00500, outputPricePer1K: 0.03000 },
 ] as const;
 
 interface FormState {
@@ -61,6 +66,16 @@ function fmtInt(n: number): string {
 
 function fmtUSD(n: number): string {
   return "$" + n.toFixed(2);
+}
+
+// 4 decimals by default, extended to 5 only when needed to keep
+// nearby per-1K prices (e.g. DeepSeek's sub-cent tiers) distinguishable.
+function fmtPricePer1K(n: number): string {
+  let s = n.toFixed(5);
+  while (s.length > s.indexOf(".") + 5 && s.endsWith("0")) {
+    s = s.slice(0, -1);
+  }
+  return s;
 }
 
 function budgetNarrative(monthlyCost: number): string {
@@ -111,124 +126,121 @@ export default function ModelTokenBudgetEstimator() {
   }
 
   return (
-    <div style={s.wrap}>
+    <div className="tbe-page">
+      <div className="tbe-inner">
 
-      {/* ── Header ── */}
-      <p style={s.eyebrow}>Tool</p>
-      <h2 style={s.heading}>
-        Token budget <em style={s.headingEm}>estimator</em>.
-      </h2>
-      <p style={s.desc}>
-        Estimate daily and monthly LLM token usage and cost based on your
-        traffic and prompt assumptions. Updated March 2026 pricing.
-      </p>
+        {/* ── Header ── */}
+        <p className="section-label">Tool</p>
+        <h1 className="tbe-heading">
+          Token budget <em>estimator</em>.
+        </h1>
+        <p className="tbe-desc">
+          Estimate daily and monthly LLM token usage and cost based on your
+          traffic and prompt assumptions. Updated July 2026 pricing.
+        </p>
 
-      {/* ── Model selector ── */}
-      <p style={s.sectionLabel}>Model</p>
-      <div style={s.modelGrid}>
-        {MODELS.map((m) => {
-          const active = m.id === form.modelId;
-          return (
-            <button
-              key={m.id}
-              onClick={() => setModel(m.id)}
-              style={{
-                ...s.modelBtn,
-                ...(active ? s.modelBtnActive : {}),
-              }}
-              onMouseEnter={(e) => {
-                if (!active)
-                  (e.currentTarget as HTMLButtonElement).style.background = "#E8E3D9";
-              }}
-              onMouseLeave={(e) => {
-                if (!active)
-                  (e.currentTarget as HTMLButtonElement).style.background = "transparent";
-              }}
-            >
-              <span style={s.modelName}>{m.name}</span>
-              <span style={s.modelProvider}>{m.provider}</span>
-              <span style={{ ...s.modelPricing, ...(active ? s.modelPricingActive : {}) }}>
-                ${m.inputPricePer1K.toFixed(4)} in · ${m.outputPricePer1K.toFixed(4)} out / 1K tokens
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* ── Parameters ── */}
-      <p style={s.sectionLabel}>Parameters</p>
-      <div style={s.inputsGrid}>
-        <Field
-          label="Daily active users"
-          value={form.dailyActiveUsers}
-          onChange={(v) => setField("dailyActiveUsers", v)}
-        />
-        <Field
-          label="Requests per user / day"
-          value={form.requestsPerUserPerDay}
-          onChange={(v) => setField("requestsPerUserPerDay", v)}
-        />
-        <Field
-          label="Avg prompt tokens (input)"
-          value={form.avgPromptTokens}
-          onChange={(v) => setField("avgPromptTokens", v)}
-          hint="Includes system prompt, instructions, and any context you send."
-        />
-        <Field
-          label="Avg completion tokens (output)"
-          value={form.avgCompletionTokens}
-          onChange={(v) => setField("avgCompletionTokens", v)}
-          hint="Roughly how long the model's response is on average."
-        />
-        <Field
-          label="Days per month"
-          value={form.daysPerMonth}
-          onChange={(v) => setField("daysPerMonth", v)}
-          min={1}
-        />
-      </div>
-
-      {/* ── Results ── */}
-      <div style={s.results}>
-        <div style={s.resultsHeader}>
-          <span style={s.resultsTitle}>Estimated usage &amp; cost</span>
-          <span style={s.resultsRequests}>
-            Based on{" "}
-            <strong style={{ color: "#1A1916", fontWeight: 600 }}>
-              {fmtInt(metrics.dailyRequests)}
-            </strong>{" "}
-            requests / day
-          </span>
+        {/* ── Model selector ── */}
+        <div className="tbe-block">
+          <p className="section-label tbe-block-label">Model</p>
+          <div className="tbe-model-grid">
+            {MODELS.map((m) => {
+              const active = m.id === form.modelId;
+              return (
+                <button
+                  key={m.id}
+                  type="button"
+                  onClick={() => setModel(m.id)}
+                  className="tbe-model"
+                  data-active={active}
+                  aria-pressed={active}
+                >
+                  {active && (
+                    <span className="tbe-model-check">
+                      <Check size={12} strokeWidth={3} />
+                    </span>
+                  )}
+                  <span className="tbe-model-name">{m.name}</span>
+                  <span className="tbe-model-provider">{m.provider}</span>
+                  <span className="tbe-model-pricing">
+                    ${fmtPricePer1K(m.inputPricePer1K)} in · ${fmtPricePer1K(m.outputPricePer1K)} out / 1K tokens
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        <div style={s.statGrid}>
-          <StatCard
-            label="Daily"
-            inTok={metrics.dInTok}
-            outTok={metrics.dOutTok}
-            total={metrics.dTotal}
-            inCost={metrics.dInCost}
-            outCost={metrics.dOutCost}
-            unit="day"
-          />
-          <StatCard
-            label={`Monthly (${form.daysPerMonth} days)`}
-            inTok={metrics.mInTok}
-            outTok={metrics.mOutTok}
-            total={metrics.mTotal}
-            inCost={metrics.mInCost}
-            outCost={metrics.mOutCost}
-            unit="month"
-          />
+        {/* ── Parameters ── */}
+        <div className="tbe-block">
+          <p className="section-label tbe-block-label">Parameters</p>
+          <div className="tbe-params-grid">
+            <Field
+              label="Daily active users"
+              value={form.dailyActiveUsers}
+              onChange={(v) => setField("dailyActiveUsers", v)}
+            />
+            <Field
+              label="Requests per user / day"
+              value={form.requestsPerUserPerDay}
+              onChange={(v) => setField("requestsPerUserPerDay", v)}
+            />
+            <Field
+              label="Avg prompt tokens (input)"
+              value={form.avgPromptTokens}
+              onChange={(v) => setField("avgPromptTokens", v)}
+              hint="Includes system prompt, instructions, and any context you send."
+            />
+            <Field
+              label="Avg completion tokens (output)"
+              value={form.avgCompletionTokens}
+              onChange={(v) => setField("avgCompletionTokens", v)}
+              hint="Roughly how long the model's response is on average."
+            />
+            <Field
+              label="Days per month"
+              value={form.daysPerMonth}
+              onChange={(v) => setField("daysPerMonth", v)}
+              min={1}
+            />
+          </div>
         </div>
 
-        {/* Narrative */}
-        <div style={s.narrative}>
-          <p style={s.narrativeLabel}>PM take</p>
-          <p style={s.narrativeText}>{budgetNarrative(metrics.mTotal)}</p>
+        {/* ── Results ── */}
+        <div className="tbe-results">
+          <div className="tbe-results-head">
+            <p className="section-label">Estimated usage &amp; cost</p>
+            <p className="tbe-results-sub">
+              Based on <strong>{fmtInt(metrics.dailyRequests)}</strong> requests / day
+            </p>
+          </div>
+
+          <div className="tbe-stat-grid">
+            <StatBlock
+              label="Daily"
+              inTok={metrics.dInTok}
+              outTok={metrics.dOutTok}
+              total={metrics.dTotal}
+              inCost={metrics.dInCost}
+              outCost={metrics.dOutCost}
+            />
+            <StatBlock
+              label={`Monthly (${form.daysPerMonth} days)`}
+              inTok={metrics.mInTok}
+              outTok={metrics.mOutTok}
+              total={metrics.mTotal}
+              inCost={metrics.mInCost}
+              outCost={metrics.mOutCost}
+            />
+          </div>
+
+          {/* Narrative */}
+          <div className="tbe-narrative">
+            <p className="tbe-narrative-label">PM take</p>
+            <p className="tbe-narrative-text">{budgetNarrative(metrics.mTotal)}</p>
+          </div>
         </div>
+
       </div>
-
     </div>
   );
 }
@@ -249,30 +261,21 @@ function Field({
   min?:     number;
 }) {
   return (
-    <div style={s.field}>
-      <span style={s.fieldLabel}>{label}</span>
-      <input
+    <div className="tbe-field">
+      <Label className="tbe-field-label">{label}</Label>
+      <Input
         type="number"
         min={min}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        style={s.fieldInput}
-        onFocus={(e) => {
-          (e.target as HTMLInputElement).style.borderColor = "#2C5F14";
-          (e.target as HTMLInputElement).style.background  = "#fff";
-        }}
-        onBlur={(e) => {
-          (e.target as HTMLInputElement).style.borderColor = "transparent";
-          (e.target as HTMLInputElement).style.background  = "#E8E3D9";
-        }}
       />
-      {hint && <span style={s.fieldHint}>{hint}</span>}
+      {hint && <p className="tbe-field-hint">{hint}</p>}
     </div>
   );
 }
 
-function StatCard({
-  label, inTok, outTok, total, inCost, outCost, unit,
+function StatBlock({
+  label, inTok, outTok, total, inCost, outCost,
 }: {
   label:   string;
   inTok:   number;
@@ -280,267 +283,24 @@ function StatCard({
   total:   number;
   inCost:  number;
   outCost: number;
-  unit:    string;
 }) {
   return (
-    <div style={s.statCard}>
-      <p style={s.statCardLabel}>{label}</p>
-      <div style={s.statRow}>
-        <span style={s.statRowLabel}>Input tokens</span>
-        <span style={s.statRowVal}>{fmtInt(inTok)}</span>
-      </div>
-      <div style={s.statRow}>
-        <span style={s.statRowLabel}>Output tokens</span>
-        <span style={s.statRowVal}>{fmtInt(outTok)}</span>
-      </div>
-      <div style={s.statCost}>
-        <span style={s.statCostLabel}>{unit === "day" ? "Daily" : "Monthly"} cost</span>
-        <span style={s.statCostVal}>{fmtUSD(total)}</span>
-      </div>
-      <p style={s.statCostBreakdown}>
+    <div className="tbe-stat">
+      <p className="tbe-stat-label">{label}</p>
+      <p className="tbe-stat-cost">{fmtUSD(total)}</p>
+      <p className="tbe-stat-breakdown">
         Input {fmtUSD(inCost)} · Output {fmtUSD(outCost)}
       </p>
+      <div className="tbe-stat-tokens">
+        <div className="tbe-stat-row">
+          <span>Input tokens</span>
+          <span>{fmtInt(inTok)}</span>
+        </div>
+        <div className="tbe-stat-row">
+          <span>Output tokens</span>
+          <span>{fmtInt(outTok)}</span>
+        </div>
+      </div>
     </div>
   );
 }
-
-// ─── Styles ──────────────────────────────────────────────────────────────────
-
-const s: Record<string, React.CSSProperties> = {
-  wrap: {
-    backgroundColor: "#EEEAE3",
-    padding:         "48px 40px",
-    maxWidth:        "760px",
-    margin:          "0 auto",
-    fontFamily:      "'DM Sans', 'Plus Jakarta Sans', system-ui, sans-serif",
-  },
-
-  eyebrow: {
-    fontSize:      "11px",
-    fontWeight:    600,
-    letterSpacing: "0.13em",
-    textTransform: "uppercase",
-    color:         "#2C5F14",
-    margin:        "0 0 14px",
-  },
-  heading: {
-    fontSize:      "clamp(24px, 3vw, 36px)",
-    fontWeight:    700,
-    color:         "#1A1916",
-    letterSpacing: "-0.025em",
-    lineHeight:    1.1,
-    margin:        "0 0 10px",
-  },
-  headingEm: {
-    fontStyle:  "italic",
-    color:      "#2C5F14",
-    fontFamily: "'Playfair Display', Georgia, serif",
-    fontWeight: 900,
-  },
-  desc: {
-    fontSize:   "14px",
-    color:      "#7A7670",
-    lineHeight: 1.7,
-    margin:     "0 0 40px",
-    maxWidth:   "520px",
-  },
-
-  sectionLabel: {
-    fontSize:      "10px",
-    fontWeight:    600,
-    letterSpacing: "0.1em",
-    textTransform: "uppercase",
-    color:         "#AEADA5",
-    margin:        "0 0 12px",
-  },
-
-  modelGrid: {
-    display:      "flex",
-    gap:          "10px",
-    marginBottom: "32px",
-    flexWrap:     "wrap",
-  },
-  modelBtn: {
-    flex:          "1",
-    minWidth:      "160px",
-    padding:       "14px 16px",
-    border:        "1px solid #D2CEC5",
-    borderRadius:  "4px",
-    background:    "transparent",
-    cursor:        "pointer",
-    textAlign:     "left",
-    fontFamily:    "inherit",
-    transition:    "border-color 0.15s ease, background 0.15s ease",
-    display:       "flex",
-    flexDirection: "column",
-    gap:           "3px",
-  },
-  modelBtnActive: {
-    borderColor: "#2C5F14",
-    background:  "#DCE9D4",
-  },
-  modelName: {
-    fontSize:   "13px",
-    fontWeight: 600,
-    color:      "#1A1916",
-    display:    "block",
-  },
-  modelProvider: {
-    fontSize:      "11px",
-    color:         "#AEADA5",
-    letterSpacing: "0.03em",
-    display:       "block",
-  },
-  modelPricing: {
-    fontSize:      "10px",
-    fontWeight:    500,
-    color:         "#7A7670",
-    letterSpacing: "0.03em",
-    marginTop:     "4px",
-  },
-  modelPricingActive: {
-    color: "#2C5F14",
-  },
-
-  inputsGrid: {
-    display:             "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap:                 "20px",
-    marginBottom:        "32px",
-  },
-  field: {
-    display:       "flex",
-    flexDirection: "column",
-    gap:           "6px",
-  },
-  fieldLabel: {
-    fontSize:      "11px",
-    fontWeight:    500,
-    letterSpacing: "0.08em",
-    textTransform: "uppercase",
-    color:         "#AEADA5",
-  },
-  fieldInput: {
-    background:        "#E8E3D9",
-    border:            "1px solid transparent",
-    borderRadius:      "4px",
-    padding:           "11px 14px",
-    fontSize:          "15px",
-    fontWeight:        500,
-    fontFamily:        "inherit",
-    color:             "#1A1916",
-    outline:           "none",
-    transition:        "border-color 0.15s ease, background 0.15s ease",
-    fontVariantNumeric:"tabular-nums",
-    width:             "100%",
-  },
-  fieldHint: {
-    fontSize:   "11px",
-    color:      "#AEADA5",
-    lineHeight: 1.5,
-  },
-
-  results: {
-    borderTop:  "1px solid #D2CEC5",
-    paddingTop: "32px",
-  },
-  resultsHeader: {
-    display:        "flex",
-    alignItems:     "baseline",
-    justifyContent: "space-between",
-    marginBottom:   "24px",
-    flexWrap:       "wrap",
-    gap:            "8px",
-  },
-  resultsTitle: {
-    fontSize:      "10px",
-    fontWeight:    600,
-    letterSpacing: "0.1em",
-    textTransform: "uppercase",
-    color:         "#AEADA5",
-  },
-  resultsRequests: {
-    fontSize:   "12px",
-    color:      "#AEADA5",
-  },
-
-  statGrid: {
-    display:             "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap:                 "16px",
-    marginBottom:        "24px",
-  },
-  statCard: {
-    background:   "#E8E3D9",
-    borderRadius: "4px",
-    padding:      "20px",
-  },
-  statCardLabel: {
-    fontSize:      "10px",
-    fontWeight:    600,
-    letterSpacing: "0.1em",
-    textTransform: "uppercase",
-    color:         "#AEADA5",
-    margin:        "0 0 14px",
-  },
-  statRow: {
-    display:        "flex",
-    justifyContent: "space-between",
-    alignItems:     "baseline",
-    marginBottom:   "6px",
-  },
-  statRowLabel: {
-    fontSize: "12px",
-    color:    "#7A7670",
-  },
-  statRowVal: {
-    fontSize:           "12px",
-    fontWeight:         600,
-    color:              "#1A1916",
-    fontVariantNumeric: "tabular-nums",
-  },
-  statCost: {
-    marginTop:      "12px",
-    paddingTop:     "12px",
-    borderTop:      "1px solid #D2CEC5",
-    display:        "flex",
-    justifyContent: "space-between",
-    alignItems:     "baseline",
-  },
-  statCostLabel: {
-    fontSize: "12px",
-    color:    "#7A7670",
-  },
-  statCostVal: {
-    fontSize:           "22px",
-    fontWeight:         700,
-    color:              "#1A1916",
-    letterSpacing:      "-0.02em",
-    fontVariantNumeric: "tabular-nums",
-  },
-  statCostBreakdown: {
-    fontSize:   "11px",
-    color:      "#AEADA5",
-    marginTop:  "4px",
-  },
-
-  narrative: {
-    borderLeft: "3px solid #2C5F14",
-    padding:    "12px 0 12px 18px",
-  },
-  narrativeLabel: {
-    fontSize:      "10px",
-    fontWeight:    600,
-    letterSpacing: "0.1em",
-    textTransform: "uppercase",
-    color:         "#2C5F14",
-    margin:        "0 0 6px",
-  },
-  narrativeText: {
-    fontSize:   "14px",
-    color:      "#3D3B37",
-    lineHeight: 1.7,
-    fontWeight: 400,
-    margin:     0,
-  },
-};
