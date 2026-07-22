@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { CtaButton, CloseButton } from '@/components/ui/cta-button';
 import { PaperTag } from '@/components/ui/paper-tag';
+import { paperModalCardVariants } from '@/components/ui/paper-card';
 import { cn } from '@/lib/utils';
 import { BREAKPOINTS } from '@/lib/breakpoints';
 
@@ -266,10 +267,7 @@ export const MessyDeskCanvas: React.FC = () => {
         {activeDoc && (
           <div
             onClick={(e) => e.stopPropagation()}
-            className={cn(
-              "paper-texture relative z-[10000] w-full max-w-[560px] rounded-[28px] border border-[rgba(180,170,150,0.5)] p-10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_24px_60px_rgba(0,0,0,0.18),0_4px_16px_rgba(0,0,0,0.08)] [transition:opacity_0.35s_cubic-bezier(0.16,1,0.3,1),transform_0.35s_cubic-bezier(0.16,1,0.3,1)]",
-              activeDoc ? "translate-y-0 scale-100 opacity-100" : "translate-y-3 scale-95 opacity-0",
-            )}
+            className={paperModalCardVariants({ active: !!activeDoc })}
           >
             <CloseButton onClick={() => setActiveDoc(null)} />
 

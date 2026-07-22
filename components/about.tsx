@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { CtaButton, CloseButton } from "@/components/ui/cta-button";
 import { PaperTag } from "@/components/ui/paper-tag";
+import { paperCardVariants, paperModalCardVariants } from "@/components/ui/paper-card";
 import { cn } from "@/lib/utils";
 
 interface CardItem {
@@ -168,9 +169,8 @@ export function About() {
                 onClick={() => handleOpen(card)}
                 type="button"
                 className={cn(
-                  "paper-texture relative w-80 flex-shrink-0 rounded-[20px] border border-[rgba(46,74,50,0.2)] p-7 px-6 text-left shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8),0_1px_2px_rgba(40,30,20,0.04),0_4px_12px_rgba(40,30,20,0.03)] [transition:transform_0.35s_cubic-bezier(0.16,1,0.3,1),box-shadow_0.35s_cubic-bezier(0.16,1,0.3,1),border-color_0.3s_ease] [scroll-snap-align:start]",
-                  "hover:-translate-y-1 hover:border-[rgba(46,74,50,0.5)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_4px_8px_rgba(40,30,20,0.04),0_16px_32px_-4px_rgba(40,30,20,0.08)]",
-                  i % 2 === 0 ? "hover:rotate-[-0.2deg]" : "hover:rotate-[0.2deg]",
+                  paperCardVariants({ tint: "green", rotate: i % 2 === 0 ? "left" : "right" }),
+                  "w-80 flex-shrink-0 text-left [scroll-snap-align:start]",
                 )}
               >
                 <div className="mb-4 flex items-center justify-between">
@@ -209,12 +209,7 @@ export function About() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className={cn(
-              "paper-texture relative z-[10000] w-full max-w-[560px] rounded-[28px] border border-[rgba(180,170,150,0.5)] p-10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_24px_60px_rgba(0,0,0,0.18),0_4px_16px_rgba(0,0,0,0.08)] [transition:opacity_0.35s_cubic-bezier(0.16,1,0.3,1),transform_0.35s_cubic-bezier(0.16,1,0.3,1)]",
-              isModalActive
-                ? "translate-y-0 scale-100 opacity-100"
-                : "translate-y-3 scale-95 opacity-0",
-            )}
+            className={paperModalCardVariants({ active: isModalActive })}
           >
             {/* Close Button */}
             <CloseButton onClick={handleClose} />
