@@ -9,7 +9,6 @@
 @import './styles/base.css';
 @import './styles/utilities.css';
 
-@import './styles/sections/navigation.css';
 @import './styles/sections/hero.css';
 @import './styles/sections/about.css';
 @import './styles/sections/experience.css';

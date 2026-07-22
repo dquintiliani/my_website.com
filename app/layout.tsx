@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Nunito_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { Navigation } from "@/components/navigation"
 import './globals.css'
 
 const nunitoSans = Nunito_Sans({

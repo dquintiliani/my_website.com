@@ -9,8 +9,8 @@ below) — the actual CSS lives in `app/styles/`:
 - `tokens.css` — `:root` / `.dark` / `@theme inline`
 - `base.css` — the `@layer base` reset and shared `@keyframes`
 - `utilities.css` — small shared one-off classes (`.container`, `.tag`, `.paper-texture`, etc.)
-- `sections/*.css` — one file per page section (`navigation.css`, `hero.css`, `about.css`,
-  `experience.css`, `skills.css`, `writing.css`, `contact.css`, `blog.css`)
+- `sections/*.css` — one file per page section (`hero.css`, `about.css`, `experience.css`,
+  `skills.css`, `writing.css`, `contact.css`, `blog.css`)
 - `responsive.css` — the breakpoint overrides for the above
 
 Where new styling should live, in priority order:
