@@ -22,10 +22,22 @@
 
 .contact-card {
   position: relative;
-  background: var(--white);
+  background-color: var(--paper-bg);
+  background-image:
+    linear-gradient(var(--paper-rule-color) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      transparent 96px,
+      var(--paper-margin-color) 96px,
+      var(--paper-margin-color) 98px,
+      transparent 98px
+    );
+  background-size: var(--paper-rule-size) var(--paper-rule-size), 100% 100%;
+  background-position: 0 14px, 0 0;
   border: 1px solid var(--warm-200);
+  border-radius: var(--radius);
   box-shadow: 0 18px 60px rgba(26, 23, 20, 0.08);
-  padding: 64px;
+  padding: 72px 64px 72px 136px;
   opacity: 0;
 }
 
@@ -41,35 +53,30 @@
   }
 }
 
-/* Corner marks */
-.contact-card::before,
-.contact-card::after {
-  content: "";
+/* Hole-punch column along the left edge — filled with the section's
+   background color so the card reads as physically punched through. */
+.contact-hole {
   position: absolute;
-  width: 32px;
-  height: 32px;
-  border-color: var(--warm-400);
+  left: 42px;
+  width: 22px;
+  height: 22px;
+  background: var(--warm-100);
+  border-radius: 50%;
+  box-shadow: inset 1px 1px 3px rgba(26, 23, 20, 0.3);
 }
-.contact-card::before {
-  top: 18px;
-  left: 18px;
-  border-top: 1px solid;
-  border-left: 1px solid;
-}
-.contact-card::after {
-  bottom: 18px;
-  right: 18px;
-  border-bottom: 1px solid;
-  border-right: 1px solid;
-}
+.contact-hole--top { top: 76px; }
+.contact-hole--middle { top: 50%; transform: translateY(-50%); }
+.contact-hole--bottom { bottom: 76px; }
 
+/* Hand-stamped badge: dashed rubber-stamp outline, skewed like a real
+   ink stamp pressed slightly off-true. */
 .contact-monogram {
   position: absolute;
   top: 28px;
   right: 36px;
   width: 52px;
   height: 52px;
-  border: 1px solid var(--warm-200);
+  border: 2px dashed var(--green);
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -77,6 +84,9 @@
   font-weight: 700;
   color: var(--green);
   font-size: 1.4rem;
+  transform: rotate(-6deg);
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 1px 2px 4px rgba(26, 23, 20, 0.08);
 }
 
 .contact-header {
@@ -101,10 +111,13 @@
   line-height: 0.98;
   color: var(--black);
   margin: 0;
+  /* Soft blur mimics wet ink absorbing into paper fibers. */
+  text-shadow: 0 0 0.4px rgba(26, 23, 20, 0.6);
 }
 .contact-title em {
   font-style: italic;
   color: var(--green);
+  text-shadow: 0 0 0.4px rgba(45, 90, 61, 0.6);
 }
 
 .contact-rule {
@@ -137,6 +150,10 @@
   display: block;
   text-decoration: none;
   color: inherit;
+  transition: color var(--transition);
+}
+.contact-info-item:hover {
+  color: var(--green);
 }
 
 .contact-info-label {
@@ -162,11 +179,16 @@
   color: var(--green);
 }
 
+/* Dashed "pencil guide" underline rather than a solid rule. */
 .contact-info-divider {
   display: block;
-  height: 1px;
-  background: var(--warm-200);
+  height: 0;
+  border-top: 1.5px dashed var(--warm-400);
   margin-top: var(--sp-4);
+  transition: border-color var(--transition);
+}
+.contact-info-item:hover .contact-info-divider {
+  border-color: var(--green);
 }
 
 .contact-form {
@@ -194,11 +216,10 @@
   margin-bottom: var(--sp-3);
 }
 
-.contact-input,
-.contact-textarea {
+.contact-input {
   background: none;
   border: none;
-  border-bottom: 1px solid var(--warm-200);
+  border-bottom: 1.5px dashed var(--warm-400);
   border-radius: 0;
   padding: var(--sp-3) 2px;
   font-size: 1rem;
@@ -212,14 +233,31 @@
 .contact-textarea::placeholder {
   color: var(--warm-400);
 }
-.contact-textarea {
-  min-height: 160px;
-  resize: vertical;
-  border: 1px solid var(--warm-200);
-  padding: var(--sp-4);
+.contact-input:focus {
+  border-bottom-style: solid;
+  border-color: var(--green);
 }
-.contact-input:focus,
+
+/* Handwritten "ink on the page" textarea — the font, line-height, and ink
+   color simulate a letter written directly onto ruled paper. */
+.contact-textarea {
+  min-height: calc(var(--paper-rule-size) * 5);
+  resize: vertical;
+  border: 1px dashed var(--warm-200);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.4);
+  padding: var(--sp-3) var(--sp-4);
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  line-height: var(--paper-rule-size);
+  color: #1a2332;
+  text-shadow: 0 0 0.5px rgba(26, 35, 50, 0.5);
+  outline: none;
+  width: 100%;
+  transition: border-color var(--transition);
+}
 .contact-textarea:focus {
+  border-style: solid;
   border-color: var(--green);
 }
 
@@ -241,8 +279,11 @@
   color: var(--warm-600);
 }
 
+/* Physical tactile button: a resting 3D depth shadow that presses flat
+   on click, like a real stamped button. */
 .contact-submit-btn {
   border: none;
+  border-radius: var(--radius);
   background: var(--green);
   color: var(--white);
   padding: var(--sp-4) var(--sp-8);
@@ -252,12 +293,16 @@
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
-  transition: transform var(--transition), box-shadow var(--transition),
+  box-shadow: 0 4px 0 var(--warm-700), 0 5px 8px rgba(26, 23, 20, 0.15);
+  transition: transform 0.1s ease, box-shadow 0.1s ease,
     background-color var(--transition);
 }
 .contact-submit-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(45, 90, 61, 0.22);
+  background: var(--green-light);
+}
+.contact-submit-btn:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--warm-700), 0 2px 4px rgba(26, 23, 20, 0.1);
 }
 .contact-submit-btn:disabled {
   opacity: 0.5;
@@ -273,7 +318,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--sp-4);
-  background: var(--white);
+  background: var(--paper-bg);
   text-align: center;
   padding: var(--sp-16);
 }
@@ -366,7 +411,7 @@
   justify-content: center;
   gap: var(--sp-4);
   text-align: center;
-  background: var(--white);
+  background: var(--paper-bg);
   border: 1px solid var(--warm-200);
   padding: var(--sp-16);
   color: var(--green);

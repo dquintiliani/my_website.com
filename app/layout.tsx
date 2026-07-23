@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Nunito_Sans, Playfair_Display } from 'next/font/google'
+import { Nunito_Sans, Playfair_Display, Caveat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SiteNav } from '@/components/site-nav'
 import './globals.css'
@@ -16,6 +16,12 @@ const playfairDisplay = Playfair_Display({
   weight: ['700', '900'],
   style: ['normal', 'italic'],
   variable: '--font-playfair-display',
+})
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  weight: ['500', '700'],
+  variable: '--font-caveat',
 })
 
 export const metadata: Metadata = {
@@ -70,7 +76,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${nunitoSans.variable} ${playfairDisplay.variable}`}>
+    <html lang="en" className={`${nunitoSans.variable} ${playfairDisplay.variable} ${caveat.variable}`}>
       <body>
         <SiteNav />
         {children}

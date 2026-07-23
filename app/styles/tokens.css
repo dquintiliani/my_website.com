@@ -96,9 +96,15 @@
   --paper-dot-color: rgba(0, 0, 0, 0.12);
   --paper-dot-size: 18px;
 
+  /* ── Ruled-paper texture (contact section's tactile letterhead card) ── */
+  --paper-rule-color: color-mix(in srgb, var(--green) 12%, transparent);
+  --paper-rule-size: 32px;
+  --paper-margin-color: color-mix(in srgb, var(--mustard) 62%, transparent);
+
   /* ── Typography ── */
   --font-head: var(--font-nunito-sans), 'Nunito Sans', sans-serif;
   --font-body: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-hand: var(--font-caveat), 'Caveat', cursive;
 
   /* ── Layout ── */
   --max-w: 1080px;

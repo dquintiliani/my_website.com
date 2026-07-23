@@ -31,8 +31,24 @@
     gap: var(--sp-10);
   }
   .contact-card {
-    padding: 40px;
+    padding: 56px 40px 56px 88px;
+    background-image:
+      linear-gradient(var(--paper-rule-color) 1px, transparent 1px),
+      linear-gradient(
+        90deg,
+        transparent 56px,
+        var(--paper-margin-color) 56px,
+        var(--paper-margin-color) 58px,
+        transparent 58px
+      );
   }
+  .contact-hole {
+    left: 20px;
+    width: 18px;
+    height: 18px;
+  }
+  .contact-hole--top { top: 44px; }
+  .contact-hole--bottom { bottom: 44px; }
   .contact-title {
     font-size: clamp(2.2rem, 8vw, 3rem);
   }
@@ -97,6 +113,17 @@
     font-size: 1.1rem;
     top: 20px;
     right: 20px;
+  }
+  .contact-card {
+    padding: 48px 28px 48px 64px;
+  }
+  .contact-hole {
+    left: 14px;
+    width: 14px;
+    height: 14px;
+  }
+  .contact-textarea {
+    font-size: 1.3rem;
   }
 
   .hero-image-container {
