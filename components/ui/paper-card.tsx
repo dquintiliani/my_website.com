@@ -24,6 +24,15 @@ const paperCardVariants = cva(
 )
 
 /**
+ * Static (non-interactive) paper-texture card shell for "pending" content —
+ * no hover lift/rotate, since it isn't clickable. `overflow-hidden` so the
+ * PendingRibbon banner clips to the card's rounded corners.
+ */
+const pendingPaperCardVariants = cva(
+  "paper-texture relative overflow-hidden rounded-[20px] border border-[rgba(196,154,34,0.35)] p-7 px-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8),0_1px_2px_rgba(40,30,20,0.04),0_4px_12px_rgba(40,30,20,0.03)]",
+)
+
+/**
  * Paper-texture modal card wrapper, byte-identical across about.tsx,
  * projects.tsx, and folder.tsx before this consolidation.
  */
@@ -39,6 +48,6 @@ const paperModalCardVariants = cva(
   },
 )
 
-export { paperCardVariants, paperModalCardVariants }
+export { paperCardVariants, pendingPaperCardVariants, paperModalCardVariants }
 export type PaperCardVariants = VariantProps<typeof paperCardVariants>
 export type PaperModalCardVariants = VariantProps<typeof paperModalCardVariants>
