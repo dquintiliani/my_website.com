@@ -63,4 +63,13 @@
   background-size: var(--paper-dot-size) var(--paper-dot-size), 100% 100%;
 }
 
+/* Shimmering placeholder line for "content not ready yet" states (e.g. pending cards) */
+.skeleton-bar {
+  height: 12px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(90deg, var(--warm-200) 25%, var(--off-white-2) 50%, var(--warm-200) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
 /* Footer styling lives entirely in components/footer.tsx (Tailwind classes) — no CSS here. */

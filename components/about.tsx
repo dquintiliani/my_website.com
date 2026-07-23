@@ -3,7 +3,12 @@
 import { useState, useRef, useEffect } from "react";
 import { CtaButton, CloseButton } from "@/components/ui/cta-button";
 import { PaperTag } from "@/components/ui/paper-tag";
-import { paperCardVariants, paperModalCardVariants } from "@/components/ui/paper-card";
+import { PendingRibbon, PendingStamp } from "@/components/ui/pending-banner";
+import {
+  paperCardVariants,
+  pendingPaperCardVariants,
+  paperModalCardVariants,
+} from "@/components/ui/paper-card";
 import { cn } from "@/lib/utils";
 
 interface CardItem {
@@ -15,6 +20,8 @@ interface CardItem {
   tags?: string[];
   ctaText?: string;
   href?: string;
+  /** Still being written up — renders as a non-interactive placeholder card instead of opening the modal. */
+  pending?: boolean;
 }
 
 const CARDS: CardItem[] = [
@@ -61,6 +68,13 @@ const CARDS: CardItem[] = [
     tags: ["AWS Cloud", "AI / ML"],
     ctaText: "View credentials →",
     href: "#certifications",
+  },
+  {
+    id: "coming-soon",
+    eyebrow: "In Progress",
+    title: "Lorem ipsum dolor sit amet.",
+    body: "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    pending: true,
   },
 ];
 
@@ -163,32 +177,62 @@ export function About() {
             ref={scrollRef}
             className="flex gap-5 overflow-x-auto px-6 py-3 [-ms-overflow-style:none] [scrollbar-width:none] [scroll-snap-type:x_mandatory]"
           >
-            {CARDS.map((card, i) => (
-              <button
-                key={card.id}
-                onClick={() => handleOpen(card)}
-                type="button"
-                className={cn(
-                  paperCardVariants({ tint: "green", rotate: i % 2 === 0 ? "left" : "right" }),
-                  "w-80 flex-shrink-0 text-left [scroll-snap-align:start]",
-                )}
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <p className="m-0 text-xs font-semibold uppercase tracking-[0.05em] text-black/50">
-                    {card.eyebrow}
+            {CARDS.map((card, i) =>
+              card.pending ? (
+                <div
+                  key={card.id}
+                  className={cn(pendingPaperCardVariants(), "w-80 flex-shrink-0 [scroll-snap-align:start]")}
+                >
+                  <div className="mb-4 flex items-center justify-between">
+                    <p className="m-0 text-xs font-semibold uppercase tracking-[0.05em] text-black/50">
+                      {card.eyebrow}
+                    </p>
+                    <span className="size-2 flex-shrink-0 animate-pulse rounded-full bg-[var(--mustard)]" />
+                  </div>
+
+                  <h3 className="mb-3 text-xl font-semibold leading-[1.3] text-[var(--black)]">
+                    {card.title}
+                  </h3>
+
+                  <p className="m-0 mb-4 text-sm leading-[1.6] text-black/70">
+                    {card.body}
                   </p>
-                  <span className="text-sm font-light text-black/40">↗</span>
+
+                  <div className="flex flex-col gap-2">
+                    <div className="skeleton-bar w-full" />
+                    <div className="skeleton-bar w-2/3" />
+                  </div>
+
+                  <PendingRibbon className="top-[62%]">Coming Soon · In The Works</PendingRibbon>
+                  <PendingStamp className="bottom-4 right-4">ETA Soon</PendingStamp>
                 </div>
+              ) : (
+                <button
+                  key={card.id}
+                  onClick={() => handleOpen(card)}
+                  type="button"
+                  className={cn(
+                    paperCardVariants({ tint: "green", rotate: i % 2 === 0 ? "left" : "right" }),
+                    "w-80 flex-shrink-0 text-left [scroll-snap-align:start]",
+                  )}
+                >
+                  <div className="mb-4 flex items-center justify-between">
+                    <p className="m-0 text-xs font-semibold uppercase tracking-[0.05em] text-black/50">
+                      {card.eyebrow}
+                    </p>
+                    <span className="text-sm font-light text-black/40">↗</span>
+                  </div>
 
-                <h3 className="mb-3 text-xl font-semibold leading-[1.3] text-[var(--black)]">
-                  {card.title}
-                </h3>
+                  <h3 className="mb-3 text-xl font-semibold leading-[1.3] text-[var(--black)]">
+                    {card.title}
+                  </h3>
 
-                <p className="m-0 text-sm leading-[1.6] text-black/70">
-                  {card.body}
-                </p>
-              </button>
-            ))}
+                  <p className="m-0 text-sm leading-[1.6] text-black/70">
+                    {card.body}
+                  </p>
+                </button>
+              ),
+            )}
           </div>
         </div>
       </div>
