@@ -102,6 +102,10 @@ export function Contact() {
               .join(" ")}
             onAnimationEnd={handleCardAnimationEnd}
           >
+            <div className="contact-hole contact-hole--top" aria-hidden="true" />
+            <div className="contact-hole contact-hole--middle" aria-hidden="true" />
+            <div className="contact-hole contact-hole--bottom" aria-hidden="true" />
+
             <div className="contact-monogram" aria-hidden="true">DQ</div>
 
             <header className="contact-header">
