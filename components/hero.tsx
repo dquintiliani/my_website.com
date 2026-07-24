@@ -304,11 +304,13 @@ export function Hero() {
       <div className="hero-inner">
         <div className="hero">
           <span className="hero-signature">Dominic Quintilian</span>
-          <h1 className="hero-name">Data is fuel for AI</h1>
+          <h1 className="hero-name">
+            Your agents are only as good as the data you feed them
+          </h1>
 
           <p className="hero-copy">
-            I've spent the past 5 years helping businesses optimize their data
-            for AI, and better decision making.
+            I fix the models, pipelines, and drift problems that quietly turn
+            your AI spend into a money pit.
           </p>
           <Link href="#contact" className="hero-cta">
             Learn more about how I can help your company
