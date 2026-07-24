@@ -103,11 +103,11 @@ export const TOOLS: Tool[] = [
     ],
   },
   {
-    slug: "promptsmith",
-    title: "Promptsmith",
+    slug: "Learn prompting",
+    title: "Prompt Quiz",
     summary:
       "A prompt engineering quiz platform with beginner and expert tracks — from clarity and constraints to chain-of-thought, few-shot learning, and injection prevention.",
-    href: "https://quiz-website-ten-omega.vercel.app/",
+    href: "https://prompt-quiz-platform.vercel.app/",
     built: "With Next JS",
     tags: ["Prompt Engineering", "Quiz"],
     status: "live",
