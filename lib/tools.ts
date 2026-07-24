@@ -127,6 +127,31 @@ export const TOOLS: Tool[] = [
       },
     ],
   },
+  {
+    slug: "Model out your pricing",
+    title: "Agent Token Cost Modeler ",
+    summary:
+      "A platform for modeling out cost of building out agents",
+    href: "https://token-workbench.vercel.app/",
+    built: "With Next JS",
+    tags: ["Prompt Engineering", "Quiz"],
+    status: "live",
+    external: true,
+    features: [
+      {
+        title: "Beginner & Expert Tracks",
+        description: "Structured paths from clarity and constraints to chain-of-thought.",
+      },
+      {
+        title: "Hands-On Quizzes",
+        description: "Practice prompt engineering concepts with interactive questions.",
+      },
+      {
+        title: "Injection Prevention",
+        description: "Covers few-shot learning and defending prompts against misuse.",
+      },
+    ],
+  },
 ];
 
 /** Ordered for display: featured first, original order otherwise. */
