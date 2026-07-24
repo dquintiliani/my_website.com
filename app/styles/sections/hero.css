@@ -45,11 +45,12 @@
 
 .hero-name {
   font-family: var(--font-nunito-sans), Georgia, serif;
-  font-size: clamp(3rem, 7vw, 5.75rem);
+  font-size: clamp(3rem, 6vw, 5.5rem);
   font-weight: 900;
   color: var(--black);
   letter-spacing: -0.02em;
   line-height: 0.95;
+  max-width: 12ch;
   margin-bottom: 0;
 }
 .hero-name em {
