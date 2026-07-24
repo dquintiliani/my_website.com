@@ -167,10 +167,10 @@
   }
 
   .hero {
-    flex: 1;
+    flex: 1 1 auto;
   }
 
   .hero-image-container {
-    flex: 1;
+    flex: 0 1 380px;
   }
 }
