@@ -80,13 +80,6 @@ const CARDS: CardItem[] = [
     ctaText: "View credentials →",
     href: "#certifications",
   },
-  {
-    id: "coming-soon",
-    eyebrow: "In Progress",
-    title: "Lorem ipsum dolor sit amet.",
-    body: "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    pending: true,
-  },
 ];
 
 export function About() {
