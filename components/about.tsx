@@ -59,6 +59,17 @@ const CARDS: CardItem[] = [
     href: "#focus",
   },
   {
+    id: "solutions-architect",
+    eyebrow: "Certifications",
+    title: "AWS Certified Solutions Architect.",
+    body: "Earned the AWS Certified Solutions Architect – Associate credential, validating hands-on skill designing scalable, cost-effective systems on AWS.",
+    details:
+      "Covers designing resilient, high-performing architectures across compute, storage, networking, and database services, with an emphasis on well-architected best practices.",
+    tags: ["AWS Cloud", "Systems Design"],
+    ctaText: "View credentials →",
+    href: "#solutions-architect",
+  },
+  {
     id: "certifications",
     eyebrow: "Certifications",
     title: "AWS Cloud & AI Practitioner.",
