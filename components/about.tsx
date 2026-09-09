@@ -80,6 +80,17 @@ const CARDS: CardItem[] = [
     ctaText: "View credentials →",
     href: "#certifications",
   },
+  {
+    id: "psm",
+    eyebrow: "Certifications",
+    title: "Professional Scrum Master I.",
+    body: "Earned the PSM I certification from Scrum.org, validating fluency in Scrum theory and its practical application to real-world product teams.",
+    details:
+      "Assesses in-depth knowledge of Scrum roles, events, and artifacts, and the ability to apply Scrum to complex product delivery.",
+    tags: ["Scrum", "Agile Delivery"],
+    ctaText: "View credential →",
+    href: "https://www.scrum.org/assessments/professional-scrum-master-i-certification",
+  },
 ];
 
 export function About() {
@@ -291,7 +302,13 @@ export function About() {
 
             {/* Action CTA Button */}
             {selectedCard.ctaText && (
-              <CtaButton href={selectedCard.href || "#"} onClick={handleClose}>
+              <CtaButton
+                href={selectedCard.href || "#"}
+                onClick={handleClose}
+                {...(selectedCard.href?.startsWith("http")
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
                 {selectedCard.ctaText}
               </CtaButton>
             )}
