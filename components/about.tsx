@@ -70,6 +70,17 @@ const CARDS: CardItem[] = [
     href: "#solutions-architect",
   },
   {
+    id: "ml-engineer",
+    eyebrow: "Certifications",
+    title: "AWS Certified Machine Learning Engineer.",
+    body: "Earned the AWS Certified Machine Learning Engineer – Associate credential, validating hands-on skill building, deploying, and operating ML workloads on AWS.",
+    details:
+      "Covers data engineering for ML, model development, deployment orchestration, and monitoring, with an emphasis on production-grade MLOps practices.",
+    tags: ["AWS Cloud", "AI / ML"],
+    ctaText: "View credentials →",
+    href: "#ml-engineer",
+  },
+  {
     id: "certifications",
     eyebrow: "Certifications",
     title: "AWS Cloud & AI Practitioner.",
