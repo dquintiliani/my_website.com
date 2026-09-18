@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title:       `${article.title} — Dominic Quintilian`,
     description: article.excerpt,
     keywords:    article.tags.join(", "),
+    ...(article.staging && { robots: { index: false, follow: false } }),
     openGraph: {
       title:         article.title,
       description:   article.excerpt,
@@ -70,6 +71,9 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* ── Header ── */}
       <header className="article-page-header">
+        {article.staging && (
+          <div className="staging-badge">Unlisted draft — not linked from the blog index</div>
+        )}
         <div className="blog-featured-meta">
           <time dateTime={article.date} className="blog-feat-date">
             {formatDate(article.date)}
