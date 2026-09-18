@@ -1,0 +1,70 @@
+---
+title: "Visual Elements Reference"
+excerpt: "A working sample of every markdown element the renderer now supports — headings, lists, quotes, code, links, images, and tables."
+description: "A working sample of every markdown element the renderer now supports — headings, lists, quotes, code, links, images, and tables."
+date: "2026-09-18"
+slug: "visual-elements-test"
+tags: ["Reference"]
+author: ""
+readTime: "2"
+---
+
+This is an unlisted staging article — it exists to show what each supported markdown element actually looks like rendered on the site, so you can see the options before writing a real post.
+
+## Text formatting
+
+A paragraph can mix **bold text**, *italic text*, and `inline code` in the same sentence. It can also link out to an external site like [Anthropic](https://www.anthropic.com) or point to an internal page like [the blog index](/blog).
+
+## Blockquote
+
+> Pull a key sentence out as a blockquote when you want it to stand apart from the surrounding paragraph — it renders indented, italic, with a left rule.
+> A blockquote can span multiple lines like this one does.
+
+## Lists
+
+Unordered list:
+
+- First point
+- Second point with **bold** inside it
+- Third point
+
+Ordered list:
+
+1. Do this first
+2. Then this
+3. Then this
+
+## Code block
+
+Fenced code blocks keep their formatting and get a monospace, dark background treatment — good for snippets:
+
+```ts
+function greet(name: string): string {
+  return `Hello, ${name}!`
+}
+```
+
+## Image
+
+![Headshot](/headshot-dom.jpeg)
+
+## Table
+
+| Element | Markdown syntax |
+| --- | --- |
+| Bold | `**text**` |
+| Italic | `*text*` |
+| Link | `[text](url)` |
+| Table | pipes + a `---` separator row |
+
+## Horizontal rule
+
+Used to separate distinct sections within a post.
+
+---
+
+### A smaller heading
+
+Headings come in two sizes — `##` for section breaks, `###` for subsections within one.
+
+That covers everything currently supported. Delete this file (`content/articles/staging/visual-elements-test.mdx`) once you're done referencing it — it's just a working sample, not a real post.
