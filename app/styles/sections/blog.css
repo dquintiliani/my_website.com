@@ -370,3 +370,84 @@
   color: var(--warm-600);
 }
 .prose tr:hover td { background: var(--warm-100); }
+
+/* Callout / takeaway — ":::note" / ":::takeaway" directive blocks (see
+   lib/markdown.ts). Any other ":::type" falls back to the base .callout
+   look via its own callout-<type> class. */
+.prose .callout {
+  border: 1px solid var(--warm-200);
+  background: var(--warm-100);
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 1.5rem 0;
+}
+.prose .callout p { margin: 0; }
+.prose .callout-note {
+  border-color: var(--green-muted);
+  border-left: 3px solid var(--green);
+  background: var(--green-muted);
+}
+.prose .callout-takeaway {
+  border-color: var(--mustard-muted);
+  border-left: 3px solid var(--mustard);
+  background: var(--mustard-light);
+}
+
+/* Definition card — ":::term <word>" directive blocks */
+.prose .term-card {
+  border: 1px solid var(--warm-200);
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 1.5rem 0;
+}
+.prose .term-card-term {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--black);
+  margin: 0 0 4px;
+}
+.prose .term-card-def { margin: 0; color: var(--warm-600); }
+
+/* Pull quote — ":::pullquote [attribution]" directive blocks */
+.prose blockquote.pullquote {
+  border-left: none;
+  text-align: center;
+  padding: 0;
+  margin: 2.5rem 0;
+}
+.prose blockquote.pullquote p {
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-style: normal;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: var(--black);
+}
+.prose blockquote.pullquote cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-style: normal;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--warm-400);
+}
+
+/* Footnotes — inline "[^id]" refs + trailing "[^id]: text" definitions */
+.prose sup.footnote-ref { font-size: 0.7em; }
+.prose sup.footnote-ref a {
+  color: var(--green);
+  font-weight: 700;
+  text-decoration: none;
+}
+.prose ol.footnotes {
+  font-size: 0.9rem;
+  color: var(--warm-600);
+  padding-left: 1.25em;
+  margin: 1rem 0 0;
+}
+.prose ol.footnotes li { margin-bottom: 0.5em; }
+.prose .footnote-backref {
+  color: var(--green);
+  text-decoration: none;
+  margin-left: 4px;
+}
