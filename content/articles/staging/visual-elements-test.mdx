@@ -1,7 +1,7 @@
 ---
 title: "Visual Elements Reference"
-excerpt: "A working sample of every markdown element the renderer now supports — headings, lists, quotes, code, links, images, and tables."
-description: "A working sample of every markdown element the renderer now supports — headings, lists, quotes, code, links, images, and tables."
+excerpt: "A working sample of every markdown element the renderer now supports — headings, lists, quotes, code, links, images, tables, callouts, and footnotes."
+description: "A working sample of every markdown element the renderer now supports — headings, lists, quotes, code, links, images, tables, callouts, and footnotes."
 date: "2026-09-18"
 slug: "visual-elements-test"
 tags: ["Reference"]
@@ -19,6 +19,84 @@ A paragraph can mix **bold text**, *italic text*, and `inline code` in the same 
 
 > Pull a key sentence out as a blockquote when you want it to stand apart from the surrounding paragraph — it renders indented, italic, with a left rule.
 > A blockquote can span multiple lines like this one does.
+
+## Callout / note
+
+Use for a supporting aside that shouldn't carry full paragraph weight. Source:
+
+```md
+:::note
+A short supporting note — **bold** and other inline formatting still work.
+:::
+```
+
+Rendered:
+
+:::note
+A short supporting note — **bold** and other inline formatting still work.
+:::
+
+## Key takeaway
+
+Same block, `takeaway` instead of `note` — use for the one line you want a skimming reader to catch. Source:
+
+```md
+:::takeaway
+The one thing to remember from this section.
+:::
+```
+
+Rendered:
+
+:::takeaway
+The one thing to remember from this section.
+:::
+
+Any other `:::type` you invent (e.g. `:::warning`) still renders as a bordered box via a `callout-<type>` class — it just won't have custom colors until one is added in `app/styles/sections/blog.css`.
+
+## Definition card
+
+For glossary-style posts — a bordered term/definition pair, more scannable than a table row. The word after `:::term` is the term itself. Source:
+
+```md
+:::term Kubernetes
+An open-source system for automating deployment, scaling, and management of containerized applications.
+:::
+```
+
+Rendered:
+
+:::term Kubernetes
+An open-source system for automating deployment, scaling, and management of containerized applications.
+:::
+
+## Pull quote
+
+For emphasis, not citation — large centered text, optionally with an attribution. Source:
+
+```md
+:::pullquote — Teresa Torres
+What AI gives you is a well-reasoned starting point. What you do with it determines whether it's valuable.
+:::
+```
+
+Rendered:
+
+:::pullquote — Teresa Torres
+What AI gives you is a well-reasoned starting point. What you do with it determines whether it's valuable.
+:::
+
+## Footnotes
+
+For citation-heavy pieces, so a source doesn't interrupt the sentence. Reference a footnote inline with `[^id]`, then define it anywhere in the document with `[^id]: text` — numbering follows the order refs first appear, not the order definitions are written. Source:
+
+```md
+A claim worth citing.[^torres]
+
+[^torres]: Torres, *Continuous Discovery Habits*, 2021.
+```
+
+Rendered: a claim worth citing.[^torres] Reusing the same `[^id]` again links to the same numbered entry — just don't reuse it more than once on the same page, since the jump target isn't unique per repeat.
 
 ## Lists
 
@@ -67,4 +145,6 @@ Used to separate distinct sections within a post.
 
 Headings come in two sizes — `##` for section breaks, `###` for subsections within one.
 
-That covers everything currently supported. Delete this file (`content/articles/staging/visual-elements-test.mdx`) once you're done referencing it — it's just a working sample, not a real post.
+That covers everything currently supported. Keep this file around as a living syntax reference — check it whenever you forget the exact `:::` or `[^id]` syntax, and extend it (plus the matching CSS in `app/styles/sections/blog.css` and parsing in `lib/markdown.ts`) if a new element gets added.
+
+[^torres]: Torres, *Continuous Discovery Habits*, 2021.
