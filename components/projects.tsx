@@ -51,20 +51,20 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="min-h-screen bg-[#f7f4ed] px-5 py-10"
+      className="min-h-screen bg-(--white) px-5 py-10"
     >
       <div
         className="blog-inner mx-auto max-w-[1100px]"
       >
         {/* Header */}
         <div className="blog-header mb-8">
-          <p className="text-[0.9rem] font-semibold uppercase tracking-[0.05em] text-[#7a7670]">
+          <p className="text-[0.9rem] font-semibold uppercase tracking-[0.05em] text-(--green)">
             Projects
           </p>
-          <h1 className="my-2 text-[2.5rem] font-bold text-[#1a1a18]">
-            Solo Builds Using <em className="font-serif italic">AI</em>.
+          <h1 className="my-2 text-[2.5rem] font-bold text-(--black)">
+            Solo Builds Using <em className="accent-em">AI</em>.
           </h1>
-          <p className="max-w-[600px] text-[1.05rem] leading-[1.5] text-[#66625b]">
+          <p className="max-w-[600px] text-[1.05rem] leading-[1.5] text-(--warm-600)">
             Side tools and experiments I&apos;ve shipped by pairing product
             thinking with AI. Each one is live — click in and try each one out!
           </p>
@@ -82,13 +82,13 @@ export default function Projects() {
               )}
             >
               <div>
-                <p className="mb-3 text-[0.85rem] font-semibold text-[#a39f97]">
+                <p className="mb-3 text-[0.85rem] font-semibold text-(--warm-600)">
                   {String(i + 1).padStart(2, "0")}
                 </p>
-                <h3 className="mb-2.5 text-[1.35rem] font-bold leading-[1.25] tracking-[-0.01em] text-[#1a1a18]">
+                <h3 className="mb-2.5 text-[1.35rem] font-bold leading-[1.25] tracking-[-0.01em] text-(--black)">
                   {tool.title}
                 </h3>
-                <p className="mb-6 text-[0.92rem] leading-[1.5] text-[#66625b]">
+                <p className="mb-6 text-[0.92rem] leading-[1.5] text-(--warm-600)">
                   {tool.summary}
                 </p>
               </div>
@@ -110,7 +110,7 @@ export default function Projects() {
         <div
           onClick={handleClose}
           className={cn(
-            "fixed inset-0 z-[9999] flex items-center justify-center bg-[rgba(30,25,20,0.45)] p-5 [transition:opacity_0.35s_ease,backdrop-filter_0.35s_ease]",
+            "fixed inset-0 z-[9999] flex items-center justify-center bg-(--overlay) p-5 [transition:opacity_0.35s_ease,backdrop-filter_0.35s_ease]",
             isModalActive
               ? "pointer-events-auto opacity-100 backdrop-blur-md"
               : "pointer-events-none opacity-0 backdrop-blur-none",

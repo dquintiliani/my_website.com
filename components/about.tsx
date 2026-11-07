@@ -149,7 +149,10 @@ export function About() {
     if (scrollRef.current) {
       const cardWidth = scrollRef.current.querySelector("button")?.clientWidth || 320;
       const scrollAmount = direction === "left" ? -(cardWidth + 20) : cardWidth + 20;
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      scrollRef.current.scrollBy({
+        left: scrollAmount,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      });
     }
   };
 
@@ -164,13 +167,13 @@ export function About() {
         {/* Header Section */}
         <div className="mb-8 flex items-center justify-between">
           <h2 className="m-0 text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--black)]">
-            What I&apos;ve Accomplished
+            What I&apos;ve <em className="accent-em">Accomplished</em>.
           </h2>
 
           <div className="flex items-center gap-4">
             <a
               href="#contact"
-              className="text-sm font-medium text-[#2e4a32] no-underline"
+              className="text-sm font-medium text-(--green) no-underline"
             >
               Get in touch <span aria-hidden="true">›</span>
             </a>
@@ -271,7 +274,7 @@ export function About() {
           aria-modal="true"
           aria-labelledby="modal-title"
           className={cn(
-            "fixed inset-0 z-[9999] flex items-center justify-center bg-[rgba(30,25,20,0.45)] p-5 [transition:opacity_0.35s_ease,backdrop-filter_0.35s_ease]",
+            "fixed inset-0 z-[9999] flex items-center justify-center bg-(--overlay) p-5 [transition:opacity_0.35s_ease,backdrop-filter_0.35s_ease]",
             isModalActive
               ? "pointer-events-auto opacity-100 backdrop-blur-md"
               : "pointer-events-none opacity-0 backdrop-blur-none",

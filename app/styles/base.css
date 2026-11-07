@@ -77,3 +77,19 @@
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
+
+
+/* ============================================================
+   REDUCED MOTION
+   Site-wide fallback: entrances jump to their end state, loops stop,
+   smooth scrolling is off. Content is never hidden behind motion.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

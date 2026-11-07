@@ -77,6 +77,10 @@ const lerp = (start: number, end: number, progress: number): number => {
 // out while the desk is sticky-pinned.
 const ANIMATION_SCROLL_DISTANCE = 480;
 
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // Distance from the viewport top the header + desk stick to while pinned.
 const STICKY_TOP = 100;
 
@@ -98,6 +102,13 @@ export const MessyDeskCanvas: React.FC = () => {
       const mobile = window.innerWidth <= BREAKPOINTS.tablet;
       setIsMobile(mobile);
       if (mobile) {
+        setScrollTrackHeight('auto');
+        return;
+      }
+
+      // Reduced motion: no scroll-driven scene — show the organized desk
+      // without the extra pinned scroll distance.
+      if (prefersReducedMotion()) {
         setScrollTrackHeight('auto');
         return;
       }
@@ -129,7 +140,7 @@ export const MessyDeskCanvas: React.FC = () => {
     const trackRect = scrollTrackRef.current.getBoundingClientRect();
 
     let rawProgress = (STICKY_TOP - trackRect.top) / ANIMATION_SCROLL_DISTANCE;
-    rawProgress = Math.max(0, Math.min(1, rawProgress));
+    rawProgress = prefersReducedMotion() ? 1 : Math.max(0, Math.min(1, rawProgress));
 
     const eased =
       rawProgress < 0.5
@@ -183,28 +194,28 @@ export const MessyDeskCanvas: React.FC = () => {
   }, [activeDoc]);
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center overflow-x-clip bg-[#f7f4ed] px-5 py-12 text-[var(--black)]">
+    <div className="relative flex min-h-screen flex-col items-center overflow-x-clip bg-(--white) px-5 py-12 text-[var(--black)]">
       <div className="mx-auto w-full max-w-[1100px]">
         {/* Scroll Track */}
         <div ref={scrollTrackRef} style={{ height: scrollTrackHeight }}>
           <div ref={stickyContentRef} className="sticky w-full" style={{ top: STICKY_TOP }}>
             {/* Header — stays pinned alongside the desk for the whole animation */}
             <header className="relative mb-8 text-center">
-              <p className="mb-2 text-[0.85rem] font-semibold uppercase tracking-[0.06em] text-[#2e4a32]">
+              <p className="mb-2 text-[0.85rem] font-semibold uppercase tracking-[0.06em] text-(--green)">
                 Data System Architecture
               </p>
               <h1 className="mb-3 text-[2.5rem] font-bold tracking-[-0.02em] text-[var(--black)]">
-                Bringing Order to <em className="font-serif italic">Chaotic</em> Systems.
+                Bringing Order to <em className="accent-em">Chaotic</em> Systems.
               </h1>
 
-              <p className="mx-auto mb-6 max-w-[580px] text-base leading-[1.55] text-[#66625b]">
+              <p className="mx-auto mb-6 max-w-[580px] text-base leading-[1.55] text-(--warm-600)">
                 Scroll down to transform the chaotic desk stack into an organized system, then click any folder to inspect its architecture.
               </p>
 
-              <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[rgba(180,170,150,0.5)] bg-[rgba(250,248,245,0.85)] px-[18px] py-2 text-[0.82rem] font-semibold text-[#2e4a32] shadow-[0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-[6px]">
+              <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[rgba(180,170,150,0.5)] bg-[rgba(250,248,245,0.85)] px-[18px] py-2 text-[0.82rem] font-semibold text-(--green) shadow-[0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-[6px]">
                 <div className="h-1.5 w-[60px] overflow-hidden rounded-[10px] bg-black/[0.08]">
                   <div
-                    className="h-full rounded-[10px] bg-[#2e4a32] transition-[width] duration-[50ms] ease-linear"
+                    className="h-full rounded-[10px] bg-(--green) transition-[width] duration-[50ms] ease-linear"
                     style={{ width: `${Math.round(progress * 100)}%` }}
                   />
                 </div>
@@ -239,7 +250,7 @@ export const MessyDeskCanvas: React.FC = () => {
                       />
                     )}
                     <div className="mb-3 flex items-center justify-between">
-                      <p className="m-0 text-xs font-semibold uppercase tracking-[0.05em] text-[#858076]">
+                      <p className="m-0 text-xs font-semibold uppercase tracking-[0.05em] text-(--warm-600)">
                         {doc.eyebrow}
                       </p>
                       <span className="text-sm font-light text-black/40">↗</span>
@@ -247,7 +258,7 @@ export const MessyDeskCanvas: React.FC = () => {
                     <h3 className="mb-2.5 text-[1.15rem] font-bold leading-[1.3] text-[var(--black)]">
                       {doc.title}
                     </h3>
-                    <p className="m-0 text-[0.85rem] leading-[1.5] text-[#66625b]">
+                    <p className="m-0 text-[0.85rem] leading-[1.5] text-(--warm-600)">
                       {doc.body}
                     </p>
                   </div>
@@ -262,7 +273,7 @@ export const MessyDeskCanvas: React.FC = () => {
       <div
         onClick={() => setActiveDoc(null)}
         className={cn(
-          "fixed inset-0 z-[9999] flex items-center justify-center bg-[rgba(30,25,20,0.45)] p-5 [transition:opacity_0.35s_ease,backdrop-filter_0.35s_ease]",
+          "fixed inset-0 z-[9999] flex items-center justify-center bg-(--overlay) p-5 [transition:opacity_0.35s_ease,backdrop-filter_0.35s_ease]",
           activeDoc
             ? "pointer-events-auto opacity-100 backdrop-blur-md"
             : "pointer-events-none opacity-0 backdrop-blur-none",
@@ -275,13 +286,13 @@ export const MessyDeskCanvas: React.FC = () => {
           >
             <CloseButton onClick={() => setActiveDoc(null)} />
 
-            <p className="mb-3 pr-10 text-xs font-semibold uppercase tracking-[0.05em] text-[#858076]">
+            <p className="mb-3 pr-10 text-xs font-semibold uppercase tracking-[0.05em] text-(--warm-600)">
               {activeDoc.eyebrow}
             </p>
             <h2 className="mb-4 text-[1.75rem] font-bold leading-[1.25] tracking-[-0.01em] text-[var(--black)]">
               {activeDoc.title}
             </h2>
-            <p className="mb-6 text-base leading-[1.6] text-[#66625b]">
+            <p className="mb-6 text-base leading-[1.6] text-(--warm-600)">
               {activeDoc.body} {activeDoc.details}
             </p>
 
