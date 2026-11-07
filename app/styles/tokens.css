@@ -26,6 +26,16 @@
   --warm-600:  #5c5347;
   --warm-700:  #3d3028;
 
+  /* Footer (the one dark band) — ink and a brighter green for use on --black */
+  --footer-ink:   #eeeae3;
+  --footer-green: #4a9b2f;
+
+  /* Paper tag, letter ink, modal scrim */
+  --tag-fill:   rgba(238, 234, 227, 0.85);
+  --tag-ink:    #3a3834;
+  --ink-letter: #1a2332;
+  --overlay:    rgba(30, 25, 20, 0.45);
+
   /* ── shadcn semantic tokens ── */
   --background: var(--white);
   --foreground: var(--black);
@@ -70,7 +80,7 @@
   --sidebar-primary: var(--green);
   --sidebar-primary-foreground: var(--white);
   --sidebar-accent: var(--mustard-light);
-  --sidebar-accent-foreground:  #7a5e0a;
+  --sidebar-accent-foreground:  var(--accent-foreground);
   --sidebar-border: var(--warm-200);
   --sidebar-ring: var(--green);
 
@@ -105,6 +115,7 @@
   --font-head: var(--font-nunito-sans), 'Nunito Sans', sans-serif;
   --font-body: -apple-system, 'Helvetica Neue', Arial, sans-serif;
   --font-hand: var(--font-caveat), 'Caveat', cursive;
+  --font-display: var(--font-playfair-display), 'Playfair Display', Georgia, serif;
 
   /* ── Layout ── */
   --max-w: 1080px;

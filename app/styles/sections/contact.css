@@ -80,7 +80,7 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-family: var(--font-playfair-display), Georgia, serif;
+  font-family: var(--font-display);
   font-weight: 700;
   color: var(--green);
   font-size: 1.4rem;
@@ -105,7 +105,7 @@
 }
 
 .contact-title {
-  font-family: var(--font-playfair-display), Georgia, serif;
+  font-family: var(--font-display);
   font-size: clamp(2.4rem, 5vw, 3.75rem);
   font-weight: 900;
   line-height: 0.98;
@@ -250,7 +250,7 @@
   font-family: var(--font-hand);
   font-size: 1.5rem;
   line-height: var(--paper-rule-size);
-  color: #1a2332;
+  color: var(--ink-letter);
   text-shadow: 0 0 0.5px rgba(26, 35, 50, 0.5);
   outline: none;
   width: 100%;
@@ -374,7 +374,7 @@
 }
 
 .contact-envelope-summary {
-  font-family: var(--font-playfair-display), Georgia, serif;
+  font-family: var(--font-display);
   color: var(--warm-600);
 }
 .contact-envelope-summary-line {
@@ -433,7 +433,7 @@
 }
 
 .contact-success-title {
-  font-family: var(--font-playfair-display), Georgia, serif;
+  font-family: var(--font-display);
   font-size: 1.6rem;
   color: var(--black);
 }

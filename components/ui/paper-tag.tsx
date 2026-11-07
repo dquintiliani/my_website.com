@@ -11,7 +11,7 @@ function PaperTag({ className, children, ...props }: React.ComponentProps<'span'
   return (
     <span
       className={cn(
-        'rounded-xl border border-black/5 bg-[rgba(238,234,227,0.85)] px-3 py-1.5 text-xs font-semibold text-[#3a3834] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[2px]',
+        'rounded-xl border border-black/5 bg-(--tag-fill) px-3 py-1.5 text-xs font-semibold text-(--tag-ink) shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[2px]',
         className,
       )}
       {...props}

@@ -17,6 +17,13 @@
   margin-bottom: 16px;
 }
 
+.accent-em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 900;
+  color: var(--green);
+}
+
 .section-title {
   font-family: var(--font-head);
   font-size: clamp(1.8rem, 3.5vw, 2.6rem);
